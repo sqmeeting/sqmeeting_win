@@ -1,0 +1,635 @@
+﻿<Window x:Class="SQMeeting.FRTCView.EditRecurringMeetingGroupWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQMeeting.FRTCView"
+        xmlns:converter="clr-namespace:SQMeeting.Converters"
+        xmlns:res="clr-namespace:SQMeeting.Properties"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:vm="clr-namespace:SQMeeting.ViewModel"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="{x:Static res:Resources.FRTC_SDKAPP_RECURRING_MEETING_EDIT}" Height="670" Width="390" WindowStartupLocation="CenterOwner"
+        WindowStyle="None" ResizeMode="CanMinimize" Style="{StaticResource FRTC_WindowStyle}"
+        DataContext="{Binding FRTCUser.ScheduleMeeting, Source={StaticResource Locator}}">
+    <Window.Resources>
+        <converter:CloneCommandParamsConverter x:Key="MultiParamsConvert"/>
+        <converter:IntegerEqualMultiBindingConverter x:Key="intEqualMultiConverter"/>
+        <converter:RecurringDayOfMonthConverter x:Key="dayOfMonthCoverter"/>
+        <converter:RecurringDayOfWeekConverter x:Key="dayOfWeekCoverter"/>
+        <converter:IntToBoolConverter x:Key="IntToBool"/>
+
+        <Style TargetType="CheckBox" x:Key="weekDaysSelectorStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border x:Name="layout" CornerRadius="6" Background="#BBC3CE" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" BorderThickness="0">
+                            <TextBlock x:Name="text" FontSize="12" Foreground="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Content}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="layout" Property="Background" Value="#026FFE"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsEnabled" Value="False"/>
+                                    <Condition Property="IsChecked" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="layout" Property="Background" Value="#6AAAFE"/>
+                                <Setter TargetName="text" Property="Foreground" Value="#FFFFFF"/>
+                            </MultiTrigger>
+                            <DataTrigger Value="True">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{StaticResource intEqualMultiConverter}" ConverterParameter="1">
+                                        <Binding Path="ScheduleMeetingStartDate.DayOfWeek" NotifyOnSourceUpdated="True"/>
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Tag"/>
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                <Setter Property="IsChecked" Value="True"/>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Value="False">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{StaticResource intEqualMultiConverter}" ConverterParameter="1">
+                                        <Binding Path="ScheduleMeetingStartDate.DayOfWeek" NotifyOnSourceUpdated="True"/>
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Tag"/>
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                <Setter Property="IsChecked" Value="False"/>
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="CheckBox" x:Key="monthDaysSelectorStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Grid Background="Transparent">
+                            <Ellipse x:Name="layout" Fill="Transparent" Stroke="Transparent" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            <TextBlock x:Name="text" FontSize="14" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Content}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="layout" Property="Fill" Value="#026FFE"/>
+                                <Setter TargetName="text" Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsEnabled" Value="False"/>
+                                    <Condition Property="IsChecked" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="layout" Property="Fill" Value="#6AAAFE"/>
+                                <Setter TargetName="text" Property="Foreground" Value="#FFFFFF"/>
+                            </MultiTrigger>
+                            <DataTrigger Value="True">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{StaticResource intEqualMultiConverter}">
+                                        <Binding Path="ScheduleMeetingStartDate.Day" NotifyOnSourceUpdated="True"/>
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Tag"/>
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                <Setter Property="IsChecked" Value="True"/>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Value="False">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{StaticResource intEqualMultiConverter}">
+                                        <Binding Path="ScheduleMeetingStartDate.Day" NotifyOnSourceUpdated="True"/>
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Tag"/>
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                <Setter Property="IsChecked" Value="False"/>
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid ManipulationBoundaryFeedback="Grid_ManipulationBoundaryFeedback">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="72"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Style="{StaticResource FRTC_ScrollViewer}" PanningMode="VerticalFirst">
+            <StackPanel Margin="24">
+                <TextBlock Text="{x:Static res:Resources.FRTC_SDKAPP_RECURRING_MEETING_EDIT}" FontSize="20" Foreground="#222222" FontWeight="SemiBold"/>
+                <Grid Height="28" Margin="0,16,0,0" >
+                    <TextBlock Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_TOPIC}" FontSize="14" Foreground="#333333" VerticalAlignment="Center"/>
+                </Grid>
+                <TextBox Text="{Binding ScheduleMeetingName}" Style="{StaticResource FRTC_DefaultTextBoxStyle}" Margin="0,8,0,0" Height="36" HorizontalAlignment="Stretch"/>
+                <Grid Height="28" Margin="0,16,0,0" >
+                    <TextBlock Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_START_TIME}" FontSize="14" Foreground="#333333" VerticalAlignment="Center"/>
+                </Grid>
+                <Grid Margin="0,8,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker Grid.Column="0" Width="207" Height="36" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource FRTC_DefaultBorderColor}"
+                                FirstDayOfWeek="Monday" IsTodayHighlighted="True" DisplayDateStart="{x:Static sys:DateTime.Today}"
+                                SelectedDate="{Binding ScheduleMeetingStartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <DatePicker.Style>
+                            <Style TargetType="DatePicker">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ScheduleMeetingTimeIllegal}" Value="True">
+                                        <Setter Property="BorderBrush" Value="#E32726"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DatePicker.Style>
+                    </DatePicker>
+                    <ComboBox Grid.Column="1" Margin="8,0,0,0" Style="{StaticResource FRTC_DefaultComboBoxStyle}" BorderBrush="{StaticResource FRTC_DefaultBorderColor}"
+                          local:ComboBoxHelper.NullItemText="{Binding MeetingStartTime, StringFormat=hh\\:mm}"
+                          SelectedItem="{Binding ScheduleMeetingStartTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"
+                          ItemsSource="{Binding ScheduleMeetingAvailableStartTime}"
+                          SelectedIndex="{Binding ScheduleMeetingStartTimeSelectedIndex}"/>
+                </Grid>
+                <TextBlock Margin="0,4,0,0" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SCHEDULE_BEGIN_TIME_EARLY}" FontSize="12" Foreground="#E32726" Visibility="{Binding ScheduleMeetingTimeIllegal, Converter={StaticResource BoolToCollapsed}}"/>
+                <Grid Height="28" Margin="0,16,0,0" >
+                    <TextBlock Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_END_TIME}" FontSize="14" Foreground="#333333" VerticalAlignment="Center"/>
+                </Grid>
+                <Grid Margin="0,8,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker Grid.Column="0" Width="207" Height="36" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource FRTC_DefaultBorderColor}"
+                                FirstDayOfWeek="Monday" IsTodayHighlighted="True" DisplayDateStart="{Binding ScheduleMeetingEndDateMin}" DisplayDateEnd="{Binding ScheduleMeetingEndDateMax}"
+                                SelectedDate="{Binding ScheduleMeetingEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <ComboBox Grid.Column="1" Margin="8,0,0,0" Style="{StaticResource FRTC_DefaultComboBoxStyle}" BorderBrush="{StaticResource FRTC_DefaultBorderColor}"
+                          VerticalContentAlignment="Center" SelectedItem="{Binding ScheduleMeetingEndTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          local:ComboBoxHelper.NullItemText="{Binding MeetingEndTime, StringFormat=hh\\:mm}"
+                          ItemsSource="{Binding ScheduleMeetingAvailableEndTime, UpdateSourceTrigger=PropertyChanged}" 
+                          SelectedIndex="{Binding ScheduleMeetingEndTimeSelectedIndex}"/>
+                </Grid>
+
+                <Label Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_TIME_ZONE}" FontSize="14" Padding="0" Margin="0,16,0,0"/>
+
+                <TextBox Style="{StaticResource FRTC_DefaultTextBoxStyle}" Foreground="{StaticResource FRTC_DarkBorderColor}" Height="36" Margin="0,8,0,0" IsEnabled="False" Text="{Binding CurrentTimeZone}"/>
+
+                <Grid Margin="0,8,0,0" Visibility="{Binding UsePersonalMeetingRoomSchedule, Converter={StaticResource BoolToCollapsed}, ConverterParameter=Reverse}">
+                    <Label Content="{x:Static res:Resources.FRTC_SDKAPP_SCHEDULE_RECURRING_PERIOD}" Height="28" FontSize="14" Padding="0"/>
+                    <ComboBox x:Name="cbRecurring" Style="{StaticResource FRTC_DefaultComboBoxStyle}" HorizontalAlignment="Right" Width="226" Height="36" VerticalContentAlignment="Center"
+                            ItemsSource="{Binding MeetingRecurringOptions}" DisplayMemberPath="RecurringName" SelectedValuePath="Recurring"                             
+                            SelectedValue="{Binding MeetingRecurring, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+                <Grid Margin="0,8,0,0">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding MeetingRecurring}" Value="{x:Static vm:MeetingRecurring.NoRecurring}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Label Content="{x:Static res:Resources.FRTC_SDKAPP_SCHEDULE_RECURRING_FREQUENCY}" Height="28" FontSize="14" Padding="0"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Width="226" Height="36">
+                        <ComboBox Style="{StaticResource FRTC_DefaultComboBoxStyle}" HorizontalAlignment="Right" Width="150" Height="36" VerticalContentAlignment="Center"
+                            ItemsSource="{Binding RecurringFrequenceOptions}" DisplayMemberPath="FrequenceName" SelectedValuePath="Frequence" 
+                            SelectedValue="{Binding RecurringFrequence, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Margin="5,0,0,0" Content="{Binding Recurring}" Height="28" Padding="0" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+                <UniformGrid Columns="7" Margin="0,8,0,0" Width="226" HorizontalAlignment="Right">
+                    <UniformGrid.Style>
+                        <Style TargetType="UniformGrid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding MeetingRecurring}" Value="{x:Static vm:MeetingRecurring.Weekly}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </UniformGrid.Style>
+                    <CheckBox Style="{StaticResource weekDaysSelectorStyle}" Width="28" Height="28" Content="{x:Static res:Resources.FRTC_SDKAPP_SCHEDULE_DAY_SUN}" Tag="1" Command="{Binding SetRecurringWeekDayCmd}"
+                              IsChecked="{Binding RecurringWeekDays, Converter={StaticResource dayOfWeekCoverter}, ConverterParameter=1, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource weekDaysSelectorStyle}" Width="28" Height="28" Content="{x:Static res:Resources.FRTC_SDKAPP_SCHEDULE_DAY_MON}" Tag="2" Command="{Binding SetRecurringWeekDayCmd}"
+                              IsChecked="{Binding RecurringWeekDays, Converter={StaticResource dayOfWeekCoverter}, ConverterParameter=2, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource weekDaysSelectorStyle}" Width="28" Height="28" Content="{x:Static res:Resources.FRTC_SDKAPP_SCHEDULE_DAY_TUE}" Tag="3" Command="{Binding SetRecurringWeekDayCmd}"
+                              IsChecked="{Binding RecurringWeekDays, Converter={StaticResource dayOfWeekCoverter}, ConverterParameter=3, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource weekDaysSelectorStyle}" Width="28" Height="28" Content="{x:Static res:Resources.FRTC_SDKAPP_SCHEDULE_DAY_WED}" Tag="4" Command="{Binding SetRecurringWeekDayCmd}"
+                              IsChecked="{Binding RecurringWeekDays, Converter={StaticResource dayOfWeekCoverter}, ConverterParameter=4, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource weekDaysSelectorStyle}" Width="28" Height="28" Content="{x:Static res:Resources.FRTC_SDKAPP_SCHEDULE_DAY_THU}" Tag="5" Command="{Binding SetRecurringWeekDayCmd}"
+                              IsChecked="{Binding RecurringWeekDays, Converter={StaticResource dayOfWeekCoverter}, ConverterParameter=5, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource weekDaysSelectorStyle}" Width="28" Height="28" Content="{x:Static res:Resources.FRTC_SDKAPP_SCHEDULE_DAY_FRI}" Tag="6" Command="{Binding SetRecurringWeekDayCmd}"
+                              IsChecked="{Binding RecurringWeekDays, Converter={StaticResource dayOfWeekCoverter}, ConverterParameter=6, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource weekDaysSelectorStyle}" Width="28" Height="28" Content="{x:Static res:Resources.FRTC_SDKAPP_SCHEDULE_DAY_SAT}" Tag="7" Command="{Binding SetRecurringWeekDayCmd}"
+                              IsChecked="{Binding RecurringWeekDays, Converter={StaticResource dayOfWeekCoverter}, ConverterParameter=7, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                </UniformGrid>
+                <UniformGrid Columns="7" Rows="5" Margin="0,8,0,0" Width="226" HorizontalAlignment="Right">
+                    <UniformGrid.Style>
+                        <Style TargetType="UniformGrid">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding MeetingRecurring}" Value="{x:Static vm:MeetingRecurring.Monthly}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </UniformGrid.Style>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="1" Tag="1" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=1, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="2" Tag="2" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=2, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="3" Tag="3" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=3, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="4" Tag="4" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=4, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="5" Tag="5" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=5, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="6" Tag="6" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=6, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="7" Tag="7" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=7, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="8" Tag="8" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=8, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="9" Tag="9" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=9, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="10" Tag="10" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=10, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="11" Tag="11" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=11, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="12" Tag="12" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=12, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="13" Tag="13" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=13, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="14" Tag="14" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=14, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="15" Tag="15" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=15, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="16" Tag="16" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=16, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="17" Tag="17" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=17, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="18" Tag="18" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=18, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="19" Tag="19" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=19, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="20" Tag="20" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=20, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="21" Tag="21" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=21, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="22" Tag="22" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=22, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="23" Tag="23" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=23, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="24" Tag="24" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=24, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="25" Tag="25" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=25, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="26" Tag="26" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=26, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="27" Tag="27" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=27, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="28" Tag="28" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=28, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="29" Tag="29" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=29, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="30" Tag="30" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=30, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                    <CheckBox Style="{StaticResource monthDaysSelectorStyle}" Width="32" Height="32" Content="31" Tag="31" Command="{Binding SetRecurringMonthDayCmd}"
+                              IsChecked="{Binding RecurringMonthDays, Converter={StaticResource dayOfMonthCoverter}, ConverterParameter=31, Mode=OneWay}">
+                        <CheckBox.CommandParameter>
+                            <MultiBinding Converter="{StaticResource MultiParamsConvert}">
+                                <Binding RelativeSource="{RelativeSource Self}" Path="IsChecked"/>
+                                <Binding RelativeSource="{RelativeSource Self}" Path="Tag"/>
+                            </MultiBinding>
+                        </CheckBox.CommandParameter>
+                    </CheckBox>
+                </UniformGrid>
+                <Grid Margin="0,8,0,0">
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding MeetingRecurring}" Value="{x:Static vm:MeetingRecurring.NoRecurring}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Label Content="{x:Static res:Resources.FRTC_SDKAPP_SCHEDULE_RECURRING_END}" FontSize="14" Height="28" Padding="0"/>
+                    <DatePicker Width="226" Height="36" HorizontalAlignment="Right" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource FRTC_DefaultBorderColor}"
+                                FirstDayOfWeek="Monday" IsTodayHighlighted="True" DisplayDateStart="{Binding RecurringMeetingEndDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                DisplayDateEnd="{Binding RecurringMeetingEndDateMax, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}"
+                                SelectedDate="{Binding RecurringMeetingEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+
+                <Grid Margin="0,24,0,0">
+                    <CheckBox x:Name="cbUsePersonalRoom" Style="{StaticResource FRTC_DefaultCheckBoxStyle}" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                              HorizontalAlignment="Left" MaxWidth="190" Height="36" Width="auto"
+                              Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_USE_PERSONAL_MEETING_ID}" IsChecked="{Binding UsePersonalMeetingRoomSchedule}" IsEnabled="{Binding RoomList.Count, Converter={StaticResource IntToBool}}"/>
+                    <ComboBox Style="{StaticResource FRTC_DefaultComboBoxStyle}" HorizontalAlignment="Right" Height="36" MinWidth="120" VerticalContentAlignment="Center"
+                              Visibility="{Binding ElementName=cbUsePersonalRoom, Path=IsChecked, Converter={StaticResource BoolToCollapsed}, ConverterParameter=Hidden}" 
+                              ItemsSource="{Binding RoomList}" DisplayMemberPath="RoomNumber" SelectedItem="{Binding SelectedRoomSchedule, Mode=TwoWay}"/>
+                </Grid>
+                <Grid Margin="0,24,0,0">
+                    <CheckBox x:Name="cbEnablePWD" Style="{StaticResource FRTC_DefaultCheckBoxStyle}" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_ENABLE_MEETING_PWD}"
+                              Visibility="{Binding UsePersonalMeetingRoomSchedule, Converter={StaticResource BoolToCollapsed}, ConverterParameter=Reverse}" IsChecked="{Binding EnableMeetingPWD, Mode=TwoWay}"/>
+                </Grid>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,24,0,0">
+                    <Label Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_INVITEES}" Height="28" Padding="0" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                    <TextBlock Margin="15,0,0,0" Text="{Binding InviteeList.Count}" VerticalAlignment="Center"/>
+                    <TextBlock Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_PEOPLE}" VerticalAlignment="Center"/>
+                    <Button Style="{StaticResource FRTC_SecondaryBtnStyle}" Margin="15,0,0,0" FontSize="14" Height="32" Width="110" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_ADD_INVITEES}" Foreground="#026FFE" Background="Transparent"
+                            Command="{Binding PopAddInviteeWindowCommand}" CommandParameter="{Binding ElementName=scheduleMeetingWnd}"/>
+                </StackPanel>
+                <Grid Margin="0,24,0,0" Visibility="{Binding UsePersonalMeetingRoomSchedule, Converter={StaticResource BoolToCollapsed}, ConverterParameter=Reverse}">
+                    <Label Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_RATE}" Height="28" Padding="0"/>
+                    <ComboBox Style="{StaticResource FRTC_DefaultComboBoxStyle}" HorizontalAlignment="Right" Width="226" Height="36" VerticalContentAlignment="Center"
+                              ItemsSource="{Binding CallRateOptions}" SelectedIndex="3" SelectedValue="{Binding SelectedCallRate, Mode=TwoWay}"/>
+                </Grid>
+
+                <CheckBox Style="{StaticResource FRTC_DefaultCheckBoxStyle}" Margin="0,24,0,0" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_ALLOW_GUEST_JOIN}"
+                          IsChecked="{Binding EnableGuestCall, Mode=TwoWay}"  Visibility="{Binding UsePersonalMeetingRoomSchedule, Converter={StaticResource BoolToCollapsed}, ConverterParameter=Reverse}"/>
+                <CheckBox Style="{StaticResource FRTC_DefaultCheckBoxStyle}" Margin="0,24,0,0" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SHARING_CONTENT_WATERMARK}"
+                          IsChecked="{Binding EnableWaterMark, Mode=TwoWay}"  Visibility="{Binding UsePersonalMeetingRoomSchedule, Converter={StaticResource BoolToCollapsed}, ConverterParameter=Reverse}"/>
+                <CheckBox Style="{StaticResource FRTC_DefaultCheckBoxStyle}" Margin="0,24,0,10" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MUTE_WHEN_JOIN}"
+                          IsChecked="{Binding MuteMicWhenJoin, Mode=TwoWay}"/>
+            </StackPanel>
+        </ScrollViewer>
+        <Grid Grid.Row="1">
+            <Rectangle Height="1" Fill="{StaticResource FRTC_DefaultBorderColor}" Grid.Row="1" VerticalAlignment="Top"/>
+            <Button Height="40" Margin="24,0,24,0" Content="{x:Static res:Resources.FRTC_SDKAPP_MEETING_SAVE_MODIFY}" Command="{Binding UpdateRecurringMeetingGroupCommand}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource FRTC_PrimaryBtnStyle}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ScheduleMeetingTimeIllegal}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

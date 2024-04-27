@@ -1,0 +1,54 @@
+﻿<Window x:Class="SQMeeting.FRTCView.ChangeDisplayNameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQMeeting.FRTCView"
+        xmlns:res="clr-namespace:SQMeeting.Properties"
+        xmlns:converter="clr-namespace:SQMeeting.Converters"
+        mc:Ignorable="d" Name="changeDisplayNameWnd" WindowStartupLocation="CenterOwner"
+        SizeToContent="Height" Width="260" ShowInTaskbar="False" AllowsTransparency="True" Background="Transparent"
+        DataContext="{Binding FRTCMeetingVideo, Source={StaticResource Locator}}" WindowStyle="None" ResizeMode="CanMinimize">
+    <Window.Resources>
+        <converter:IntToBoolConverter x:Key="IntToBool"/>
+    </Window.Resources>
+    <Border CornerRadius="2" Margin="5" BorderThickness="1" Effect="{StaticResource FRTC_WindowShadowEffect}" BorderBrush="{StaticResource FRTC_DefaultBorderColor}" Background="#FFFFFF">
+        <Grid>
+            <Grid Margin="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Label FontSize="15" Foreground="#333333" FontWeight="Medium" HorizontalAlignment="Center" VerticalContentAlignment="Center" Height="40" Margin="0,8,0,0" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_RENAME}"/>
+                <TextBox x:Name="tbName" Grid.Row="1" Margin="20,8,20,16" Height="36" Style="{StaticResource FRTC_DefaultTextBoxStyle}" Text="{Binding SelectedParticipantCopy.Name, Mode=OneTime}"
+                         PreviewKeyDown="tbName_PreviewKeyDown"/>
+                <Grid Height="48" VerticalAlignment="Bottom" Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Rectangle Height="1" Fill="#DEDEDE" Grid.ColumnSpan="2" VerticalAlignment="Top"/>
+                    <Button x:Name="btnCancel" Grid.Column="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="48"
+                        Style="{StaticResource FRTC_TextBtnStyle}" Background="Transparent" BorderThickness="0,0,0.5,0" BorderBrush="#DEDEDE"
+                        Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_CANCEL}" FontSize="14" Foreground="#666666" Click="btnCancel_Click" Cursor="Hand"/>
+                    <Button x:Name="btnOK" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Height="48"
+                        Background="Transparent" BorderThickness="0.5,0,0,0" BorderBrush="#DEDEDE"
+                        IsEnabled="{Binding ElementName=tbName, Path=Text.Length, Converter={StaticResource IntToBool}}"
+                        Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_OK}" FontSize="14" Click="btnOK_Click" Cursor="Hand">
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource FRTC_TextBtnStyle}" TargetType="Button">
+                                <Setter Property="Foreground" Value="#026FFE"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter Property="Foreground" Value="#4C026FFE"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

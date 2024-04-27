@@ -1,0 +1,266 @@
+﻿<Window x:Class="SQMeeting.FRTCView.SettingWindow"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SQMeeting.FRTCView"
+             xmlns:res="clr-namespace:SQMeeting.Properties"
+             xmlns:converter="clr-namespace:SQMeeting.Converters"
+             xmlns:vm="clr-namespace:SQMeeting.ViewModel"
+             WindowStartupLocation="CenterScreen" WindowStyle="None"
+             DataContext="{Binding Setting, Source={StaticResource Locator}}"
+             mc:Ignorable="d" ShowInTaskbar="False" Title="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTINGS}"
+             d:DesignHeight="560" d:DesignWidth="650"
+             Height="560" Width="650" ResizeMode="NoResize"
+             Style="{StaticResource FRTC_WindowStyle}">
+    <Window.Resources>
+        <converter:BitmapToImageSourceConverter x:Key="BitmapToImageSource"/>
+        <converter:InverseBoolConverter x:Key="InverseBool"/>
+
+        <SolidColorBrush x:Key="SettingViewSeperateLine" Color="#F0F0F5"/>
+        <SolidColorBrush x:Key="SettingTabBtnChecked" Color="#E4EEFF"/>
+        <SolidColorBrush x:Key="SettingTabBtnTxt" Color="#333333"/>
+        <SolidColorBrush x:Key="SettingTabBtnCheckedTxt" Color="#026EFF"/>
+
+        <Style x:Key="SettingTabBtnStyle" TargetType="RadioButton">
+            <Style.Setters>
+                <Setter Property="Foreground" Value="{StaticResource SettingTabBtnTxt}"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="Margin" Value="0,18,0,0"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Border CornerRadius="4" Background="{TemplateBinding Background}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image x:Name="img" Source="{TemplateBinding Content, Converter={StaticResource BitmapToImageSource}}" VerticalAlignment="Center" Stretch="Uniform" Width="20" Height="20" Margin="11,0,0,0"/>
+                                    <TextBlock x:Name="txt" Tag="{TemplateBinding Tag}" FontSize="14" Foreground="{TemplateBinding Foreground}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Text" Value=""/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="{x:Static vm:SettingTab.FRTC_NormalSettings}">
+                                                        <Setter Property="Text" Value="{x:Static res:Resources.FRTC_MEETING_SETTINGS_NORMAL}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="{x:Static vm:SettingTab.FRTC_VideoSettings}">
+                                                        <Setter Property="Text" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_VIDEO}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="{x:Static vm:SettingTab.FRTC_AudioSettings}">
+                                                        <Setter Property="Text" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_AUDIO}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="{x:Static vm:SettingTab.FRTC_About}">
+                                                        <Setter Property="Text" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_ABOUTUS}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="{x:Static vm:SettingTab.FRTC_AccountSettings}">
+                                                        <Setter Property="Text" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_ACCOUNT}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="{x:Static vm:SettingTab.FRTC_RecordingSettings}">
+                                                        <Setter Property="Text" Value="{x:Static res:Resources.FRTC_MEETING_MY_RECORDING}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="{x:Static vm:SettingTab.FRTC_DiagnosticSettings}">
+                                                        <Setter Property="Text" Value="{x:Static res:Resources.FRTC_SDKAPP_SETTING_DIAGNOSTIC}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background" Value="{StaticResource SettingTabBtnChecked}"/>
+                    <Setter Property="Foreground" Value="{StaticResource SettingTabBtnCheckedTxt}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <local:NormalSettingsView x:Key="normalSettingView"/>
+        <local:VideoSettingsView x:Key="videoSettingView"/>
+        <local:AudioSettingsView x:Key="audioSettingView"/>
+        <local:AboutFRTC x:Key="aboutView"/>
+        <local:RecordingSettingView x:Key="recordingSettingView"/>
+        <local:AccountSettingView x:Key="accountSettingView"/>
+        <local:DiagnosticView x:Key="diagnosticView"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="184"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" BorderThickness="0,1,1,0" BorderBrush="{StaticResource SettingViewSeperateLine}">
+            <StackPanel Orientation="Vertical" >
+                <RadioButton Width="154" Height="32" GroupName="SettingTabs" Tag="{x:Static vm:SettingTab.FRTC_NormalSettings}"
+                             Command="{Binding SwitchSettingTab}" CommandParameter="{Binding Tag, RelativeSource={RelativeSource Mode=Self}}"
+                             Visibility="{Binding InCall, Converter={StaticResource BoolToCollapsed}, ConverterParameter=Reverse}">
+                    <RadioButton.Style>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource SettingTabBtnStyle}">
+                            <Style.Setters>
+                                <Setter Property="Content" Value="{x:Static res:Resources.normal_settings}"/>
+                            </Style.Setters>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentSettingTab}" Value="FRTC_NormalSettings">
+                                    <Setter Property="IsChecked" Value="True"/>
+                                </DataTrigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Content" Value="{x:Static res:Resources.normal_setting_checked}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </RadioButton.Style>
+                </RadioButton>
+                <RadioButton Width="154" Height="32" GroupName="SettingTabs" Tag="{x:Static vm:SettingTab.FRTC_VideoSettings}"
+                             Command="{Binding SwitchSettingTab}" CommandParameter="{Binding Tag, RelativeSource={RelativeSource Mode=Self}}">
+                    <RadioButton.Style>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource SettingTabBtnStyle}">
+                            <Style.Setters>
+                                <Setter Property="Content" Value="{x:Static res:Resources.av_settings}"/>
+                            </Style.Setters>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentSettingTab}" Value="FRTC_VideoSettings">
+                                    <Setter Property="IsChecked" Value="True"/>
+                                </DataTrigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Content" Value="{x:Static res:Resources.av_settings_checked}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </RadioButton.Style>
+                </RadioButton>
+                <RadioButton Width="154" Height="32" GroupName="SettingTabs" Tag="{x:Static vm:SettingTab.FRTC_AudioSettings}"
+                             Command="{Binding SwitchSettingTab}" CommandParameter="{Binding Tag, RelativeSource={RelativeSource Mode=Self}}">
+                    <RadioButton.Style>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource SettingTabBtnStyle}">
+                            <Style.Setters>
+                                <Setter Property="Content" Value="{x:Static res:Resources.frtc_setting_audio}"/>
+                            </Style.Setters>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentSettingTab}" Value="FRTC_AudioSettings">
+                                    <Setter Property="IsChecked" Value="True"/>
+                                </DataTrigger>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Content" Value="{x:Static res:Resources.frtc_setting_audio_checked}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </RadioButton.Style>
+                </RadioButton>
+                <RadioButton Width="154" Height="32" GroupName="SettingTabs" Tag="{x:Static vm:SettingTab.FRTC_RecordingSettings}"
+                             Command="{Binding SwitchSettingTab}" CommandParameter="{Binding Tag, RelativeSource={RelativeSource Mode=Self}}">
+                    <RadioButton.Style>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource SettingTabBtnStyle}">
+                            <Style.Setters>
+                                <Setter Property="Content" Value="{x:Static res:Resources.frtc_show_my_recording}"/>
+                            </Style.Setters>
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Content" Value="{x:Static res:Resources.frtc_show_my_recording_hover}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </RadioButton.Style>
+                </RadioButton>
+                <RadioButton Width="154" Height="32" GroupName="SettingTabs" Tag="{x:Static vm:SettingTab.FRTC_AccountSettings}"
+                             Command="{Binding SwitchSettingTab}" CommandParameter="{Binding Tag, RelativeSource={RelativeSource Mode=Self}}">
+                    <RadioButton.Style>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource SettingTabBtnStyle}">
+                            <Style.Setters>
+                                <Setter Property="Content" Value="{x:Static res:Resources.frtc_account}"/>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </Style.Setters>
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Content" Value="{x:Static res:Resources.frtc_account_checked}"/>
+                                </Trigger>
+                                <DataTrigger Binding="{Binding IsGuestUser}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding InCall}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </RadioButton.Style>
+                </RadioButton>
+                <RadioButton Width="154" Height="32" GroupName="SettingTabs" Tag="{x:Static vm:SettingTab.FRTC_DiagnosticSettings}"
+                             Command="{Binding SwitchSettingTab}" CommandParameter="{Binding Tag, RelativeSource={RelativeSource Mode=Self}}">
+                    <RadioButton.Style>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource SettingTabBtnStyle}">
+                            <Style.Setters>
+                                <Setter Property="Content" Value="{x:Static res:Resources.frtc_diagnostic}"/>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </Style.Setters>
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Content" Value="{x:Static res:Resources.frtc_diagnostic_checked}"/>
+                                </Trigger>
+                                <!--<DataTrigger Binding="{Binding IsGuestUser}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>-->
+                                <DataTrigger Binding="{Binding InCall}" Value="True">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </RadioButton.Style>
+                </RadioButton>
+                <RadioButton Width="154" Height="32" GroupName="SettingTabs" Tag="{x:Static vm:SettingTab.FRTC_About}"
+                             Command="{Binding SwitchSettingTab}" CommandParameter="{Binding Tag, RelativeSource={RelativeSource Mode=Self}}">
+                    <RadioButton.Style>
+                        <Style TargetType="RadioButton" BasedOn="{StaticResource SettingTabBtnStyle}">
+                            <Style.Setters>
+                                <Setter Property="Content" Value="{x:Static res:Resources.about}"/>
+                            </Style.Setters>
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Content" Value="{x:Static res:Resources.about_checked}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </RadioButton.Style>
+                </RadioButton>
+            </StackPanel>
+        </Border>
+        <Border Grid.Column="1" BorderThickness="0,1,0,0" BorderBrush="{StaticResource SettingViewSeperateLine}">
+            <ContentControl x:Name="settingContent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentSettingTab}" Value="FRTC_NormalSettings">
+                                <Setter Property="Content" Value="{StaticResource normalSettingView}"/>
+                                <Setter Property="Margin" Value="20,20,0,0"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentSettingTab}" Value="FRTC_VideoSettings">
+                                <Setter Property="Content" Value="{StaticResource videoSettingView}"/>
+                                <Setter Property="Margin" Value="20,20,0,0"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentSettingTab}" Value="FRTC_AudioSettings">
+                                <Setter Property="Content" Value="{StaticResource audioSettingView}"/>
+                                <Setter Property="Margin" Value="20,20,0,0"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentSettingTab}" Value="FRTC_About">
+                                <Setter Property="Content" Value="{StaticResource aboutView}"/>
+                                <Setter Property="Margin" Value="0,0,0,0"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentSettingTab}" Value="FRTC_DiagnosticSettings">
+                                <Setter Property="Content" Value="{StaticResource diagnosticView}"/>
+                                <Setter Property="Margin" Value="0,0,0,0"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentSettingTab}" Value="FRTC_RecordingSettings">
+                                <Setter Property="Content" Value="{StaticResource recordingSettingView}"/>
+                                <Setter Property="Margin" Value="0,0,0,0"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentSettingTab}" Value="{x:Static vm:SettingTab.FRTC_AccountSettings}">
+                                <Setter Property="Content" Value="{StaticResource accountSettingView}"/>
+                                <Setter Property="Margin" Value="0,0,0,0"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
+        </Border>
+        <local:TipBoardControl Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Visibility="Hidden"/>
+    </Grid>
+</Window>

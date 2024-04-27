@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="SQMeeting.FRTCView.GuestHomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SQMeeting.FRTCView"
+             xmlns:view="clr-namespace:SQMeeting.View"
+             xmlns:res="clr-namespace:SQMeeting.Properties"
+             xmlns:converter="clr-namespace:SQMeeting.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="640"
+             DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <converter:BitmapToImageSourceConverter x:Key="BitmapToImageSource"/>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Image Margin="0,11,0,0" HorizontalAlignment="Center" Width="108" Height="108" Stretch="Uniform" Source="{Binding Source={x:Static res:Resources.frtc_home_log}, Converter={StaticResource BitmapToImageSource}}"/>
+            <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">-->
+                <TextBlock Text="{Binding Source={x:Static res:Resources.FRTC_MEETING_SDKAPP_PRODUCT_NAME}}" 
+                           Foreground="#222222" FontSize="18" FontWeight="Black" HorizontalAlignment="Center"/>
+                <TextBlock Text="BETA" Foreground="#1278F7" FontSize="10" FontWeight="Black" Margin="5,0,0,0"
+                           Visibility="Hidden"/>
+            <!--</StackPanel>-->
+            <Button Style="{StaticResource FRTC_PrimaryBtnStyle}" Width="240" Height="40" Margin="0,49,0,0" Content="{Binding Source={x:Static res:Resources.FRTC_MEETING_SDKAPP_JOINMEETING}}"
+                    Command="{Binding FRTCPopupGuestJoinMeetingDialog}" Visibility="{Binding IsProcessing, Converter={StaticResource BoolToVisibility}, ConverterParameter=Reverse}"/>
+            <Button Style="{StaticResource FRTC_SecondaryBtnStyle}" Width="240" Height="40" Margin="0,16,0,0" Content="{Binding Source={x:Static res:Resources.FRTC_MEETING_SDKAPP_SIGNIN}}"
+                    Command="{Binding SignInViewCommand}" Visibility="{Binding IsProcessing, Converter={StaticResource BoolToVisibility}, ConverterParameter=Reverse}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Width="auto" Height="auto"
+                    Visibility="{Binding IsProcessing, Converter={StaticResource BoolToVisibility}}">
+            <view:Spinner Width="32" Height="32"/>
+            <TextBlock Margin="0,12,0,0" FontSize="14" Foreground="#666666" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_DIALING}" HorizontalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button Name="btnSetting" Width="32" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,0,0,0" Command="{Binding SettingViewCommand}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="Transparent">
+                            <Image x:Name="settingButton" Source="{Binding Source={x:Static res:Resources.frtc_setting}, Converter={StaticResource BitmapToImageSource}}"
+                                        Width="24" Height="24" Stretch="Uniform"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Popup Name="pop_tip" StaysOpen="False"
+                   PlacementTarget="{Binding ElementName=btnSetting}" Placement="Bottom" HorizontalOffset="-10" VerticalOffset="-4"
+                   IsOpen="{Binding NoServerAddress}">
+                <StackPanel Orientation="Vertical" Background="#FFFFFF">
+                    <Image HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,0,0,0"
+                            Stretch="None" Source="{Binding Source={x:Static res:Resources.curled_pointer}, Converter={StaticResource BitmapToImageSource}}"/>
+                    <Border Background="#F8F9FA" CornerRadius="15" BorderThickness="1" Padding="10,5,10,5">
+                        <Border.BorderBrush>
+                            <VisualBrush>
+                                <VisualBrush.Visual>
+                                    <Rectangle StrokeDashArray="1 1"
+                                    Stroke="#666666"
+                                       Opacity="0.4"
+                                    StrokeThickness="2"
+                                    RadiusX="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=CornerRadius.TopRight}"
+                                    RadiusY="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=CornerRadius.BottomLeft}"
+                                    Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
+                                    Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Border.BorderBrush>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SET_SERVER_NOTICE}" FontSize="12" Foreground="#222222"/>
+                            <TextBlock Margin="2,0,0,0">
+                                <Hyperlink Foreground="#026FFE" Command="{Binding SettingViewCommand}">
+                                    <TextBlock Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_GOTO_SETTINGS}" FontSize="12" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Popup>
+        </StackPanel>
+        <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,28" Foreground="#999999" FontSize="12" Text="{Binding Version}"/>
+        <local:TipBoardControl HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,110" Visibility="Hidden"/>
+    </Grid>
+</UserControl>

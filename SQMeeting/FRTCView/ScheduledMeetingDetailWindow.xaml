@@ -1,0 +1,203 @@
+﻿<Window x:Class="SQMeeting.FRTCView.ScheduledMeetingDetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQMeeting.FRTCView"
+        xmlns:converter="clr-namespace:SQMeeting.Converters"
+        xmlns:res="clr-namespace:SQMeeting.Properties"
+        mc:Ignorable="d"
+        Title="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_DETAIL}" Height="670" Width="390" WindowStartupLocation="CenterScreen"
+        WindowStyle="None" ResizeMode="CanMinimize" Style="{StaticResource FRTC_WindowStyle}"
+        DataContext="{Binding FRTCUser.ScheduleMeeting, Source={StaticResource Locator}}">
+    <Window.Resources>
+        <converter:EmptyStringToNONEConverter x:Key="EmptyStringToNONE"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="47"/>
+            <RowDefinition Height="47"/>
+            <RowDefinition Height="47"/>
+            <RowDefinition Height="47"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock FontSize="16" Margin="0,20,0,14" Height="22" Foreground="#222222" FontWeight="SemiBold" HorizontalAlignment="Center" 
+                   MaxWidth="240" TextTrimming="CharacterEllipsis" Text="{Binding CurrentSelectdScheduledMeeting.MeetingName}"
+                   ToolTip="{Binding CurrentSelectdScheduledMeeting.MeetingName}"/>
+        <Button BorderThickness="0" Background="Transparent" Height="28" Width="32" HorizontalAlignment="Right" Margin="0,0,24,0"
+                Command="{Binding FRTCPopupUpdateScheduledMeetingDialog}" IsEnabled="{Binding CurrentSelectdScheduledMeeting.IsAvailable, FallbackValue=False, TargetNullValue=False}">
+            <Button.Style>
+                <Style TargetType="Button" BasedOn="{StaticResource FRTC_TextBtnStyle}">
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Foreground" Value="#026FFE"/>
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Setter Property="Content" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_EDIT}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{StaticResource FRTC_DarkBorderColor}"/>
+                        </Trigger>
+                        <DataTrigger Binding="{Binding CurrentSelectdScheduledMeeting.Authorized}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CurrentSelectdScheduledMeeting.IsManuallyAdded}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CurrentSelectdScheduledMeeting.IsInvited}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CurrentSelectdScheduledMeeting.MeetingType}" Value="instant">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CurrentSelectedScheduledMeeting.IsRecurring}" Value="True">
+                            <Setter Property="Content" Value="{x:Static res:Resources.FRTC_SDKAPP_MEETING_SCHEDULE_MODIFY}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <!--<TextBlock Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="24,0,0,0" FontSize="14" Foreground="#666666" Text="会议介绍"/>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,24,0" MaxWidth="250" FontSize="14" Foreground="#222222" 
+                   Text="{Binding CurrentSelectdScheduledMeeting.MeetingDescription}" TextTrimming="CharacterEllipsis"
+                   ToolTip="{Binding CurrentSelectdScheduledMeeting.MeetingDescription}"/>
+        <Rectangle Grid.Row="1" Height="1" Fill="{StaticResource FRTC_DefaultBorderColor}" Margin="24,0,24,0" VerticalAlignment="Bottom"/>-->
+
+        <Border Grid.Row="1" BorderThickness="1" BorderBrush="#3EC76E" Width="auto" Height="26" CornerRadius="2" Margin="24,0,0,14" HorizontalAlignment="Left"
+                Visibility="{Binding CurrentSelectdScheduledMeeting.IsRecurringMeeting, Converter={StaticResource BoolToCollapsed}}">
+            <Grid>
+                <Button HorizontalAlignment="Left" VerticalAlignment="Center" Height="26" Width="auto" Command="{Binding PopRecurringMeetingGroupWindowCommand}" CommandParameter="{Binding CurrentSelectdScheduledMeeting}" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <ControlTemplate.Resources>
+                                <LinearGradientBrush x:Key="leftPart">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#3EC76E" Offset="0"/>
+                                        <GradientStop Color="#72E5A7" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                                <LinearGradientBrush x:Key="rightPart">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#E5FFF1" Offset="0"/>
+                                        <GradientStop Color="#FFFFFF" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </ControlTemplate.Resources>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{x:Static res:Resources.FRTC_SDKAPP_RECURRENCE}" FontSize="13" Height="26" Foreground="#FFFFFF" Background="{StaticResource leftPart}"/>
+                                <StackPanel Orientation="Horizontal" Background="{StaticResource rightPart}" >
+                                    <Label Width="auto" Height="26" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                        Content="{Binding RecurringFrequencyDesc}" FontSize="13" Background="Transparent" Foreground="#222222" />
+                                    <Label Width="auto" Height="26" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+                                        Content=">" FontSize="13" Background="Transparent" Foreground="#72E5A7"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Grid>
+        </Border>
+
+        <Rectangle Grid.Row="2" Height="1" Fill="{StaticResource FRTC_DefaultBorderColor}" VerticalAlignment="Top"/>
+        <TextBlock Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="24,0,0,0" FontSize="14" Foreground="#666666" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_DETAIL_START_TIME}"/>
+        <TextBlock Grid.Row="2" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,24,0" FontSize="14" Foreground="#222222" Text="{Binding CurrentSelectdScheduledMeeting.BeginTimeStr}"/>
+        <Rectangle Grid.Row="2" Height="1" Fill="{StaticResource FRTC_DefaultBorderColor}" Margin="24,0,24,0" VerticalAlignment="Bottom"/>
+
+        <TextBlock Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="24,0,0,0" FontSize="14" Foreground="#666666" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_DETAIL_DURATION}"/>
+        <TextBlock Grid.Row="3" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,24,0" FontSize="14" Foreground="#222222" Text="{Binding CurrentSelectdScheduledMeeting.Duration}"/>
+        <Rectangle Grid.Row="3" Height="1" Fill="{StaticResource FRTC_DefaultBorderColor}" Margin="24,0,24,0" VerticalAlignment="Bottom"/>
+
+        <TextBlock Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="24,0,0,0" FontSize="14" Foreground="#666666" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_DETAIL_ID}"/>
+        <TextBlock Grid.Row="4" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,24,0" FontSize="14" Foreground="#222222" Text="{Binding CurrentSelectdScheduledMeeting.MeetingNumber}"/>
+        <Rectangle Grid.Row="4" Height="1" Fill="{StaticResource FRTC_DefaultBorderColor}" Margin="24,0,24,0" VerticalAlignment="Bottom"/>
+
+        <TextBlock Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="24,0,0,0" FontSize="14" Foreground="#666666" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_DETAIL_PWD}"/>
+        <TextBlock Grid.Row="5" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,24,0" FontSize="14" Foreground="#222222" Text="{Binding CurrentSelectdScheduledMeeting.Password, Converter={StaticResource EmptyStringToNONE}}"/>
+        <Rectangle Grid.Row="5" Height="1" Fill="{StaticResource FRTC_DefaultBorderColor}" Margin="24,0,24,0" VerticalAlignment="Bottom"/>
+
+        <StackPanel Grid.Row="6" HorizontalAlignment="Center" Margin="0,23,0,0">
+            <Button Width="332" Height="36" IsEnabled="{Binding CurrentSelectdScheduledMeeting.IsAvailable}"
+                    Command="{Binding FRTCUser.ScheduleMeeting.JoinScheduledMeetingCommand, Source={StaticResource Locator}}" CommandParameter="{Binding CurrentSelectdScheduledMeeting}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource FRTC_PrimaryBtnStyle}">
+                        <Setter Property="Content"  Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_JOIN_BTN}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentSelectdScheduledMeeting.IsAvailable}" Value="False">
+                                <Setter Property="Content" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_INVALID}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Width="332" Height="36" Margin="0,16,0,0" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_COPY_MEETING_DETAIL}" IsEnabled="{Binding CurrentSelectdScheduledMeeting.IsAvailable}"
+                    Command="{Binding FRTCUser.ScheduleMeeting.CopyScheduledMeetingDetailCommand, Source={StaticResource Locator}}" CommandParameter="{Binding CurrentSelectdScheduledMeeting}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource FRTC_SecondaryBtnStyle}">
+                        <Setter Property="Foreground" Value="#026FFE"/>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Foreground" Value="{StaticResource FRTC_DarkBorderColor}"/>
+                            </Trigger>
+                            <DataTrigger Binding="{Binding CurrentSelectdScheduledMeeting.IsInvited}" Value="False">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsOperatorRole}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Width="332" Height="36" Margin="0,16,0,0" Command="{Binding FRTCUser.ScheduleMeeting.DeleteScheduledMeetingCommand, Source={StaticResource Locator}}" 
+                    CommandParameter="{Binding CurrentSelectdScheduledMeeting}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource FRTC_SecondaryBtnStyle}">
+                        <Setter Property="Foreground" Value="#E32726"/>
+                        <Setter Property="Content" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_CANCEL_SCHEDULE}"/>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentSelectdScheduledMeeting.IsAvailable}" Value="False">
+                                <Setter Property="Content" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_REMOVE_SCHEDULE}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentSelectdScheduledMeeting.IsManuallyAdded}" Value="True">
+                                <Setter Property="Content" Value="{x:Static res:Resources.FRTC_SDKAPP_MEETING_REMOVE_FROM_LIST}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentSelectdScheduledMeeting.IsInvited}" Value="False">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsOperatorRole}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentSelectdScheduledMeeting.IsManuallyAdded}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+
+                </Button.Style>
+            </Button>
+            <Button HorizontalAlignment="Center" Height="35" Margin="0,16,0,0" IsEnabled="{Binding CurrentSelectdScheduledMeeting.IsAvailable}" BorderThickness="0"
+                    Command="{Binding SaveScheduleToCalendarCommand}" CommandParameter="{Binding CurrentSelectdScheduledMeeting}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="10,0,10,0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image VerticalAlignment="Center" Width="18" Height="18" Source="{Binding Source={x:Static res:Resources.frtc_calendar}, Converter={StaticResource BitmapToImageSource}}"/>
+                                            <TextBlock FontSize="14" Width="auto" Foreground="#026FFE" Margin="8,0,0,0" VerticalAlignment="Center" Text="{x:Static res:Resources.FRTC_MEETING_SCHEDULE_SAVE_TO_CALENDAR}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+        <local:TipBoardControl Grid.RowSpan="7" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
+    </Grid>
+</Window>

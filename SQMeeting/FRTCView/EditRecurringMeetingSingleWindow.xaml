@@ -1,0 +1,189 @@
+﻿<Window x:Class="SQMeeting.FRTCView.EditRecurringMeetingSingleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQMeeting.FRTCView"
+        xmlns:converter="clr-namespace:SQMeeting.Converters"
+        xmlns:res="clr-namespace:SQMeeting.Properties"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:vm="clr-namespace:SQMeeting.ViewModel"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        mc:Ignorable="d"
+        Title="{x:Static res:Resources.FRTC_MEETING_SDKAPP_EDIT_MEETING}" Height="670" Width="390" WindowStartupLocation="CenterOwner"
+        WindowStyle="None" ResizeMode="CanMinimize" Style="{StaticResource FRTC_WindowStyle}"
+        DataContext="{Binding FRTCUser.ScheduleMeeting, Source={StaticResource Locator}}">
+    <Window.Resources>
+        <converter:CloneCommandParamsConverter x:Key="MultiParamsConvert"/>
+        <converter:IntegerEqualMultiBindingConverter x:Key="intEqualMultiConverter"/>
+        <converter:RecurringDayOfMonthConverter x:Key="dayOfMonthCoverter"/>
+        <converter:RecurringDayOfWeekConverter x:Key="dayOfWeekCoverter"/>
+
+        <Style TargetType="CheckBox" x:Key="weekDaysSelectorStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Border x:Name="layout" CornerRadius="6" Background="#BBC3CE" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" BorderThickness="0">
+                            <TextBlock x:Name="text" FontSize="14" Foreground="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Content}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="layout" Property="Background" Value="#026FFE"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsEnabled" Value="False"/>
+                                    <Condition Property="IsChecked" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="layout" Property="Background" Value="#6AAAFE"/>
+                                <Setter TargetName="text" Property="Foreground" Value="#FFFFFF"/>
+                            </MultiTrigger>
+                            <DataTrigger Value="True">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{StaticResource intEqualMultiConverter}" ConverterParameter="1">
+                                        <Binding Path="ScheduleMeetingStartDate.DayOfWeek" NotifyOnSourceUpdated="True"/>
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Tag"/>
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                <Setter Property="IsChecked" Value="True"/>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Value="False">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{StaticResource intEqualMultiConverter}" ConverterParameter="1">
+                                        <Binding Path="ScheduleMeetingStartDate.DayOfWeek" NotifyOnSourceUpdated="True"/>
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Tag"/>
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                <Setter Property="IsChecked" Value="False"/>
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="CheckBox" x:Key="monthDaysSelectorStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <Grid Background="Transparent">
+                            <Ellipse x:Name="layout" Fill="Transparent" Stroke="Transparent" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                            <TextBlock x:Name="text" FontSize="14" Foreground="#333333" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Content}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="layout" Property="Fill" Value="#026FFE"/>
+                                <Setter TargetName="text" Property="Foreground" Value="#FFFFFF"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsEnabled" Value="False"/>
+                                    <Condition Property="IsChecked" Value="True"/>
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="layout" Property="Fill" Value="#6AAAFE"/>
+                                <Setter TargetName="text" Property="Foreground" Value="#FFFFFF"/>
+                            </MultiTrigger>
+                            <DataTrigger Value="True">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{StaticResource intEqualMultiConverter}">
+                                        <Binding Path="ScheduleMeetingStartDate.Day" NotifyOnSourceUpdated="True"/>
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Tag"/>
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                <Setter Property="IsChecked" Value="True"/>
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Value="False">
+                                <DataTrigger.Binding>
+                                    <MultiBinding Converter="{StaticResource intEqualMultiConverter}">
+                                        <Binding Path="ScheduleMeetingStartDate.Day" NotifyOnSourceUpdated="True"/>
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}" Path="Tag"/>
+                                    </MultiBinding>
+                                </DataTrigger.Binding>
+                                <Setter Property="IsChecked" Value="False"/>
+                                <Setter Property="IsEnabled" Value="True"/>
+                            </DataTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid ManipulationBoundaryFeedback="Grid_ManipulationBoundaryFeedback">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="72"/>
+        </Grid.RowDefinitions>
+        <ScrollViewer Style="{StaticResource FRTC_ScrollViewer}" PanningMode="VerticalFirst">
+            <StackPanel Margin="24">
+                <TextBlock Text="{x:Static res:Resources.FRTC_SDKAPP_RECURRING_MEETING_EDIT}" FontSize="20" Foreground="#222222" FontWeight="SemiBold"/>
+                <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                    <TextBlock Style="{StaticResource FRTC_DefaultFontText}" Foreground="#14C853" FontSize="13" Text="{Binding RecurringMeetingDesc0}"/>
+                    <TextBlock Style="{StaticResource FRTC_DefaultFontText}" Margin="6,0,0,0" FontSize="13" Text="{Binding RecurringMeetingDesc2}"/>
+                </StackPanel>
+                <Grid Height="28" Margin="0,16,0,0" >
+                    <TextBlock Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_START_TIME}" FontSize="14" Foreground="#333333" VerticalAlignment="Center"/>
+                </Grid>
+                <Grid Margin="0,8,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker Grid.Column="0" Width="207" Height="36" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource FRTC_DefaultBorderColor}"
+                        FirstDayOfWeek="Monday" IsTodayHighlighted="True" DisplayDateStart="{Binding UpdateRecurringMeetingSingleFirstStartDate}" DisplayDateEnd="{Binding UpdateRecurringMeetingSingleLastStartDate}"                                
+                        SelectedDate="{Binding ScheduleMeetingStartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <DatePicker.Style>
+                            <Style TargetType="DatePicker">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ScheduleMeetingTimeIllegal}" Value="True">
+                                        <Setter Property="BorderBrush" Value="#E32726"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DatePicker.Style>
+                    </DatePicker>
+                    <ComboBox Grid.Column="1" Margin="8,0,0,0" Style="{StaticResource FRTC_DefaultComboBoxStyle}" BorderBrush="{StaticResource FRTC_DefaultBorderColor}"
+                              local:ComboBoxHelper.NullItemText="{Binding MeetingStartTime, StringFormat=hh\\:mm}"
+                              SelectedItem="{Binding ScheduleMeetingStartTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center"
+                              ItemsSource="{Binding ScheduleMeetingAvailableStartTime}"
+                              SelectedIndex="{Binding ScheduleMeetingStartTimeSelectedIndex, UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+                <TextBlock Margin="0,4,0,0" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SCHEDULE_BEGIN_TIME_EARLY}" FontSize="12" Foreground="#E32726" Visibility="{Binding ScheduleMeetingTimeIllegal, Converter={StaticResource BoolToCollapsed}}"/>
+                <Grid Height="28" Margin="0,16,0,0" >
+                    <TextBlock Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_END_TIME}" FontSize="14" Foreground="#333333" VerticalAlignment="Center"/>
+                </Grid>
+                <Grid Margin="0,8,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker Grid.Column="0" Width="207" Height="36" VerticalContentAlignment="Center" BorderThickness="1" BorderBrush="{StaticResource FRTC_DefaultBorderColor}"
+                        FirstDayOfWeek="Monday" IsTodayHighlighted="True" DisplayDateStart="{Binding ScheduleMeetingEndDateMin}" DisplayDateEnd="{Binding ScheduleMeetingEndDateMax}"
+                        SelectedDate="{Binding ScheduleMeetingEndDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <ComboBox Grid.Column="1" Margin="8,0,0,0" Style="{StaticResource FRTC_DefaultComboBoxStyle}" BorderBrush="{StaticResource FRTC_DefaultBorderColor}"
+                        VerticalContentAlignment="Center" SelectedItem="{Binding ScheduleMeetingEndTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        local:ComboBoxHelper.NullItemText="{Binding MeetingEndTime, StringFormat=hh\\:mm}"
+                        ItemsSource="{Binding ScheduleMeetingAvailableEndTime, UpdateSourceTrigger=PropertyChanged}" 
+                        SelectedIndex="{Binding ScheduleMeetingEndTimeSelectedIndex}"/>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+        <Grid Grid.Row="1">
+            <Rectangle Height="1" Fill="{StaticResource FRTC_DefaultBorderColor}" Grid.Row="1" VerticalAlignment="Top"/>
+            <Button Height="40" Margin="24,0,24,0" Content="{x:Static res:Resources.FRTC_SDKAPP_MEETING_SAVE_MODIFY}" Command="{Binding UpdateRecurringMeetingSingleCommand}">
+                <Button.Style>
+                    <Style TargetType="Button" BasedOn="{StaticResource FRTC_PrimaryBtnStyle}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ScheduleMeetingTimeIllegal}" Value="True">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

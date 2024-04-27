@@ -1,0 +1,70 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Aviad.WPF.Controls">
+    <Style x:Key="ListBoxItemSelectOnMouseOverStyle" TargetType="ListBoxItem">
+        <Style.Resources>
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                             Color="#e5e5e5"/>
+        </Style.Resources>
+        <Setter Property="local:ListBoxItemBehavior.SelectOnMouseOver" Value="False"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+    </Style>
+    <SolidColorBrush x:Key="ListBorder" Color="#FFA5ACB2"/>
+    <ContextMenu x:Key="NULLMenu" Visibility="Collapsed"/>
+    <Style TargetType="{x:Type local:AutoCompleteTextBox}">
+        <Setter Property="ContextMenu" Value="{StaticResource NULLMenu}"/>
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"/>
+        <!--<Setter Property="BorderBrush" Value="{StaticResource ListBorder}"/>-->
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="None"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItemSelectOnMouseOverStyle}"/>
+        <Setter Property="Padding" Value="2"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="AllowDrop" Value="true"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:AutoCompleteTextBox}">
+                    <Grid HorizontalAlignment="Stretch">
+                        <Border x:Name="Bd" SnapsToDevicePixels="true" CornerRadius="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost" Background="{TemplateBinding Background}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <Popup x:Name="PART_Popup" StaysOpen="False" HorizontalAlignment="Stretch">
+                            <ListBox x:Name="PART_ListBox"
+                                         Background="{TemplateBinding Background}"
+                                         Grid.IsSharedSizeScope="True"
+                                         ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                         ScrollViewer.CanContentScroll="True"
+                                         MaxHeight="176">
+                                <ListBox.Style>
+                                    <Style TargetType="ListBox">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBox">
+                                                    <Border Name="Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                                        <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}"  
+                                                                Style="{StaticResource FRTC_ScrollViewer}">
+                                                            <ItemsPresenter />
+                                                        </ScrollViewer>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.Style>
+                            </ListBox>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

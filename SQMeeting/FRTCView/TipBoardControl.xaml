@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="SQMeeting.FRTCView.TipBoardControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SQMeeting.FRTCView"
+             mc:Ignorable="d" Name="tipControl" Background="Transparent">
+    <Grid>
+        <Border Width="auto" MaxWidth="350" MinHeight="40" CornerRadius="2" Margin="0,5,0,0" Background="#000000" Opacity="0.7">
+            <TextBlock FontSize="14" Foreground="#FFFFFF" Opacity="1" Name="MessageText" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12,0,12,0"
+                       TextWrapping="Wrap"/>
+        </Border>
+    </Grid>
+</UserControl>

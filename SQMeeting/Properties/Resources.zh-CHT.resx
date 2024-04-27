@@ -1,0 +1,1846 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="FRTC_MEETING_APP_CAMERA_FRAMERATE_FIRST" xml:space="preserve">
+    <value>流暢度優先</value>
+  </data>
+  <data name="FRTC_MEETING_APP_CAMERA_PREFERENCE" xml:space="preserve">
+    <value>攝像頭偏好</value>
+  </data>
+  <data name="FRTC_MEETING_APP_CAMERA_RESOLUTION_FIRST" xml:space="preserve">
+    <value>清晰度優先</value>
+  </data>
+  <data name="FRTC_MEETING_CANCEL_SCHEDULE_MSG" xml:space="preserve">
+    <value>取消會議後，其他成員將無法參會</value>
+  </data>
+  <data name="FRTC_MEETING_CLEAR_HISTORY_MSG" xml:space="preserve">
+    <value>確定清空會議記錄嗎？</value>
+  </data>
+  <data name="FRTC_MEETING_DELETE_MEETING_MSG" xml:space="preserve">
+    <value>確定要刪除該會議記錄嗎？</value>
+  </data>
+  <data name="FRTC_MEETING_END_CONFIRM" xml:space="preserve">
+    <value>您要結束此會議嗎?</value>
+  </data>
+  <data name="FRTC_MEETING_END_CONFIRM_MSG" xml:space="preserve">
+    <value>結束會議，全體參會者將被解散！</value>
+  </data>
+  <data name="FRTC_MEETING_INSTANCE_EXIST" xml:space="preserve">
+    <value>一個神旗CE客戶端已經在運行</value>
+  </data>
+  <data name="FRTC_MEETING_INVITE_URL" xml:space="preserve">
+    <value>或點擊以下鏈接直接加入會議:</value>
+  </data>
+  <data name="FRTC_MEETING_LET_ME_HAVE_A_THINK" xml:space="preserve">
+    <value>再想想</value>
+  </data>
+  <data name="FRTC_MEETING_LOGIN_FAILED" xml:space="preserve">
+    <value>登錄失敗</value>
+  </data>
+  <data name="FRTC_MEETING_LOGIN_FAILED_LOCKED" xml:space="preserve">
+    <value>賬戶被鎖定，請聯繫管理員</value>
+  </data>
+  <data name="FRTC_MEETING_LOGIN_FAILED_PWD_ERROR_MAX" xml:space="preserve">
+    <value>用戶名或密碼多次輸入錯誤，請在5分鐘後再嚐試登錄</value>
+  </data>
+  <data name="FRTC_MEETING_PWD_CHANGED" xml:space="preserve">
+    <value>密碼已修改</value>
+  </data>
+  <data name="FRTC_MEETING_PWD_CHANGED_MSG" xml:space="preserve">
+    <value>您的密碼已修改，請重新登錄</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ABOUT" xml:space="preserve">
+    <value>關於</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ABOUTUS" xml:space="preserve">
+    <value>關於我們</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ABOUT_TO_START" xml:space="preserve">
+    <value>即將開始</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ACCOUNT_USERNAME" xml:space="preserve">
+    <value>用戶名：</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ADD_INVITEES" xml:space="preserve">
+    <value>+添加用戶</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_AGREE_AND_GOING_ON" xml:space="preserve">
+    <value>同意協議並繼續</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ALLOW_GUEST_JOIN" xml:space="preserve">
+    <value>允許訪客撥入</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ALLOW_SELF_UNMUTE" xml:space="preserve">
+    <value>允許參會者自我解除靜音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ALREADY_START" xml:space="preserve">
+    <value>已開始</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ASK_UNMUTE_DESC" xml:space="preserve">
+    <value>會議主持人邀請你打開麥克風。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ASK_UNMUTE_STAYMUTE" xml:space="preserve">
+    <value>保持靜音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ASK_UNMUTE_UNMUTE" xml:space="preserve">
+    <value>打開麥克風</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_AUDIO" xml:space="preserve">
+    <value>音頻</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_BTN_BACKHOME" xml:space="preserve">
+    <value>返回主頁</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CALL_RATE" xml:space="preserve">
+    <value>呼叫速率：</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CALL_STATISTICS" xml:space="preserve">
+    <value>統計信息</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CALL_TYPE" xml:space="preserve">
+    <value>呼叫類型：</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CAMERA" xml:space="preserve">
+    <value>開啟攝像頭</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CAMERAERROR" xml:space="preserve">
+    <value>打開攝像頭失敗</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CANCEL" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CANCEL_SCHEDULE" xml:space="preserve">
+    <value>取消會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CAPTION_ACCOUNT" xml:space="preserve">
+    <value>賬號</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CAPTION_JOIN" xml:space="preserve">
+    <value>加入會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CAPTION_SERVERADDR" xml:space="preserve">
+    <value>設定服務器地址</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CAPTION_SETTING" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CHANGE_PWD" xml:space="preserve">
+    <value>更改密碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CHANNEL" xml:space="preserve">
+    <value>通道</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CLEAR_HISTORY" xml:space="preserve">
+    <value>清除記錄</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CONFIRM_NEW_PWD" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CONFIRM_PWD" xml:space="preserve">
+    <value>確認密碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CONNECTION_ERROR" xml:space="preserve">
+    <value>無法連接服務器，請檢查您的網絡和服務器設定。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CONTENT" xml:space="preserve">
+    <value>共享</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CONTENT_SHARE" xml:space="preserve">
+    <value>共享屏幕</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_COPY_CLIPBOARD_DONE" xml:space="preserve">
+    <value>會議信息已復製到剪貼板</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_COPY_CLIPBOARD_FAILED" xml:space="preserve">
+    <value>復製到剪貼板失敗,請稍後再試</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_COPY_INVITE_INFO" xml:space="preserve">
+    <value>復製邀請</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_COPY_INVITE_INFO_SUCCEED" xml:space="preserve">
+    <value>復製邀請信息成功</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_COPY_MEETING_DETAIL" xml:space="preserve">
+    <value>復製會議信息</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_COPY_MEETING_ID" xml:space="preserve">
+    <value>復製會議號</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_COPY_MEETING_INFO" xml:space="preserve">
+    <value>復製會議信息邀請入會</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_COULDNOT_SHARESOUND" xml:space="preserve">
+    <value>無法分享聲音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_COULDNOT_SHARESOUND_DESC" xml:space="preserve">
+    <value>請到系統音頻設定選擇播放設備為「</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_COULDNOT_SHARESOUND_DESC_END" xml:space="preserve">
+    <value>」。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_COUNTRY" xml:space="preserve">
+    <value>國家：</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_DELAY" xml:space="preserve">
+    <value>延遲</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_DEPARTMENT" xml:space="preserve">
+    <value>部門：</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_DESKTOPNAME" xml:space="preserve">
+    <value>桌面</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_DIALING" xml:space="preserve">
+    <value>正在入會...</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_DISPLAY_NAME" xml:space="preserve">
+    <value>入會顯示名字</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_DURATION" xml:space="preserve">
+    <value>時長:</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_EDIT" xml:space="preserve">
+    <value>編輯</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_EDIT_MEETING" xml:space="preserve">
+    <value>修改會議預約</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_EDIT_SCHEDULE_SUCCEED" xml:space="preserve">
+    <value>編輯已預約會議成功</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_EMAIL" xml:space="preserve">
+    <value>電子郵件：</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ENTER_FULL_SCREEN" xml:space="preserve">
+    <value>進入全屏模式</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ERR_CONCEAL" xml:space="preserve">
+    <value>丟包恢復</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_EXIT_FULLSCREEN" xml:space="preserve">
+    <value>退出全屏</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_EXIT_FULL_SCREEN" xml:space="preserve">
+    <value>退出全屏模式</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_FAILED" xml:space="preserve">
+    <value>失敗</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_FINISH_MEETING" xml:space="preserve">
+    <value>結束會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_FIRSTNAME" xml:space="preserve">
+    <value>名字：</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_FORMAT" xml:space="preserve">
+    <value>格式</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_FRAME_RATE" xml:space="preserve">
+    <value>幀率</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_FULLSCREEN" xml:space="preserve">
+    <value>全屏</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_GET_MEETING_DETAIL" xml:space="preserve">
+    <value>獲取會議詳情</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_GET_SCHEDULED_MEETINGS" xml:space="preserve">
+    <value>獲取預約會議列表</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_GOBACK" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_GOTO_SETTINGS" xml:space="preserve">
+    <value>去設定</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_GUESTNAME" xml:space="preserve">
+    <value>顯示的名字</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_HANGUP" xml:space="preserve">
+    <value>掛斷</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_HIDE_MY_VIDEO" xml:space="preserve">
+    <value>隱藏本地視頻窗口</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_HIDE_PREVIEW" xml:space="preserve">
+    <value>關閉本人浮窗</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_HISTORY_BEGIN_TIME" xml:space="preserve">
+    <value>會議開始時間</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_HISTORY_DURATION" xml:space="preserve">
+    <value>會議累積時長</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_HISTORY_MEETING_ID" xml:space="preserve">
+    <value>會議號</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_HISTORY_MEETING_OWNER" xml:space="preserve">
+    <value>發起人</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_HISTORY_MEETING_PWD" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_HOST" xml:space="preserve">
+    <value>主持人</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_HOST_END_MEETING" xml:space="preserve">
+    <value>主持人結束了這次會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_HOST_MUTE_MEETING" xml:space="preserve">
+    <value>主持人已對您開啟靜音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INPUT_MEETING_TOPIC" xml:space="preserve">
+    <value>輸入會議主題</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INSTANT_MEETING" xml:space="preserve">
+    <value>即時會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INVALID" xml:space="preserve">
+    <value>失效</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INVITATION" xml:space="preserve">
+    <value>請打開神旗CE版App，輸入會議號入會</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INVITED_USERS" xml:space="preserve">
+    <value>已邀請用戶</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INVITEES" xml:space="preserve">
+    <value>受邀用戶</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INVITEE_MAX_CNT" xml:space="preserve">
+    <value>人數上限</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INVITEE_MAX_CNT_TIP" xml:space="preserve">
+    <value>邀請人數目前限製100人</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INVITE_COMPLETE" xml:space="preserve">
+    <value>完成({0})</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INVITE_TO_MEETING" xml:space="preserve">
+    <value>邀請入會</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INVITE_USER" xml:space="preserve">
+    <value>邀請用戶</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INVITING_YOU" xml:space="preserve">
+    <value>邀請您參加會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_I_HAVE_READ" xml:space="preserve">
+    <value>我已閱讀</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_JITTER" xml:space="preserve">
+    <value>抖動</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_JOIN" xml:space="preserve">
+    <value>加入</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_JOINMEETING" xml:space="preserve">
+    <value>加入會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_JOINMEETING_SHORT" xml:space="preserve">
+    <value>入會</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_JOIN_MEETING_FAILED" xml:space="preserve">
+    <value>入會失敗</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_LASTNAME" xml:space="preserve">
+    <value>姓氏:</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_LATEST_APP" xml:space="preserve">
+    <value>已更新到最新版本</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_LEAVE_CALL" xml:space="preserve">
+    <value>結束</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_LEAVE_MEETING" xml:space="preserve">
+    <value>離開會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_LOADING" xml:space="preserve">
+    <value>加載中...</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_LOAD_MORE_MEETINGS" xml:space="preserve">
+    <value>加載更多會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MAINCAPTION" xml:space="preserve">
+    <value>神旗CE</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEDIA" xml:space="preserve">
+    <value>媒體</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETINGID" xml:space="preserve">
+    <value>會議號碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETINGID_COLON" xml:space="preserve">
+    <value>會議號碼:</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETINGPASSCODE" xml:space="preserve">
+    <value>會議密碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_ABORTED" xml:space="preserve">
+    <value>會議結束。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_ADDR_INVALID" xml:space="preserve">
+    <value>未登錄或IP地址無效。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_AUTH_FAILED" xml:space="preserve">
+    <value>驗證失敗,請重新登錄後再入會</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_BEGIN_TIME_ERROR" xml:space="preserve">
+    <value>會議開始時間異常，請聯系系統管理員</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_DETAIL" xml:space="preserve">
+    <value>會議詳情</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_DETAIL_DURATION" xml:space="preserve">
+    <value>會議時長</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_DETAIL_ID" xml:space="preserve">
+    <value>會議號</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_DETAIL_PWD" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_DETAIL_START_TIME" xml:space="preserve">
+    <value>開始時間</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_EARLY" xml:space="preserve">
+    <value>會議開始前30分鐘方可入會</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_ENDED" xml:space="preserve">
+    <value>會議已結束</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_END_TIME" xml:space="preserve">
+    <value>結束時間:</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_EXPIRED" xml:space="preserve">
+    <value>該會議已過期，無法入會</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_FULL" xml:space="preserve">
+    <value>該會議室已滿員，無法入會</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_HANGUP" xml:space="preserve">
+    <value>遠端掛斷。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_HISTORY" xml:space="preserve">
+    <value>歷史會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_HOST" xml:space="preserve">
+    <value>主持人</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_INFO" xml:space="preserve">
+    <value>會議信息</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_INVALID_PASSCODE" xml:space="preserve">
+    <value>密碼錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_JOIN_PWD" xml:space="preserve">
+    <value>入會密碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_LICENSE_FAILED" xml:space="preserve">
+    <value>服務未獲取軟件許可或軟件許可已過期</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_LOCKED" xml:space="preserve">
+    <value>該會議室已鎖定，無法入會</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_LOST_CONNECTION" xml:space="preserve">
+    <value>網絡錯誤。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_NOANSWER" xml:space="preserve">
+    <value>遠端未應答。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_NOT_EXIST" xml:space="preserve">
+    <value>該會議需要登錄或會議不存在，請登錄後重試。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_NO_PERMISSION" xml:space="preserve">
+    <value>遠端拒絕,請聯系管理員</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_RECONNECT_FAILED_END" xml:space="preserve">
+    <value>或嘗試重新入會。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_RECONNECT_FAILED_START" xml:space="preserve">
+    <value>網絡異常，請檢查網絡設定，</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_REJECT" xml:space="preserve">
+    <value>遠端拒絕,請聯系管理員</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_REJECT_GUEST" xml:space="preserve">
+    <value>該會議室不允許訪客入會，請登錄後重試</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_SERVER_ERR" xml:space="preserve">
+    <value>無法連接服務器，請檢查您的網絡和服務器設定。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_START_TIME" xml:space="preserve">
+    <value>開始時間:</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_TOPIC" xml:space="preserve">
+    <value>會議主題:</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_UNABLE_PROCESS" xml:space="preserve">
+    <value>遠端無法響應，請稍後再試。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MEETING_UNREACHABLE" xml:space="preserve">
+    <value>遠端不可達，請稍後再試。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MIC" xml:space="preserve">
+    <value>打開麥克風</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MICROPHONEMUTED" xml:space="preserve">
+    <value>麥克風已關，請開啟麥克風後發言。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MOBILE" xml:space="preserve">
+    <value>移動電話：</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MUTE" xml:space="preserve">
+    <value>靜音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MUTE_ALL" xml:space="preserve">
+    <value>全體靜音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MUTE_ALL_PARTICIPANTS" xml:space="preserve">
+    <value>全體參會者靜音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MUTE_WHEN_JOIN" xml:space="preserve">
+    <value>入會靜音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_NETWORK_STATUS" xml:space="preserve">
+    <value>網絡狀況</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_NEW_PWD_NOT_SAME" xml:space="preserve">
+    <value>兩次密碼不一致</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_NEW_VERSION_FOUND" xml:space="preserve">
+    <value>發現新版本啦!</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_NEXT" xml:space="preserve">
+    <value>下一步</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_NONE" xml:space="preserve">
+    <value>無</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_NO_HISTORY_MEETING" xml:space="preserve">
+    <value>無歷史會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_NO_SCHEDULED_MEETING" xml:space="preserve">
+    <value>無預約會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_OK" xml:space="preserve">
+    <value>確定</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_OLDPWD" xml:space="preserve">
+    <value>舊密碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_OPERATION_FAILED" xml:space="preserve">
+    <value>操作失敗!</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_OR" xml:space="preserve">
+    <value>或</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PARTICIPANT" xml:space="preserve">
+    <value>參會者</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PARTICIPANTS" xml:space="preserve">
+    <value>參會者</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PASSWORD" xml:space="preserve">
+    <value>密碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PCKG_LOST" xml:space="preserve">
+    <value>丟包</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PERSONAL_MEETING_ID" xml:space="preserve">
+    <value>個人會議號</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PHONE" xml:space="preserve">
+    <value>電話：</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PRODUCT_NAME" xml:space="preserve">
+    <value>神旗CE</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PROTOCOL" xml:space="preserve">
+    <value>協議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PWD_EMPTY" xml:space="preserve">
+    <value>密碼不能為空</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PWD_RETRY_MAX" xml:space="preserve">
+    <value>密碼錯誤已達上限,請重新加入會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PWD_RULE_COMPLEXED" xml:space="preserve">
+    <value>8-48位間，須含大、小寫字母，數字，特殊字符。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PWD_RULE_SIMPLE" xml:space="preserve">
+    <value>6-48位間，由大、小寫字母，數字，特殊字符組成。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PWD_SHORT" xml:space="preserve">
+    <value>密碼至少為6位。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PWD_SHORT_THAN8" xml:space="preserve">
+    <value>密碼至少為8位。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PWD_TIMEOUT" xml:space="preserve">
+    <value>輸入密碼超時,請重新加入會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_RATE" xml:space="preserve">
+    <value>速率</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_RATE_USED" xml:space="preserve">
+    <value>實際速率</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_RECONNECTING" xml:space="preserve">
+    <value>網絡異常，正在連接…</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REFRESH" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REJOIN_MEETING" xml:space="preserve">
+    <value>重新入會</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REMEMBERNAME" xml:space="preserve">
+    <value>記住名字</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REMEMBER_PWD" xml:space="preserve">
+    <value>自動登錄</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REMOVE" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REMOVED_BY_HOST" xml:space="preserve">
+    <value>您被主持人移出了會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REMOVE_SCHEDULE" xml:space="preserve">
+    <value>刪除會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REQUIRE_DISPLAY_NAME" xml:space="preserve">
+    <value>輸入你的名字</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REQUIRE_MEETING_PWD" xml:space="preserve">
+    <value>請輸入會議密碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_RESETPWD_FAILED" xml:space="preserve">
+    <value>設定密碼失敗</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_RESETPWD_FAILED_COMPLEXITY" xml:space="preserve">
+    <value>新密碼不符合密碼復雜度規則</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SAVE" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SCHEDULE" xml:space="preserve">
+    <value>預約</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SCHEDULE_BEGIN_TIME_EARLY" xml:space="preserve">
+    <value>開始時間不能早於當前時間</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SCHEDULE_MEETING" xml:space="preserve">
+    <value>預約會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SCHEDULE_MEETING_DEFAULT_NAME" xml:space="preserve">
+    <value>{0}預約的會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SCHEDULE_MEETING_TOPIC" xml:space="preserve">
+    <value>會議主題</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SEARCH" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SERVERADDR" xml:space="preserve">
+    <value>服務器地址</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SERVER_CHANGED" xml:space="preserve">
+    <value>服務器地址已修改</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SERVER_CHANGED_TIP" xml:space="preserve">
+    <value>您的服務器地址已修改, 請重新登錄</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETPWD" xml:space="preserve">
+    <value>新密碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTINGS" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_AUDIO" xml:space="preserve">
+    <value>音頻</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_CALLRATE" xml:space="preserve">
+    <value>呼叫速率:</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_CALLRATE_AUTO" xml:space="preserve">
+    <value>自動偵測</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_CALLRATE_L0" xml:space="preserve">
+    <value>僅音頻</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_CALLRATE_L1" xml:space="preserve">
+    <value>384K</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_CALLRATE_L2" xml:space="preserve">
+    <value>流暢</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_CALLRATE_L3" xml:space="preserve">
+    <value>768K</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_CALLRATE_L4" xml:space="preserve">
+    <value>標清</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_CALLRATE_L5" xml:space="preserve">
+    <value>1536K</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_CALLRATE_L6" xml:space="preserve">
+    <value>高清</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_CALLRATE_L7" xml:space="preserve">
+    <value>2560K</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_CALLRATE_L8" xml:space="preserve">
+    <value>3072K</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_CALLRATE_L9" xml:space="preserve">
+    <value>超清</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_CAMERA" xml:space="preserve">
+    <value>攝像頭</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_DEVICE" xml:space="preserve">
+    <value>設備</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_FAILED" xml:space="preserve">
+    <value>地址無效</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_Gallery" xml:space="preserve">
+    <value>畫廊視圖</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_LANGUAGE" xml:space="preserve">
+    <value>語言設置</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_LANGUAGE_CHANGE" xml:space="preserve">
+    <value>更改語言</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_LANGUAGE_CHANGED_MSG" xml:space="preserve">
+    <value>更改的語言在重啟應用程式後生效</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_MIC" xml:space="preserve">
+    <value>麥克風</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_NETWORK" xml:space="preserve">
+    <value>網絡</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_NOISEBLOCKER" xml:space="preserve">
+    <value>智能降噪</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_PRESENTER" xml:space="preserve">
+    <value>演講者視圖</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_SAMEAS_OS" xml:space="preserve">
+    <value>與系統一致</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_SAVE" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_SAVE_SUCCEED" xml:space="preserve">
+    <value>保存成功</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_SERVERADDR" xml:space="preserve">
+    <value>服務器地址：</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_SPEAKER" xml:space="preserve">
+    <value>揚聲器</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_SUCCEED" xml:space="preserve">
+    <value>設定已保存</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_VIDEO_LAYOUT" xml:space="preserve">
+    <value>畫面布局</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SET_NEW_PWD" xml:space="preserve">
+    <value>設定新密碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SET_SERVER_NOTICE" xml:space="preserve">
+    <value>入會或登錄須先設定服務器！</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SHAREAUDIO" xml:space="preserve">
+    <value>同時共享電腦聲音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SHARECONTENT_CPULIMITED" xml:space="preserve">
+    <value>因為目前CPU占用率過高，系統限製了分享內容的能力。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SHARECONTENT_NOPERMISSION" xml:space="preserve">
+    <value>您沒有分享內容的權限。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SHARECONTENT_UPLINKBITRATELOW" xml:space="preserve">
+    <value>當前網絡狀態不佳，系統限製了分享內容的能力。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SHAREING" xml:space="preserve">
+    <value>正在分享桌面......</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SHARE_CONTENT" xml:space="preserve">
+    <value>分享內容</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SHARING_CONTENT_WATERMARK" xml:space="preserve">
+    <value>共享屏幕水印</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SHOW_MY_VIDEO" xml:space="preserve">
+    <value>顯示本地視頻窗口</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SHOW_PREVIEW" xml:space="preserve">
+    <value>開啟本人浮窗</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIANGIN_ADMIN_TIP" xml:space="preserve">
+    <value>請先在服務器頁面更改密碼以激活賬戶。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIGNIN" xml:space="preserve">
+    <value>登入</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIGNIN_AUTH_FAILED" xml:space="preserve">
+    <value>用戶驗證失敗</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIGNIN_AUTH_FAILED_TIP" xml:space="preserve">
+    <value>用戶驗證失敗，請重新登錄</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIGNIN_INVALID_PWD" xml:space="preserve">
+    <value>用戶名或密碼錯誤，請重試。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIGNIN_OFFLINE" xml:space="preserve">
+    <value>離線</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIGNIN_ONLINE" xml:space="preserve">
+    <value>在線</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIGNIN_PROCESSING" xml:space="preserve">
+    <value>正在登錄...</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIGNIN_REQUIRE_PASSWORD" xml:space="preserve">
+    <value>請輸入密碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIGNIN_REQUIRE_MEETING_ID" xml:space="preserve">
+    <value>請輸入會議號碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIGNIN_SETPWD_SUCCESS" xml:space="preserve">
+    <value>密碼重置成功，請登錄。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIGNIN_STATUS" xml:space="preserve">
+    <value>狀態：</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIGNIN_USER_NOT_EXIST" xml:space="preserve">
+    <value>用戶不存在</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SIGNOUT" xml:space="preserve">
+    <value>退出登錄</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_START_LOCAL_VIDEO" xml:space="preserve">
+    <value>開啟視頻</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_START_SHARING" xml:space="preserve">
+    <value>開始共享</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_STATISTICS_INTERNAL" xml:space="preserve">
+    <value>統計信息（內測）</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_STATISTIC_INFO" xml:space="preserve">
+    <value>統計信息</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_STATIS_TITLE" xml:space="preserve">
+    <value>統計信息</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_STOP_LOCAL_VIDEO" xml:space="preserve">
+    <value>停止視頻</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_STOP_SHARE" xml:space="preserve">
+    <value>停止內容分享</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_STOP_SHARING" xml:space="preserve">
+    <value>結束共享</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SWITCH_LAYOUT" xml:space="preserve">
+    <value>切換布局</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_TIME_ZONE" xml:space="preserve">
+    <value>時區</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_TIP_ADDRNOTVALID" xml:space="preserve">
+    <value>地址無效</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_TIP_NO_GUEST_NAME" xml:space="preserve">
+    <value>請輸入與會者名稱。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_TIP_NO_MEETING_ID" xml:space="preserve">
+    <value>請輸入會議號碼。</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_TIP_SETCALLSERVER" xml:space="preserve">
+    <value>設定會議服務器</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_TODAY" xml:space="preserve">
+    <value>今天</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_UNMUTE" xml:space="preserve">
+    <value>解除靜音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_UNMUTEAUDIO" xml:space="preserve">
+    <value>解除靜音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_UNMUTE_ALL" xml:space="preserve">
+    <value>解除全體靜音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_UNMUTE_ALL_PARTICIPANTS" xml:space="preserve">
+    <value>解除全體參會者靜音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_UPDATED_TO_LATEST" xml:space="preserve">
+    <value>已刷新到最新</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_USERNAME" xml:space="preserve">
+    <value>用戶名</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_USER_SIGNIN" xml:space="preserve">
+    <value>用戶登錄</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_USE_PERSONAL_MEETING_ID" xml:space="preserve">
+    <value>使用個人會議號</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_VERSION" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_VIDEO" xml:space="preserve">
+    <value>視頻</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_VIDEO_CALL" xml:space="preserve">
+    <value>視頻會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_VOICE_CALL" xml:space="preserve">
+    <value>語音會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_VOICE_ONLY" xml:space="preserve">
+    <value>語音會議</value>
+  </data>
+  <data name="FRTC_MEETING_SELECT_CONTENT_SOURCE" xml:space="preserve">
+    <value>請選擇共享內容</value>
+  </data>
+  <data name="FRTC_MEETING_SETTINGS_NORMAL" xml:space="preserve">
+    <value>常規設定</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CALCEL_MEETING_SHORT" xml:space="preserve">
+    <value>取消會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_COPY_INVITE_SHORT" xml:space="preserve">
+    <value>複製邀請</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_JOIN_BTN" xml:space="preserve">
+    <value>加入會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_OLDPWD_WATERMARK" xml:space="preserve">
+    <value>舊密碼</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_RESTART_NOW" xml:space="preserve">
+    <value>立即重啟</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SCHEDULED" xml:space="preserve">
+    <value>預約會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SCHEDULE_BTN" xml:space="preserve">
+    <value>預約會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REQUIRE_ACC_NAME" xml:space="preserve">
+    <value>請輸入賬戶名</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_USER_MAXIMUM" xml:space="preserve">
+    <value>用戶數已達到上限，請升級軟件許可</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SCHEDULE_SUCCESS" xml:space="preserve">
+    <value>會議預約成功</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_USERNAME_EMPTY" xml:space="preserve">
+    <value>用戶名不能為空</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_CANCEL_SCHEDULE_OK" xml:space="preserve">
+    <value>取消會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INVITED_MEETING" xml:space="preserve">
+    <value>受邀會</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_PEOPLE" xml:space="preserve">
+    <value>人</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INVITATION_WITHPWD" xml:space="preserve">
+    <value>請打開神旗CE版App，輸入會議號、密碼入會</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INVITING_YOU_LOWER" xml:space="preserve">
+    <value>邀請您參加會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_ENABLE_MEETING_PWD" xml:space="preserve">
+    <value>開啟會議密碼</value>
+  </data>
+  <data name="FRTC_MEETING_PARTICIPANT_SEARCH_NO_RESULT_HEAD" xml:space="preserve">
+    <value>沒有找到"</value>
+  </data>
+  <data name="FRTC_MEETING_PARTICIPANT_SEARCH_NO_RESULT_TAIL" xml:space="preserve">
+    <value>”相關結果</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REMOVE_FROM_MEETING" xml:space="preserve">
+    <value>移出會議室</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REMOVE_LECTURE" xml:space="preserve">
+    <value>取消演講者</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_RENAME" xml:space="preserve">
+    <value>改名</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SET_LECTURE" xml:space="preserve">
+    <value>設定為演講者</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REMOVE_FROM_MEETING_SUCCESS" xml:space="preserve">
+    <value>該用戶已被移出會議</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REMOVE_FROM_MEETING_TIP" xml:space="preserve">
+    <value>您要把該用戶移出會議室嗎?</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_REMOVE_LECTURER_SUCCESS" xml:space="preserve">
+    <value>該用戶已被取消演講者</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_RENAME_NOTIFY" xml:space="preserve">
+    <value>您在該會議中的名字已被改為“{0}”</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SET_LECTURER_SUCCESS" xml:space="preserve">
+    <value>該用戶已被設為演講者</value>
+  </data>
+  <data name="FRTC_MEETING_YOU_ARE_LECTURER" xml:space="preserve">
+    <value>您已被主持人設為演講者</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_RENAME_SUCCESS" xml:space="preserve">
+    <value>修改已保存</value>
+  </data>
+  <data name="FRTC_MEETING_DISABLE_TEXT_OVERLAY" xml:space="preserve">
+    <value>停止橫幅</value>
+  </data>
+  <data name="FRTC_MEETING_ENABLE_TEXT_OVERLAY" xml:space="preserve">
+    <value>啟用橫幅</value>
+  </data>
+  <data name="FRTC_MEETING_TEXT_OVERLAY_SET_CONTENT" xml:space="preserve">
+    <value>橫幅內容</value>
+  </data>
+  <data name="FRTC_MEETING_TEXT_OVERLAY_SET_REPEAT_TIMES" xml:space="preserve">
+    <value>播放次數</value>
+  </data>
+  <data name="FRTC_MEETING_TEXT_OVERLAY_SET_SCROLL" xml:space="preserve">
+    <value>滾動</value>
+  </data>
+  <data name="FRTC_MEETING_TEXT_OVERLAY_SET_VERTICAL_POS" xml:space="preserve">
+    <value>橫幅位置</value>
+  </data>
+  <data name="FRTC_MEETING_TEXT_OVERLAY_SET_VERTICAL_POS_BOTTOM" xml:space="preserve">
+    <value>底部</value>
+  </data>
+  <data name="FRTC_MEETING_TEXT_OVERLAY_SET_VERTICAL_POS_MID" xml:space="preserve">
+    <value>中部</value>
+  </data>
+  <data name="FRTC_MEETING_TEXT_OVERLAY_SET_VERTICAL_POS_TOP" xml:space="preserve">
+    <value>頂部</value>
+  </data>
+  <data name="FRTC_MEETING_TEXT_OVERLAY_SET_STARTED" xml:space="preserve">
+    <value>橫幅已啟用</value>
+  </data>
+  <data name="FRTC_MEETING_TEXT_OVERLAY_SET_STOPED" xml:space="preserve">
+    <value>橫幅已停止</value>
+  </data>
+  <data name="FRTC_MEETING_TEXTOVERLAY_DEFAULT_TXT" xml:space="preserve">
+    <value>歡迎！</value>
+  </data>
+  <data name="FRTC_MEETING_TEXTOVERLAY_EMPTY_TIP" xml:space="preserve">
+    <value>橫幅內容不能為空</value>
+  </data>
+  <data name="FRTC_MEETING_START_RECORDING" xml:space="preserve">
+    <value>開始錄製</value>
+  </data>
+  <data name="FRTC_MEETING_START_STREAMING" xml:space="preserve">
+    <value>直播</value>
+  </data>
+  <data name="FRTC_MEETING_STOP_RECORDING" xml:space="preserve">
+    <value>結束錄製</value>
+  </data>
+  <data name="FRTC_MEETING_STOP_STREAMING" xml:space="preserve">
+    <value>結束直播</value>
+  </data>
+  <data name="FRTC_MEETING_MEETING_RECORDING" xml:space="preserve">
+    <value>會議錄製中</value>
+  </data>
+  <data name="FRTC_MEETING_MEETING_STREAMING" xml:space="preserve">
+    <value>會議直播中</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING" xml:space="preserve">
+    <value>錄製中</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING" xml:space="preserve">
+    <value>直播中</value>
+  </data>
+  <data name="FRTC_MEETING_HOUR" xml:space="preserve">
+    <value>小時</value>
+  </data>
+  <data name="FRTC_MEETING_HOURS" xml:space="preserve">
+    <value>小時</value>
+  </data>
+  <data name="FRTC_MEETING_MINUTE" xml:space="preserve">
+    <value>分鐘</value>
+  </data>
+  <data name="FRTC_MEETING_MINUTES" xml:space="preserve">
+    <value>分鐘</value>
+  </data>
+  <data name="FRTC_MEETING_SECOND" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="FRTC_MEETING_SECONDS" xml:space="preserve">
+    <value>秒</value>
+  </data>
+  <data name="FRTC_MEETING_DISABLE_HARDWARE_RENDER" xml:space="preserve">
+    <value>禁用硬體渲染</value>
+  </data>
+  <data name="FRTC_MEETING_DISABLE_HARDWARE_RENDER_TIP" xml:space="preserve">
+    <value>如果您的神旗CE正常工作，請勿更改此選項！</value>
+  </data>
+  <data name="FRTC_MEETING_CONFIRM_RECORDING" xml:space="preserve">
+    <value>開始云錄製?</value>
+  </data>
+  <data name="FRTC_MEETING_CONFIRM_RECORDING_MSG" xml:space="preserve">
+    <value>開啟後，將錄製會議中音頻，視頻畫面以及共享屏幕內容，並告知所有參會成員</value>
+  </data>
+  <data name="FRTC_MEETING_CONFIRM_RECORDING_STOP" xml:space="preserve">
+    <value>結束雲錄製？</value>
+  </data>
+  <data name="FRTC_MEETING_CONFIRM_RECORDING_STOP_MSG" xml:space="preserve">
+    <value>錄製結束後，可通過“神旗系統Web管理系統"-"會議錄製"查看錄製文件</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_CONTINUE_MUTED" xml:space="preserve">
+    <value>繼續無聲錄製</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_MUTED" xml:space="preserve">
+    <value>您已靜音</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_MUTED_MSG" xml:space="preserve">
+    <value>您當前處於靜音狀態，無法錄製語音</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_START" xml:space="preserve">
+    <value>開始錄製</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_START_MSG" xml:space="preserve">
+    <value>主持人已開始會議錄製</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_START_MSG_AUTH" xml:space="preserve">
+    <value>錄製已開始</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_STOP" xml:space="preserve">
+    <value>結束錄製</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_STOP_MSG" xml:space="preserve">
+    <value>主持人已結束會議錄製</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_STOP_MSG_AUTH" xml:space="preserve">
+    <value>錄製已結束</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_UNMUTE" xml:space="preserve">
+    <value>解除靜音</value>
+  </data>
+  <data name="FRTC_MEETING_SHARE_STREAMING" xml:space="preserve">
+    <value>分享會議直播</value>
+  </data>
+  <data name="FRTC_MEETING_CONFIRM_STREAMING" xml:space="preserve">
+    <value>開始直播？</value>
+  </data>
+  <data name="FRTC_MEETING_CONFIRM_STREAMING_MSG" xml:space="preserve">
+    <value>開始後，將直播會議中音頻，視頻畫面，共享屏幕內容，並告知所有參會成員</value>
+  </data>
+  <data name="FRTC_MEETING_CONFIRM_STREAMING_STOP" xml:space="preserve">
+    <value>結束直播？</value>
+  </data>
+  <data name="FRTC_MEETING_CONFIRM_STREAMING_STOP_MSG" xml:space="preserve">
+    <value>觀眾正在觀看直播，確定要結束直播？</value>
+  </data>
+  <data name="FRTC_MEETING_COPY_STREAMING_INFO" xml:space="preserve">
+    <value>複製直播信息</value>
+  </data>
+  <data name="FRTC_MEETING_COPY_STREAMING_INFO_MSG" xml:space="preserve">
+    <value>直播信息已複製到剪貼板</value>
+  </data>
+  <data name="FRTC_MEETING_COPY_STREAMING_INFO_TITLE" xml:space="preserve">
+    <value>分享會議直播</value>
+  </data>
+  <data name="FRTC_MEETING_GOT_IT" xml:space="preserve">
+    <value>知道了</value>
+  </data>
+  <data name="FRTC_MEETING_SHARE_STREAMING_INFO_TEXT" xml:space="preserve">
+    <value>{0} 邀請您觀看 “{1}” 的會議直播</value>
+  </data>
+  <data name="FRTC_MEETING_SHARE_STREAMING_INFO_TEXT2" xml:space="preserve">
+    <value>請點擊以下鏈接觀看：</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_CONTINUE_MUTED" xml:space="preserve">
+    <value>繼續無聲直播</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_MUTED" xml:space="preserve">
+    <value>您已靜音</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_MUTED_MSG" xml:space="preserve">
+    <value>您當前處於靜音狀態，無法直播語音</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_START_MSG" xml:space="preserve">
+    <value>主持人已開啟會議直播</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_START_MSG_AUTH" xml:space="preserve">
+    <value>直播已開始，將根據主持人的佈局畫面進行直播</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_STOP_MSG" xml:space="preserve">
+    <value>主持人已結束會議直播</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_STOP_MSG_AUTH" xml:space="preserve">
+    <value>直播已結束</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_UNMUTE" xml:space="preserve">
+    <value>解除靜音</value>
+  </data>
+  <data name="FRTC_MEETING_LAB_FEATURES" xml:space="preserve">
+    <value>實驗室功能</value>
+  </data>
+  <data name="FRTC_MEETING_LAB_FEATURES_ENABLE" xml:space="preserve">
+    <value>開啟實驗室功能</value>
+  </data>
+  <data name="FRTC_MEETING_LAB_FEATURES_ENABLE_TIP" xml:space="preserve">
+    <value>開啟後，可以體驗錄製、直播等實驗功能</value>
+  </data>
+  <data name="FRTC_MEETING_VIOCE_ONLY_MEETING_TIP" xml:space="preserve">
+    <value>語音會議不能收發視頻及屏幕共享</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_ERROR_TITLE" xml:space="preserve">
+    <value>錄製失敗</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_INSUFFICIENT_RESOURCE" xml:space="preserve">
+    <value>錄製服務器資源不足，請聯系系統管理員</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_LICENSE_LIMITATION_ERROR" xml:space="preserve">
+    <value>錄製用戶數已達到上限，請升級軟件許可</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_MULTIPLE_START" xml:space="preserve">
+    <value>不能重復開始錄製</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_NO_LICENSE" xml:space="preserve">
+    <value>服務未獲取軟件許可或許可已過期</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_NO_SERVICE" xml:space="preserve">
+    <value>錄播服務器不存在</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_PARAMS_ERROR" xml:space="preserve">
+    <value>錄製參數錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_START_ERROR" xml:space="preserve">
+    <value>開始錄製錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_STOP_ERROR" xml:space="preserve">
+    <value>結束錄製錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_RECORDING_STOP_PARAMS_ERROR" xml:space="preserve">
+    <value>結束錄製參數錯誤 </value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_ERROR_TITLE" xml:space="preserve">
+    <value>直播失敗</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_INSUFFICIENT_RESOURCE" xml:space="preserve">
+    <value>直播服務器資源不足，請聯系系統管理員</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_LICENSE_LIMITATION_ERROR" xml:space="preserve">
+    <value>直播用戶數已達到上限，請升級軟件許可</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_MULTIPLE_START" xml:space="preserve">
+    <value>不能重復開始直播</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_NO_LICENSE" xml:space="preserve">
+    <value>服務未獲取軟件許可或許可已過期</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_NO_SERVICE" xml:space="preserve">
+    <value>直播服務器不存在</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_PARAMS_ERROR" xml:space="preserve">
+    <value>直播參數錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_START_ERROR" xml:space="preserve">
+    <value>開始直播錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_STOP_ERROR" xml:space="preserve">
+    <value>結束直播錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_STOP_PARAMS_ERROR" xml:space="preserve">
+    <value>結束直播參數錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_ENABLE_STREAMING_PWD" xml:space="preserve">
+    <value>開啟密碼保護</value>
+  </data>
+  <data name="FRTC_MEETING_STREAMING_PWD_TIP" xml:space="preserve">
+    <value>開啟密碼保護，讓您的會議直播更安全。</value>
+  </data>
+  <data name="FRTC_MEETING_ENABLE_TEXT_OVERLAY_TITLE" xml:space="preserve">
+    <value>啟用橫幅</value>
+  </data>
+  <data name="FRTC_MEETING_SHARE_STREAMING_INFO_PWD" xml:space="preserve">
+    <value>直播密碼：</value>
+  </data>
+  <data name="FRTC_MEETING_START_RECORDING_TOOLBAR" xml:space="preserve">
+    <value>錄製</value>
+  </data>
+  <data name="FRTC_MEETING_STOP_RECORDING_TOOLBAR" xml:space="preserve">
+    <value>結束錄製</value>
+  </data>
+  <data name="FRTC_MEETING_START_STREAMING_TOOLBAR" xml:space="preserve">
+    <value>直播</value>
+  </data>
+  <data name="FRTC_MEETING_STOP_STREAMING_TOOLBAR" xml:space="preserve">
+    <value>結束直播</value>
+  </data>
+  <data name="FRTC_MEETING_ROSTER_ME" xml:space="preserve">
+    <value>（我）</value>
+  </data>
+  <data name="FRTC_MEETING_MY_RECORDING" xml:space="preserve">
+    <value>我的錄製</value>
+  </data>
+  <data name="FRTC_MEETING_TOOLBAR_SWITCH_CAMERA" xml:space="preserve">
+    <value>選擇攝像頭</value>
+  </data>
+  <data name="FRTC_MEETING_TOOLBAR_SWITCH_MIC" xml:space="preserve">
+    <value>選擇麥克風</value>
+  </data>
+  <data name="FRTC_MEETING_TOOLBAR_SWITCH_SPEAKER" xml:space="preserve">
+    <value>選擇揚聲器</value>
+  </data>
+  <data name="FRTC_MEETING_CONTACT_ADMIN_IF_CONFUSED" xml:space="preserve">
+    <value>如有疑問，請聯系管理員</value>
+  </data>
+  <data name="FRTC_MEETING_SAVE_ADDRESS_IN_URL" xml:space="preserve">
+    <value>當前入會所用的服務器地址
+“{0}”與默認地址不一致，是否保存為默認地址？</value>
+  </data>
+  <data name="FRTC_MEETING_APPLICATION_SENT" xml:space="preserve">
+    <value>已發送申請</value>
+  </data>
+  <data name="FRTC_MEETING_APPLY_UNMUTE" xml:space="preserve">
+    <value>申請解除靜音</value>
+  </data>
+  <data name="FRTC_MEETING_APPLY_UNMUTE_TIP" xml:space="preserve">
+    <value>主持人不允許解除靜音，您可以向主持人申請解除靜音</value>
+  </data>
+  <data name="FRTC_MEETING_CONTROL_APPLICATIONS_TITLE" xml:space="preserve">
+    <value>參會者權限申請</value>
+  </data>
+  <data name="FRTC_MEETING_CONTROL_APPLICATION_ACTION" xml:space="preserve">
+    <value>操作</value>
+  </data>
+  <data name="FRTC_MEETING_CONTROL_APPLICATION_TYPE" xml:space="preserve">
+    <value>申請事項</value>
+  </data>
+  <data name="FRTC_MEETING_CONTROL_APPROVE" xml:space="preserve">
+    <value>同意</value>
+  </data>
+  <data name="FRTC_MEETING_CONTROL_APPROVE_ALL" xml:space="preserve">
+    <value>全部同意</value>
+  </data>
+  <data name="FRTC_MEETING_IGNORE" xml:space="preserve">
+    <value>忽略</value>
+  </data>
+  <data name="FRTC_MEETING_UNMUTE_APPLICATION_APPROVED" xml:space="preserve">
+    <value>主持人同意申請</value>
+  </data>
+  <data name="FRTC_MEETING_UNMUTE_APPLICATION_APPROVED_MSG" xml:space="preserve">
+    <value>主持人已同意您的解除靜音申請</value>
+  </data>
+  <data name="FRTC_MEETING_UNMUTE_APPLICATION_NOTIFY" xml:space="preserve">
+    <value>{0} 正在申請解除靜音</value>
+  </data>
+  <data name="FRTC_MEETING_UNMUTE_APPLIED_MSG" xml:space="preserve">
+    <value>已發送解除靜音申請</value>
+  </data>
+  <data name="FRTC_MEETING_WATCH" xml:space="preserve">
+    <value>查看</value>
+  </data>
+  <data name="FRTC_MEETING_PIN_VIDEO" xml:space="preserve">
+    <value>固定畫面</value>
+  </data>
+  <data name="FRTC_MEETING_PIN_VIDEO_TIP" xml:space="preserve">
+    <value>已固定畫面</value>
+  </data>
+  <data name="FRTC_MEETING_UNPIN_VIDEO" xml:space="preserve">
+    <value>取消固定</value>
+  </data>
+  <data name="FRTC_MEETING_UNPIN_VIDEO_TIP" xml:space="preserve">
+    <value>已取消固定畫面</value>
+  </data>
+  <data name="FRTC_MEETING_VIDEO_PINNED_TIP" xml:space="preserve">
+    <value>您的畫面視窗已被固定</value>
+  </data>
+  <data name="FRTC_MEETING_VIDEO_UNPINNED_TIP" xml:space="preserve">
+    <value>您的畫面視窗已被取消固定</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_LECTURE_LABEL" xml:space="preserve">
+    <value>（演講者）</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_LECTURE_LABEL_SELF" xml:space="preserve">
+    <value>（我，演講者）</value>
+  </data>
+  <data name="FRTC_MEETING_UNMUTE_APPLICATION_SENT" xml:space="preserve">
+    <value>已發送申請</value>
+  </data>
+  <data name="FRTC_MEETING_UNMUTE_APPLICATION_SENT_TIP" xml:space="preserve">
+    <value>您的解除靜音申請已發送，請等待主持人操作</value>
+  </data>
+  <data name="FRTC_MEETING_NO_APPLICATIONS" xml:space="preserve">
+    <value>無參會者申請</value>
+  </data>
+  <data name="FRTC_MEETING_CURRENTLY_MUTED" xml:space="preserve">
+    <value>您已靜音</value>
+  </data>
+  <data name="FRTC_MEETING_MUTEALL_DISABLED" xml:space="preserve">
+    <value>已取消全體靜音</value>
+  </data>
+  <data name="FRTC_MEETING_MUTEALL_ENABLED" xml:space="preserve">
+    <value>已開啟全體靜音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MIC_UNMUTED" xml:space="preserve">
+    <value>已打開麥克風</value>
+  </data>
+  <data name="FRTC_MEETING_REST_AUTH_ERROR" xml:space="preserve">
+    <value>認證錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_REST_DATA_ERROR" xml:space="preserve">
+    <value>會議數據錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_REST_FORBIDDEN_ERROR" xml:space="preserve">
+    <value>禁止操作</value>
+  </data>
+  <data name="FRTC_MEETING_REST_NOMEETING_ERROR" xml:space="preserve">
+    <value>會議不存在</value>
+  </data>
+  <data name="FRTC_MEETING_REST_PARAM_ERROR" xml:space="preserve">
+    <value>參數錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_REST_PERMISSION_ERROR" xml:space="preserve">
+    <value>權限錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_REST_RECORDING_ERROR" xml:space="preserve">
+    <value>錄播和直播服務錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_REST_STATUS_ERROR" xml:space="preserve">
+    <value>會議狀態錯誤</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_ACCOUNT" xml:space="preserve">
+    <value>賬號管理</value>
+  </data>
+  <data name="FRTC_MEETING_SETTING_RECORDING_FILE" xml:space="preserve">
+    <value>錄製文件</value>
+  </data>
+  <data name="FRTC_MEETING_SETTING_RECORDING_FILE_TIP" xml:space="preserve">
+    <value>登錄“神旗系統Web管理系統”，在“會議錄製”中查看錄製文件</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_INPUT_LEVEL" xml:space="preserve">
+    <value>輸入等級</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MIC_TEST" xml:space="preserve">
+    <value>檢測麥克風</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_MIC_TEST_TIP" xml:space="preserve">
+    <value>測試麥克風, 以確保他人可以聽到您的聲音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_OUTPUT_LEVEL" xml:space="preserve">
+    <value>輸出等級</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_VIDEO" xml:space="preserve">
+    <value>視頻</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SPEAKER_TEST" xml:space="preserve">
+    <value>檢測揚聲器</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SPEAKER_TEST_TIP" xml:space="preserve">
+    <value>測試揚聲器, 以確保您可以聽到他人的聲音</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_STOP_TEST" xml:space="preserve">
+    <value>停止檢測</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_VIDEO_MIRRORING" xml:space="preserve">
+    <value>视频镜像</value>
+  </data>
+  <data name="FRTC_MEETING_SCHEDULE_SAVE_TO_CALENDAR" xml:space="preserve">
+    <value>添加到系統日曆</value>
+  </data>
+  <data name="FRTC_MEETING_ENABLE_MEETING_REMINDER" xml:space="preserve">
+    <value>接收會議提醒</value>
+  </data>
+  <data name="FRTC_MEETING_REMINDER_TIP" xml:space="preserve">
+    <value>將在會議開始前5分鐘，提醒您參加會議</value>
+  </data>
+  <data name="FRTC_MEETING_JOIN_OTHER_MEETING_TIP" xml:space="preserve">
+    <value>您已在會議中，如需參會，請退出當前會議後，重新入會</value>
+  </data>
+  <data name="FRTC_MEETING_MEETING_REMINDER_TITLE" xml:space="preserve">
+    <value>{0}個會議提醒</value>
+  </data>
+  <data name="FRTC_MEETING_MULTI_MEETING_REMINDER_TITLE" xml:space="preserve">
+    <value>{0}個會議提醒</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_MIC_SHAREMODE" xml:space="preserve">
+    <value>以共享模式打開麥克風</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_SETTING_MIC_SHAREMODE_TIP" xml:space="preserve">
+    <value>共享模式允許其他應用與神旗CE同時使用麥克風</value>
+  </data>
+  <data name="FRTC_SDKAPP_SETTING_DIAGNOSTIC" xml:space="preserve">
+    <value>問題診斷</value>
+  </data>
+  <data name="FRTC_SDKAPP_SETTING_DIAGNOSTIC_DSCP" xml:space="preserve">
+    <value>請描述您遇到的問題（必填，100字以內）</value>
+  </data>
+  <data name="FRTC_SDKAPP_SETTING_DIAGNOSTIC_DSCP_TITLE" xml:space="preserve">
+    <value>問題描述</value>
+  </data>
+  <data name="FRTC_SDKAPP_SETTING_DIAGNOSTIC_TIP" xml:space="preserve">
+    <value>在使用過程中，如出現任何功能異常，請上傳日誌來幫助我們更好的定位和解決問題，深表感謝！</value>
+  </data>
+  <data name="FRTC_SDKAPP_SETTING_UPLOAD_LOG" xml:space="preserve">
+    <value>上傳日誌</value>
+  </data>
+  <data name="FRTC_SDKAPP_RETURN" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="FRTC_SDKAPP_SETTING_UPLOADING_LOG" xml:space="preserve">
+    <value>正在上傳日誌，速度</value>
+  </data>
+  <data name="FRTC_SDKAPP_SETTING_UPLOA_LOG_CANCEL" xml:space="preserve">
+    <value>取消上傳</value>
+  </data>
+  <data name="FRTC_SDKAPP_SETTING_UPLOA_LOG_CANCELED" xml:space="preserve">
+    <value>已取消上傳</value>
+  </data>
+  <data name="FRTC_SDKAPP_SETTING_UPLOA_LOG_DONE" xml:space="preserve">
+    <value>上傳日誌成功</value>
+  </data>
+  <data name="FRTC_SDKAPP_SETTING_UPLOA_LOG_FAILED" xml:space="preserve">
+    <value>上傳日誌失敗，請重試</value>
+  </data>
+  <data name="FRTC_SDKAPP_SETTING_UPLOA_LOG_REDO" xml:space="preserve">
+    <value>重新上傳</value>
+  </data>
+  <data name="FRTC_MEETING_SPEED" xml:space="preserve">
+    <value>速度</value>
+  </data>
+  <data name="FRTC_SDKAPP_NEWFEATURE_CONTENT" xml:space="preserve">
+    <value>1. 支持週期性會議 
+2. 支持將受邀會議加入個人會議列表  
+3. 會中麥克風音量顯示
+4. 問題修復</value>
+  </data>
+  <data name="FRTC_SDKAPP_NEWFEATURE_TITLE" xml:space="preserve">
+    <value>神旗CE版3.3.0新功能和改進：</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_BEGIN" xml:space="preserve">
+    <value>開始於</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_DAY" xml:space="preserve">
+    <value>天</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_END" xml:space="preserve">
+    <value>結束於</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_EVERY" xml:space="preserve">
+    <value>每</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_FREQUENCY" xml:space="preserve">
+    <value>頻率</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_MEETING" xml:space="preserve">
+    <value>週期性會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_MONTH" xml:space="preserve">
+    <value>月</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_NO" xml:space="preserve">
+    <value>不重複</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_PERIOD" xml:space="preserve">
+    <value>重複</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_PERIOD_DAY" xml:space="preserve">
+    <value>每天</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_PERIOD_MONTH" xml:space="preserve">
+    <value>每月</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_PERIOD_WEEK" xml:space="preserve">
+    <value>每週</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_WEEK" xml:space="preserve">
+    <value>周</value>
+  </data>
+  <data name="FRTC_SDKAPP_RECURRENCE" xml:space="preserve">
+    <value>週期</value>
+  </data>
+  <data name="FRTC_SDKAPP_RECURRING_MEETING_CANCEL" xml:space="preserve">
+    <value>同時取消該係列週期會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_RECURRING_MEETING_DETAIL" xml:space="preserve">
+    <value>查看該系列週期會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_RECURRING_MEETING_CANCEL_GROUP" xml:space="preserve">
+    <value>取消週期性會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_RECURRING_MEETING_EDIT" xml:space="preserve">
+    <value>修改週期會議預約</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_FRI" xml:space="preserve">
+    <value>五</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_IN_MONTH" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_MON" xml:space="preserve">
+    <value>一</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_SAT" xml:space="preserve">
+    <value>六</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_SUN" xml:space="preserve">
+    <value>日</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_THU" xml:space="preserve">
+    <value>四</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_TUE" xml:space="preserve">
+    <value>二</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_WED" xml:space="preserve">
+    <value>三</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_GROUP_DESC0" xml:space="preserve">
+    <value>{0}{1}</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_GROUP_DESC1" xml:space="preserve">
+    <value>會議將於{0}{1}{2}{3}重複</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_GROUP_DESC2" xml:space="preserve">
+    <value>結束於{0}，剩餘{1}場會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_STR_ON" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FRTC_SDKAPP_STR_SEPERATE" xml:space="preserve">
+    <value>、</value>
+  </data>
+  <data name="FRTC_SDKAPP_MEASURE_WORD" xml:space="preserve">
+    <value>個</value>
+  </data>
+  <data name="FRTC_SDKAPP_MEETING_SCHEDULE_MODIFY" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="FRTC_SDKAPP_REMOVE_RECURRING_SINGLE_TIP" xml:space="preserve">
+    <value>確定將此次會議從該週期會議中取消嗎?</value>
+  </data>
+  <data name="FRTC_SDKAPP_RECURRING_MEETING_SINGLE_EDIT" xml:space="preserve">
+    <value>修改本次會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_MEETING_SAVE_MODIFY" xml:space="preserve">
+    <value>保存修改</value>
+  </data>
+  <data name="FRTC_MEETING_SDKAPP_EDIT_MEETING_SHORT" xml:space="preserve">
+    <value>修改會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_UPDATE_RECURRING_TIP" xml:space="preserve">
+    <value>您可以修改本次會議，或修改系列週期性會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_MEETING_DETAIL_RECURRING_DESC" xml:space="preserve">
+    <value>，剩餘{0}場會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_MEETING_RECURRING_DAILY" xml:space="preserve">
+    <value>每天</value>
+  </data>
+  <data name="FRTC_SDKAPP_MEETING_RECURRING_MONTHLY" xml:space="preserve">
+    <value>每月</value>
+  </data>
+  <data name="FRTC_SDKAPP_MEETING_RECURRING_WEEKLY" xml:space="preserve">
+    <value>每週</value>
+  </data>
+  <data name="FRTC_SDKAPP_MEETING_REMOVE_FROM_LIST" xml:space="preserve">
+    <value>移除會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_MEETING_REMOVE_FROM_LIST_TIP" xml:space="preserve">
+    <value>將該會議從會議列表中移除</value>
+  </data>
+  <data name="FRTC_SDKAPP_MEETING_REMOVE_RECURRING_FROM_LIST" xml:space="preserve">
+    <value>移除週期會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_MEETING_REMOVE_RECURRING_FROM_LIST_TIP" xml:space="preserve">
+    <value>將該週期會議從會議列表中移除</value>
+  </data>
+  <data name="FRTC_SDKAPP_ADD_MEETING_NEED_LOGIN" xml:space="preserve">
+    <value>請先登入後，再添加會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_ADD_MEETING_SERVER_WRONG" xml:space="preserve">
+    <value>不支持加入外部係統的會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_ADD_MEEETING_TO_LIST_FAILED" xml:space="preserve">
+    <value>添加會議失敗</value>
+  </data>
+  <data name="FRTC_SDKAPP_ADD_MEEETING_TO_LIST_SUCCEED" xml:space="preserve">
+    <value>已成功添加到會議列表</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_FRI_LONG" xml:space="preserve">
+    <value>週五</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_MON_LONG" xml:space="preserve">
+    <value>週一</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_SAT_LONG" xml:space="preserve">
+    <value>週六</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_SUN_LONG" xml:space="preserve">
+    <value>週日</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_THU_LONG" xml:space="preserve">
+    <value>週四</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_TUE_LONG" xml:space="preserve">
+    <value>週二</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_DAY_WED_LONG" xml:space="preserve">
+    <value>週三</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_END_TIME_LATER" xml:space="preserve">
+    <value>結束時間不可晚於周期中後壹次會議的開始時間</value>
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_RECURRING_START_TIME_EARLIER" xml:space="preserve">
+    <value>開始時間不可早於周期中前壹次會議的結束時間</value>
+  </data>
+  <data name="FRTC_SDKAPP_SHCEDULE_END_TIME_EARLIER" xml:space="preserve">
+    <value>結束時間不可以早於開始時間</value>
+  </data>
+  <data name="FRTC_SDKAPP_DATE_YEAR_MONTH_DAY" xml:space="preserve">
+    <value>{0}年{1}月{2}日</value>
+  </data>
+  <data name="FRTC_SDKAPP_RECURRING_MEETING_EDIT_SHORT" xml:space="preserve">
+    <value>編輯週期會議</value>
+  </data>
+  <data name="FRTC_SDKAPP_ENGLISH_SPACE" xml:space="preserve">
+    <value />
+  </data>
+  <data name="FRTC_SDKAPP_SCHEDULE_MEETING_JOIN_IN_ADVANCE_TIME" xml:space="preserve">
+    <value>提前入會時間</value>
+  </data>
+  <data name="FRTC_SDKAPP_ANY_TIME" xml:space="preserve">
+    <value>任意時間</value>
+  </data>
+  <data name="FRTC_SDKAPP_THIRTY_MINUTES" xml:space="preserve">
+    <value>30分鐘</value>
+  </data>
+</root>

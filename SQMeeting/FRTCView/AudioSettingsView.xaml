@@ -1,0 +1,130 @@
+﻿<UserControl x:Class="SQMeeting.FRTCView.AudioSettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SQMeeting.FRTCView"
+             xmlns:converter="clr-namespace:SQMeeting.Converters"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             mc:Ignorable="d" 
+             xmlns:res="clr-namespace:SQMeeting.Properties"
+             d:DesignHeight="437" d:DesignWidth="455" Background="#FFFFFF"
+             DataContext="{Binding Setting, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <Style x:Key="checkBtnStyle" TargetType="Button" BasedOn="{StaticResource FRTC_TextBtnStyle}">
+            <Setter Property="BorderBrush" Value="#DEDEDE"/>
+            <Setter Property="Foreground" Value="#222222"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="#026FFE"/>
+                    <Setter Property="Foreground" Value="#026FFE"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="BorderBrush" Value="{StaticResource FRTC_LightBorderColor}"/>
+                    <Setter Property="Foreground" Value="#DEDEDE"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <converter:AudioMeterConverter x:Key="audioMeterConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" Height="20">
+                <TextBlock Style="{StaticResource FRTC_DefaultFontText}" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="60"
+                        MaxWidth="120" FontWeight="SemiBold" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_SPEAKER}"/>
+                <TextBlock Style="{StaticResource FRTC_DefaultFontText}" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="60"
+                        FontSize="12" Foreground="#999999" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SPEAKER_TEST_TIP}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                <ComboBox Name="cbSpeaker" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32" Width="286"
+                          ItemsSource="{Binding SpeakerDeviceList}"  FontSize="14"
+                          SelectedItem="{Binding CurrentSpeakerDevice, Mode=OneWay}"
+                          DisplayMemberPath="DeviceName"
+                          SelectedValuePath="DeviceID">
+                    <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="SelectionChanged">
+                            <b:InvokeCommandAction  Command="{Binding SetSpeakerDevice}" 
+                                                    CommandParameter="{Binding ElementName=cbSpeaker, Path=SelectedValue}"/>
+                        </b:EventTrigger>
+                    </b:Interaction.Triggers>
+                </ComboBox>
+                <Button Style="{StaticResource checkBtnStyle}" Margin="8,0,0,0" VerticalAlignment="Center" Width="100" Height="32" FontSize="14"
+                        Background="#FFFFFF" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SPEAKER_TEST}" IsEnabled="{Binding IsPlayingTestAudio, Converter={StaticResource InverseBool}}" Command="{Binding CheckSpeakerDeviceCommand}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,16,0,0" Height="20">
+                <TextBlock Style="{StaticResource FRTC_DefaultFontText}" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_OUTPUT_LEVEL}" VerticalAlignment="Center"/>
+                <Image Margin="10,0,0,0" Width="18" Height="18" VerticalAlignment="Center" Stretch="Uniform" 
+                       Source="{Binding Source={x:Static res:Resources.frtc_speaker_test}, Converter={StaticResource BitmapToImageSource}}"/>
+                <Rectangle Margin="10,0,0,0" Width="32" Height="8" Fill="{Binding CurrentSpeakerDeviceMeterLevel, FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=0}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentSpeakerDeviceMeterLevel,  FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=1}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentSpeakerDeviceMeterLevel,  FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=2}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentSpeakerDeviceMeterLevel,  FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=3}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentSpeakerDeviceMeterLevel,  FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=4}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentSpeakerDeviceMeterLevel,  FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=5}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentSpeakerDeviceMeterLevel,  FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=6}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentSpeakerDeviceMeterLevel,  FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=7}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Height="20" Margin="0,32,0,0">
+                <TextBlock Style="{StaticResource FRTC_DefaultFontText}" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="60"
+                        MaxWidth="120" FontWeight="SemiBold" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_MIC}"/>
+                <TextBlock Style="{StaticResource FRTC_DefaultFontText}" HorizontalAlignment="Left" VerticalAlignment="Center" MinWidth="60"
+                        FontSize="12" Foreground="#999999" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MIC_TEST_TIP}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                <ComboBox x:Name="cbMic" HorizontalAlignment="Left" VerticalAlignment="Center" Height="32" Width="286"
+                          ItemsSource="{Binding MicrophoneDeviceList}"  FontSize="14"
+                          SelectedItem="{Binding CurrentMicDevice, Mode=OneWay}"
+                          DisplayMemberPath="DeviceName"
+                          SelectedValuePath="DeviceID">
+                    <b:Interaction.Triggers>
+                        <b:EventTrigger EventName="SelectionChanged">
+                            <b:InvokeCommandAction Command="{Binding SetMicDevice}" 
+                                                    CommandParameter="{Binding ElementName=cbMic, Path=SelectedValue}"/>
+                        </b:EventTrigger>
+                    </b:Interaction.Triggers>
+                </ComboBox>
+                <Button Margin="8,0,0,0" VerticalAlignment="Center" Width="100" Height="32" FontSize="14"
+                        Background="#FFFFFF" Command="{Binding CheckMicDeviceCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource checkBtnStyle}">
+                            <Setter Property="Content" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MIC_TEST}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsTestingMic}" Value="True">
+                                    <Setter Property="Content" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_STOP_TEST}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,16,0,0" Height="20">
+                <TextBlock Style="{StaticResource FRTC_DefaultFontText}" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_INPUT_LEVEL}" VerticalAlignment="Center"/>
+                <Image Margin="10,0,0,0" Width="18" Height="18" VerticalAlignment="Center" Stretch="Uniform" 
+                       Source="{Binding Source={x:Static res:Resources.frtc_mic_test}, Converter={StaticResource BitmapToImageSource}}"/>
+                <Rectangle Margin="10,0,0,0" Width="32" Height="8" Fill="{Binding CurrentMicDeviceMeterLevel, FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=0}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentMicDeviceMeterLevel, FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=1}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentMicDeviceMeterLevel, FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=2}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentMicDeviceMeterLevel, FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=3}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentMicDeviceMeterLevel, FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=4}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentMicDeviceMeterLevel, FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=5}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentMicDeviceMeterLevel, FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=6}"/>
+                <Rectangle Margin="8,0,0,0" Width="32" Height="8" Fill="{Binding CurrentMicDeviceMeterLevel, FallbackValue=#EAEAF0, Converter={StaticResource audioMeterConverter}, ConverterParameter=7}"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,16,0,0" Height="20" Visibility="Collapsed">
+                <TextBlock Style="{StaticResource FRTC_DefaultFontText}" Text="输入音量" VerticalAlignment="Center"/>
+                <Image Margin="10,0,0,0" Width="18" Height="18" VerticalAlignment="Center" Stretch="Uniform" 
+                       Source="{Binding Source={x:Static res:Resources.frtc_toolbar_switch_speaker}, Converter={StaticResource BitmapToImageSource}}"/>
+                <Slider Margin="10,0,0,0" VerticalAlignment="Center" Width="312" Height="18"/>
+            </StackPanel>
+
+            <CheckBox Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_NOISEBLOCKER}" VerticalAlignment="Center" FontSize="14" Margin="0,24,0,0" Style="{StaticResource FRTC_DefaultCheckBoxStyle}"
+                          IsChecked="{Binding NoiseBlockerEnabled, Mode=TwoWay}" Visibility="{Binding InCall, Converter={StaticResource BoolToCollapsed}, ConverterParameter=Reverse}" 
+                          Command="{Binding NoiseBlockerCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked}"/>
+            
+            <CheckBox Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_MIC_SHAREMODE}" VerticalAlignment="Center" FontSize="14" Margin="0,24,0,0" Style="{StaticResource FRTC_DefaultCheckBoxStyle}"
+                          IsChecked="{Binding MicShareModeEnabled, Mode=TwoWay}" Command="{Binding MicrophoneShareModeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked}"/>
+            <TextBlock Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_MIC_SHAREMODE_TIP}" FontSize="12" Margin="0,8,0,0" VerticalAlignment="Center" Foreground="#999999"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

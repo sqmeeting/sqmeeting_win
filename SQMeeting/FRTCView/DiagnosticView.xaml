@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="SQMeeting.FRTCView.DiagnosticView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SQMeeting.FRTCView"
+             xmlns:res="clr-namespace:SQMeeting.Properties"
+             xmlns:converters="clr-namespace:SQMeeting.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="437" d:DesignWidth="455"
+             DataContext="{Binding Source={StaticResource Locator}, Path=Setting}">
+    <UserControl.Resources>
+        <converters:IntToBoolConverter x:Key="IntToBool"/>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Margin="24,28,24,0">
+            <Image Width="72" Height="72" Source="{Binding Source={x:Static res:Resources.frtc_icon_log_upload}, Converter={StaticResource BitmapToImageSource}}"/>
+            <TextBlock Margin="0,16,0,0" FontSize="13" Foreground="#666666" Text="{x:Static res:Resources.FRTC_SDKAPP_SETTING_DIAGNOSTIC_TIP}"
+                       TextWrapping="Wrap"/>
+            <Rectangle Height="1" Fill="#F0F0F5" Margin="0,16,0,0"/>
+            <StackPanel Margin="0,16,0,0" Orientation="Horizontal" Height="28">
+                <TextBlock Foreground="#EB5F5E" VerticalAlignment="Center" Text="* " FontSize="14" FontWeight="Medium"/>
+                <TextBlock Foreground="#333333" VerticalAlignment="Center" Text="{x:Static res:Resources.FRTC_SDKAPP_SETTING_DIAGNOSTIC_DSCP_TITLE}" FontSize="14"/>
+            </StackPanel>
+            <TextBox x:Name="tbProblemDSCP"  Margin="0,6,0,0" Style="{StaticResource FRTC_DefaultTextBoxStyle}" BorderThickness="1" BorderBrush="#DEDEDE"
+                     Height="100" VerticalContentAlignment="Top" Tag="{x:Static res:Resources.FRTC_SDKAPP_SETTING_DIAGNOSTIC_DSCP}"
+                     Text="{Binding LogUploadDescription}" TextWrapping="Wrap" MaxLength="100"/>
+            <Button Style="{StaticResource FRTC_PrimaryBtnStyle}" Content="{x:Static res:Resources.FRTC_SDKAPP_SETTING_UPLOAD_LOG}"
+                    IsEnabled="{Binding ElementName=tbProblemDSCP, Path=Text.Length, Converter={StaticResource IntToBool}}"
+                    Width="128" Height="36" Margin="0,16,0,0" Command="{Binding StartUploadLogCommand}" CommandParameter="{Binding ElementName=tbProblemDSCP, Path=Text}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

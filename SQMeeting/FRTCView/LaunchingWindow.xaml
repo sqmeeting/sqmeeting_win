@@ -1,0 +1,22 @@
+﻿<Window x:Class="SQMeeting.FRTCView.LaunchingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQMeeting.FRTCView"
+        xmlns:res="clr-namespace:SQMeeting.Properties"
+        xmlns:converter="clr-namespace:SQMeeting.Converters"
+        xmlns:gif="https://github.com/XamlAnimatedGif/XamlAnimatedGif"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True" Background="Transparent"
+        ShowInTaskbar="False" Width="304" Height="204"
+        DataContext="{Binding FRTCUser, Source={StaticResource Locator}}">
+    <Window.Resources>
+        <converter:BitmapToImageSourceConverter x:Key="BitmapToImageSource"/>
+    </Window.Resources>
+    <Border Width="284" Height="184" Effect="{StaticResource FRTC_WindowShadowEffect}" Margin="10">
+        <Image gif:AnimationBehavior.SourceUri="/Resources/launch_anime.gif"/>
+    </Border>
+</Window>

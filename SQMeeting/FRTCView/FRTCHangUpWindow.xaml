@@ -1,0 +1,66 @@
+﻿<Window x:Class="SQMeeting.FRTCView.FRTCHangUpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQMeeting.FRTCView"
+        xmlns:res="clr-namespace:SQMeeting.Properties"
+        mc:Ignorable="d" WindowStyle="None" ResizeMode="CanMinimize"
+        WindowStartupLocation="Manual" ShowInTaskbar="False"
+        Name="hangUpWindow" AllowsTransparency="True" Background="Transparent"
+        DataContext="{Binding Source={StaticResource Locator}, Path=FRTCMeetingVideo}" 
+        Title="">
+    <Border CornerRadius="2" Margin="5" BorderThickness="1" BorderBrush="{StaticResource FRTC_DefaultBorderColor}" Background="#FFFFFF"
+            Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid>
+            <Rectangle Effect="{StaticResource FRTC_WindowShadowEffect}" Fill="#FFFFFF" RadiusX="2" RadiusY="2"/>
+            <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                <StackPanel Margin="20,28,20,4">
+                    <Button Width="200" Height="40" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_LEAVE_MEETING}" Cursor="Hand" FontSize="14"
+                            Command="{Binding DropCallCommand}" CommandParameter="{Binding ElementName=hangUpWindow}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource FRTC_SecondaryBtnStyle}">
+                                <Setter Property="BorderBrush" Value="#026FFE"/>
+                                <Setter Property="Foreground" Value="#026FFE"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderBrush" Value="#026FFE"/>
+                                        <Setter Property="Background" Value="#12026FFE"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Width="200" Height="40" Cursor="Hand" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_FINISH_MEETING}" Margin="0,18,0,0"
+                            Command="{Binding FinishCallCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource FRTC_DeleteBtnStyle}">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                                <Setter Property="FontSize" Value="14"/>
+                                <Setter Property="Foreground" Value="#E32726"/>
+                                <Setter Property="BorderBrush" Value="#E32726"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#12E32726"/>
+                                    </Trigger>
+                                    <DataTrigger Binding="{Binding SelfOwnedMeeting}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding IsGuestMeeting}" Value="False"/>
+                                            <Condition Binding="{Binding IsOperatorRole}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                    <Button Width="200" Height="48" Style="{StaticResource FRTC_TextBtnStyle}" FontSize="14" Cursor="Hand" Background="Transparent"
+                            BorderThickness="0" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_CANCEL}" Margin="0,3,0,0" IsCancel="True"/>
+                </StackPanel>
+            </Viewbox>
+        </Grid>
+    </Border>
+</Window>

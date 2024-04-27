@@ -1,0 +1,126 @@
+﻿<Window x:Class="SQMeeting.FRTCView.MeetingControlApplicationsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQMeeting.FRTCView"
+        xmlns:res="clr-namespace:SQMeeting.Properties"
+        xmlns:converter="clr-namespace:SQMeeting.Converters"
+        mc:Ignorable="d"
+        Title="{x:Static res:Resources.FRTC_MEETING_CONTROL_APPLICATIONS_TITLE}" Height="448" Width="463"
+        DataContext="{Binding Source={StaticResource Locator}, Path=FRTCMeetingVideo}">
+    <Window.Resources>
+        <converter:IntToBoolConverter x:Key="IntToBool"/>
+        <converter:IntToVisibility x:Key="IntToVisiblity"/>
+
+        <Style TargetType="DataGridCell" x:Key="firstColumnStyle">
+            <Setter Property="BorderThickness" Value="0"/>
+            <!--<Setter Property="BorderBrush" Value="#002f4c"/>-->
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#222222"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="TextBlock.TextTrimming" Value="CharacterEllipsis"/>
+            <Setter Property="TextBlock.TextWrapping" Value="Wrap"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell" >
+                        <Border BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Margin="16,0,0,0">
+                                <Image Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"
+                                    Source="{Binding Source={x:Static res:Resources.frtc_user_face}, Converter={StaticResource BitmapToImageSource}}"/>
+                                <ContentPresenter Content="{TemplateBinding Content}" Margin="8,0,0,0"
+                                    HorizontalAlignment="Left" VerticalAlignment="Center" ClipToBounds="False"/>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="DataGridCell" x:Key="actionColumnStyle">
+            <Setter Property="BorderThickness" Value="0"/>
+            <!--<Setter Property="BorderBrush" Value="#002f4c"/>-->
+            <Setter Property="Background" Value="Transparent"/>
+            <!--<Setter Property="Foreground" Value="#222222"/>-->
+            <Setter Property="Height" Value="40"/>
+            <!--<Setter Property="FontSize" Value="14"/>-->
+            <Setter Property="Margin" Value="0,0,16,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridCell" >
+                        <Border BorderThickness="0">
+                            <Button Style="{StaticResource FRTC_PrimaryBtnStyle}" Foreground="#026FFE" Background="#FFFFFF" FontSize="14" Width="70" Height="24"
+                                    BorderThickness="1" BorderBrush="#026FFE" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="{x:Static res:Resources.FRTC_MEETING_CONTROL_APPROVE}"
+                                    Command="{Binding Source={StaticResource Locator}, Path=FRTCMeetingVideo.ApproveUmuteApplication}" CommandParameter="{Binding UUID}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="62"/>
+        </Grid.RowDefinitions>
+        <DataGrid Grid.Row="0" Background="#F8F9FA" IsReadOnly="True" x:Name="stDataGrid" RowHeight="40"
+                AutoGenerateColumns="False" Margin="0,0,0,0"  VerticalScrollBarVisibility="Auto"
+                HeadersVisibility="Column"  VerticalAlignment="Stretch" BorderBrush="#D7DADD" BorderThickness="0,1,0,1" 
+                ItemsSource="{Binding UnmuteApplicationsList}" HorizontalScrollBarVisibility="Hidden" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#D7DADD"
+                RowBackground="#F8F9FA"
+                Visibility="{Binding UnmuteApplicationsList.Count, Converter={StaticResource IntToVisiblity}, ConverterParameter=Hide0}">
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <!--<Setter Property="BorderBrush" Value="#002f4c"/>-->
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#222222"/>
+                    <Setter Property="Height" Value="40"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="Margin" Value="16,0,0,0"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="DataGridCell" >
+                                <Border BorderThickness="0">
+                                    <ContentPresenter Content="{TemplateBinding Content}"  
+                                                      HorizontalAlignment="Left" VerticalAlignment="Center" ClipToBounds="False"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Foreground" Value="#222222"/>
+                    <Setter Property="FontSize" Value="14"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="Height" Value="40"/>
+                    <Setter Property="Margin" Value="16,0,0,0"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn CellStyle="{StaticResource firstColumnStyle}" Header="{x:Static res:Resources.FRTC_MEETING_SDKAPP_PARTICIPANT}" Width="0.5*" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="{x:Static res:Resources.FRTC_MEETING_CONTROL_APPLICATION_TYPE}" Width="0.3*" Binding="{Binding Source={x:Static res:Resources.FRTC_MEETING_APPLY_UNMUTE}}"/>
+                <DataGridTextColumn CellStyle="{StaticResource actionColumnStyle}" Header="{x:Static res:Resources.FRTC_MEETING_CONTROL_APPLICATION_ACTION}" Width="0.2*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Grid.Row="0" Visibility="{Binding UnmuteApplicationsList.Count, Converter={StaticResource IntToVisiblity}, ConverterParameter=ReverseHide0}"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Width="200" Height="132" Stretch="Uniform" Source="{Binding Source={x:Static res:Resources.frtc_no_applications}, Converter={StaticResource BitmapToImageSource}}"/>
+            <TextBlock FontSize="12" Margin="0,10,0,0" Text="{x:Static res:Resources.FRTC_MEETING_NO_APPLICATIONS}" Foreground="#999999"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </StackPanel>
+               
+        <Button Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="104" Height="30"
+                Style="{StaticResource FRTC_PrimaryBtnStyle}" Content="{x:Static res:Resources.FRTC_MEETING_CONTROL_APPROVE_ALL}"
+                IsEnabled="{Binding UnmuteApplicationsList.Count, Converter={StaticResource IntToBool}, ConverterParameter=1, TargetNullValue=False, FallbackValue=False}"
+                Command="{Binding ApproveAllUmuteApplications}"/>
+    </Grid>
+</Window>

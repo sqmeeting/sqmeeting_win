@@ -1,0 +1,371 @@
+﻿<Window x:Class="SQMeeting.View.FRTCMeetingStateBar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:res="clr-namespace:SQMeeting.Properties"
+        xmlns:converter="clr-namespace:SQMeeting.Converters"
+        xmlns:local="clr-namespace:SQMeeting.View"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:FRTCView="clr-namespace:SQMeeting.FRTCView"
+        mc:Ignorable="d" 
+        DataContext="{Binding Source={StaticResource Locator}, Path=FRTCMeetingVideo}"
+        x:Name="tool_bar" BorderThickness="0"
+        Height="32" Width="1000" MaxHeight="32" MinHeight="32"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent" ShowInTaskbar="False">
+
+    <Window.Resources>
+        <converter:BitmapToImageSourceConverter x:Key="BitmapToImageSource"/>
+        <converter:BoolToVisibilityConverter x:Key="BoolToCollapsed"/>
+        <converter:InverseBoolConverter x:Key="InverseBool"/>
+        <converter:EmptyStringToNONEConverter x:Key="EmptyStringToNONE"/>
+
+        <Style TargetType="ToggleButton" x:Key="MInofImgToogleBtn" >
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid x:Name="layout">
+                            <Image x:Name="img" MinWidth="24" MinHeight="24" MaxWidth="24" MaxHeight="24" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Source="{TemplateBinding Content}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="FRTC_MeetingTopBarToggleBtnStyle" TargetType="ToggleButton">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="layoutBd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2"
+                                Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="Transparent">
+                            <StackPanel Orientation="Horizontal">
+                                <Image x:Name="img" Width="12" Height="12" Margin="8,0,0,0" VerticalAlignment="Center" Source="{TemplateBinding Content}" Stretch="Uniform"/>
+                                <TextBlock x:Name="txt" Margin="6,0,8,0" VerticalAlignment="Center" FontSize="12" Foreground="#333333" Text="{TemplateBinding Tag}"/>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Storyboard x:Key="openSwitchLayout" Storyboard.TargetName="popupSwitchLayout">
+            <BooleanAnimationUsingKeyFrames BeginTime="0" AutoReverse="False" Duration="0" Storyboard.TargetProperty="(Popup.IsOpen)">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+            </BooleanAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Style TargetType="RadioButton" x:Key="rbSwitchLayout">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="layoutBd" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" CornerRadius="2" BorderThickness="1" 
+                                                    BorderBrush="#DEDEDE" Background="#FFFFFF">
+                            <Grid>
+                                <Image Source="{Binding Source={x:Static res:Resources.frtc_textoverlay_selected}, Converter={StaticResource BitmapToImageSource}}" HorizontalAlignment="Right" VerticalAlignment="Top" Width="26" Height="26"
+                                                           Visibility="{TemplateBinding IsChecked, Converter={StaticResource BoolToCollapsed}}"/>
+                                <StackPanel Margin="8,12,8,0">
+                                    <Image Source="{TemplateBinding Content, Converter={StaticResource BitmapToImageSource}}" HorizontalAlignment="Center" VerticalAlignment="Top" Width="105" Height="63"/>
+                                    <TextBlock Margin="0,8,0,0" Text="{TemplateBinding Tag}" FontSize="12" Foreground="#666666" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="layoutBd" Property="BorderBrush" Value="#026FFE"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="layoutBd" Property="BorderBrush" Value="#026FFE"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Border Visibility="{Binding IsShowNetSignal, Converter={StaticResource BoolToCollapsed}}" Name="BorderInfo" Background="#F8F9FA " 
+            Width="{Binding ElementName=tool_bar, Path=Width}" HorizontalAlignment="Stretch" BorderThickness="0,1,0,0" BorderBrush="{StaticResource FRTC_DefaultBorderColor}">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.35*"/>
+                <ColumnDefinition Width="0.3*"/>
+                <ColumnDefinition Width="0.35*"/>
+            </Grid.ColumnDefinitions>
+            <Viewbox Grid.Column="0" Margin="24,0,0,0" Stretch="Uniform" StretchDirection="DownOnly" HorizontalAlignment="Left">
+                <StackPanel  Orientation="Horizontal" Grid.Column="0" Margin="0,0,0,0">
+                    <!--<Viewbox >-->
+                    <ToggleButton x:Name="tbtnMeetingInfo" Tag="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_INFO}" MinWidth="84" MaxWidth="120" Height="24"
+                                  Content="{Binding Source={x:Static res:Resources.frtc_meeting_info}, Converter={StaticResource BitmapToImageSource}}">
+                        <ToggleButton.Style>
+                            <Style TargetType="ToggleButton" BasedOn="{StaticResource FRTC_MeetingTopBarToggleBtnStyle}">
+                                <Setter Property="IsChecked" Value="False"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsVisible" Value="False">
+                                        <Setter Property="IsChecked" Value="False"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ToggleButton.Style>
+                    </ToggleButton>
+                    <Popup PlacementTarget="{Binding ElementName=tbtnMeetingInfo}" Placement="Bottom" IsOpen="{Binding ElementName=tbtnMeetingInfo, Path=IsChecked}" 
+                       StaysOpen="False" VerticalOffset="6" AllowsTransparency="True">
+                        <Grid Background="Transparent">
+                            <Rectangle Fill="#FFFFFF" Effect="{StaticResource FRTC_WindowShadowEffect}" Margin="5"/>
+                            <Border Width="240" Height="170" Margin="5" Background="#FFFFFF" CornerRadius="2" BorderThickness="1" BorderBrush="{StaticResource FRTC_DefaultBorderColor}">
+                                <StackPanel Margin="16">
+                                    <TextBlock HorizontalAlignment="Center" FontSize="14" Foreground="#222222" FontWeight="Medium" MaxWidth="180" Text="{Binding MeetingName}"
+                                           TextTrimming="CharacterEllipsis" ToolTip="{Binding MeetingName}"/>
+                                    <StackPanel Orientation="Horizontal" Height="28" Margin="0,8,0,0">
+                                        <TextBlock FontSize="12" Foreground="#666666" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_HISTORY_MEETING_ID}" VerticalAlignment="Center"/>
+                                        <TextBlock Margin="24,0,0,0" FontSize="12" Foreground="#222222" FontWeight="Medium" Text="{Binding MeetingID}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Height="28">
+                                        <TextBlock FontSize="12" Foreground="#666666" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_HOST}" VerticalAlignment="Center"/>
+                                        <TextBlock Margin="24,0,0,0" FontSize="12" Foreground="#222222" FontWeight="Medium" Text="{Binding MeetingOwnerName}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Height="28">
+                                        <TextBlock FontSize="12" Foreground="#666666" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_JOIN_PWD}" VerticalAlignment="Center"/>
+                                        <TextBlock Margin="24,0,0,0" FontSize="12" Foreground="#222222" FontWeight="Medium" Text="{Binding MeetingPassCode, Converter={StaticResource EmptyStringToNONE}}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Border>
+                            <FRTCView:TipBoardControl HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
+                        </Grid>
+                    </Popup>
+
+                    <!--<Viewbox Margin="8,0,0,0">-->
+                    <ToggleButton x:Name="tbtnStatistics" Margin="8,0,0,0" Style="{StaticResource FRTC_MeetingTopBarToggleBtnStyle}" Tag="{x:Static res:Resources.FRTC_MEETING_SDKAPP_NETWORK_STATUS}" Width="84" Height="24" 
+                                  Content="{Binding Source={x:Static res:Resources.frtc_singal_good}, Converter={StaticResource BitmapToImageSource}}">
+                        <ToggleButton.Triggers>
+                            <EventTrigger RoutedEvent="ToggleButton.Checked" >
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <BooleanAnimationUsingKeyFrames BeginTime="0" AutoReverse="False" Duration="0" Storyboard.TargetName="statisticsPopup"
+                                                    Storyboard.TargetProperty="(Popup.IsOpen)">
+                                                <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+                                            </BooleanAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </ToggleButton.Triggers>
+                    </ToggleButton>
+                    <Popup x:Name="statisticsPopup" PlacementTarget="{Binding ElementName=tbtnStatistics}" Placement="Bottom" AllowsTransparency="True"
+                       StaysOpen="True">
+                        <Popup.Resources>
+                            <Storyboard x:Key="closeStoryboard" Storyboard.TargetName="statisticsPopup">
+                                <BooleanAnimationUsingKeyFrames BeginTime="0" AutoReverse="False" Duration="0" Storyboard.TargetProperty="(Popup.IsOpen)">
+                                    <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+                                </BooleanAnimationUsingKeyFrames>
+                                <BooleanAnimationUsingKeyFrames BeginTime="0" AutoReverse="False" Duration="0" Storyboard.TargetProperty="(Popup.StaysOpen)">
+                                    <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+                                </BooleanAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </Popup.Resources>
+                        <Popup.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <BooleanAnimationUsingKeyFrames BeginTime="0" AutoReverse="False" Duration="0" Storyboard.TargetProperty="(Popup.StaysOpen)">
+                                                <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+                                            </BooleanAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <EventTrigger.Actions>
+                                    <BeginStoryboard Storyboard="{StaticResource closeStoryboard}"/>
+                                </EventTrigger.Actions>
+                            </EventTrigger>
+                        </Popup.Triggers>
+                        <b:Interaction.Triggers>
+                            <b:DataTrigger Binding="{Binding ElementName=statisticsPopup, Path=IsOpen}" Value="True">
+                                <b:InvokeCommandAction Command="{Binding StartStatiticsTimerCommand}"/>
+                            </b:DataTrigger>
+                            <b:DataTrigger Binding="{Binding ElementName=statisticsPopup, Path=IsOpen}" Value="False">
+                                <b:InvokeCommandAction Command="{Binding StoptStatiticsTimerCommand}"/>
+                            </b:DataTrigger>
+                        </b:Interaction.Triggers>
+                        <Grid Background="Transparent">
+                            <Rectangle Fill="#FFFFFF" Effect="{StaticResource FRTC_WindowShadowEffect}" Margin="5"/>
+                            <Border CornerRadius="2" BorderBrush="{StaticResource FRTC_DefaultBorderColor}" BorderThickness="1"
+                                Margin="5" Width="260" Height="205">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Margin="16,8,0,0" Orientation="Horizontal">
+                                        <TextBlock FontSize="12" Foreground="#666666" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_DELAY}" VerticalAlignment="Center"/>
+                                        <TextBlock Margin="16,0,0,0" FontSize="12" Foreground="#222222" VerticalAlignment="Center" Text="{Binding SelfStatistics.Delay}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Margin="16,8,0,0" Orientation="Horizontal">
+                                        <TextBlock FontSize="12" Foreground="#666666" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_RATE}" VerticalAlignment="Center"/>
+                                        <Image Margin="16,0,0,0" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"
+                                           Source="{Binding Source={x:Static res:Resources.frtc_icon_upload}, Converter={StaticResource BitmapToImageSource}}"/>
+                                        <TextBlock Margin="2,0,0,0" Width="88" VerticalAlignment="Center" FontSize="12" Foreground="#222222" Text="{Binding SelfStatistics.TotalUploadRate}"/>
+                                        <Image Margin="8,0,0,0" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"
+                                           Source="{Binding Source={x:Static res:Resources.frtc_icon_download}, Converter={StaticResource BitmapToImageSource}}"/>
+                                        <TextBlock Margin="2,0,0,0" Width="88" VerticalAlignment="Center" FontSize="12" Foreground="#222222" Text="{Binding SelfStatistics.TotalDownloadRate}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2" Margin="16,8,0,0" Orientation="Horizontal">
+                                        <TextBlock FontSize="12" Foreground="#666666" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_AUDIO}" VerticalAlignment="Center"/>
+                                        <Image Margin="16,0,0,0" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"
+                                           Source="{Binding Source={x:Static res:Resources.frtc_icon_upload}, Converter={StaticResource BitmapToImageSource}}"/>
+                                        <TextBlock Margin="2,0,0,0" Width="88" VerticalAlignment="Center" FontSize="12" Foreground="#222222" Text="{Binding SelfStatistics.AudioUploadRate}"/>
+                                        <Image Margin="8,0,0,0" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"
+                                           Source="{Binding Source={x:Static res:Resources.frtc_icon_download}, Converter={StaticResource BitmapToImageSource}}"/>
+                                        <TextBlock Margin="2,0,0,0" Width="88" VerticalAlignment="Center" FontSize="12" Foreground="#222222" Text="{Binding SelfStatistics.AudioDownloadRate}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="3" Margin="16,8,0,0" Orientation="Horizontal">
+                                        <TextBlock FontSize="12" Foreground="#666666" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_VIDEO}" VerticalAlignment="Center"/>
+                                        <Image Margin="16,0,0,0" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"
+                                           Source="{Binding Source={x:Static res:Resources.frtc_icon_upload}, Converter={StaticResource BitmapToImageSource}}"/>
+                                        <TextBlock Margin="2,0,0,0" Width="88" VerticalAlignment="Center" FontSize="12" Foreground="#222222" Text="{Binding SelfStatistics.VideoUploadRate}"/>
+                                        <Image Margin="8,0,0,0" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"
+                                           Source="{Binding Source={x:Static res:Resources.frtc_icon_download}, Converter={StaticResource BitmapToImageSource}}"/>
+                                        <TextBlock Margin="2,0,0,0" Width="88" VerticalAlignment="Center" FontSize="12" Foreground="#222222" Text="{Binding SelfStatistics.VideoDownloadRate}"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="4" Margin="16,8,0,0" Orientation="Horizontal">
+                                        <TextBlock FontSize="12" Foreground="#666666" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_CONTENT}" VerticalAlignment="Center"/>
+                                        <Image Margin="16,0,0,0" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"
+                                           Source="{Binding Source={x:Static res:Resources.frtc_icon_upload}, Converter={StaticResource BitmapToImageSource}}"/>
+                                        <TextBlock Margin="2,0,0,0" Width="88" VerticalAlignment="Center" FontSize="12" Foreground="#222222" Text="{Binding SelfStatistics.ContentUploadRate}"/>
+                                        <Image Margin="8,0,0,0" Height="14" HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="Uniform"
+                                           Source="{Binding Source={x:Static res:Resources.frtc_icon_download}, Converter={StaticResource BitmapToImageSource}}"/>
+                                        <TextBlock Margin="2,0,0,0" Width="88" VerticalAlignment="Center" FontSize="12" Foreground="#222222" Text="{Binding SelfStatistics.ContentDownloadRate}"/>
+                                    </StackPanel>
+                                    <Button Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand"
+                                        Style="{StaticResource FRTC_TextBtnStyle}" Background="Transparent" BorderThickness="0"
+                                        Foreground="#026FFE" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_STATISTICS_INTERNAL}" FontSize="12" Command="{Binding PopupStatisticsWnd}">
+                                        <Button.Triggers>
+                                            <EventTrigger RoutedEvent="Button.Click">
+                                                <EventTrigger.Actions>
+                                                    <BeginStoryboard Storyboard="{StaticResource closeStoryboard}"/>
+                                                </EventTrigger.Actions>
+                                            </EventTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Popup>
+                </StackPanel>
+            </Viewbox>
+            <Viewbox Margin="0,0,0,0" x:Name="textCtrl" StretchDirection="DownOnly" Stretch="Uniform" Grid.Column="1" >
+                <TextBlock  HorizontalAlignment="Center" Text="{Binding MainTitle}"  VerticalAlignment="Center" FontSize="12" Foreground="#666666" Margin="0,5,0,5"
+                   TextAlignment="Center" MinWidth="100" TextTrimming="WordEllipsis" TextWrapping="NoWrap" FontFamily="Arial" >
+                </TextBlock>
+            </Viewbox>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2" Margin="0,0,24,0">
+                <Button x:Name="btnSwitchLayout" Width="auto" Height="24" Margin="0,0,8,0"
+                        Visibility="{Binding IsReceivingContent, Converter={StaticResource BoolToCollapsed}, ConverterParameter=Reverse}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Tag" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_PRESENTER}"/>
+                            <Setter Property="Content" Value="{Binding Source={x:Static res:Resources.frtc_lecture_view}, Converter={StaticResource BitmapToImageSource}}"/>
+                            <Setter Property="Cursor" Value="Hand"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="Button">
+                                        <Border x:Name="layoutBd" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="2"
+                                                Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="Transparent">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image x:Name="img" Width="12" Height="12" Margin="8,0,0,0" VerticalAlignment="Center" Source="{TemplateBinding Content}" Stretch="Uniform"/>
+                                                <TextBlock x:Name="txt" Margin="6,0,8,0" VerticalAlignment="Center" FontSize="12" Foreground="#333333" Text="{TemplateBinding Tag}"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsGalleryView}" Value="True">
+                                    <Setter Property="Tag" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_Gallery}"/>
+                                    <Setter Property="Content" Value="{Binding Source={x:Static res:Resources.frtc_galary_view}, Converter={StaticResource BitmapToImageSource}}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Triggers>
+                        <EventTrigger RoutedEvent="Button.Click">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard Storyboard="{StaticResource openSwitchLayout}"/>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </Button.Triggers>
+                </Button>
+                <Popup x:Name="popupSwitchLayout" PlacementTarget="{Binding ElementName=btnSwitchLayout}" Placement="Bottom" StaysOpen="False" VerticalOffset="5" HorizontalOffset="-260" AllowsTransparency="True">
+                    <Grid Background="Transparent">
+                        <Border Width="380" Height="220" Margin="5" Background="#F8F9FA" CornerRadius="2" BorderThickness="1" BorderBrush="{StaticResource FRTC_DefaultBorderColor}" Effect="{StaticResource FRTC_WindowShadowEffect}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel HorizontalAlignment="Center">
+                                    <Grid Width="150" Height="36" Background="#FFFFFF" Margin="0,16,0,0">
+                                        <Image Width="16" Height="16" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="16,0,0,0" Source="{Binding Source={x:Static res:Resources.frtc_gallary_lable}, Converter={StaticResource BitmapToImageSource}}"/>
+                                        <TextBlock FontSize="12" Foreground="#666666" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,16,0" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_Gallery}"/>
+                                    </Grid>
+                                    <RadioButton Margin="0,20,0,0" Width="150" Height="120" Content="{x:Static res:Resources.frtc_gallary_thumbnail}" Tag="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_Gallery}" IsChecked="{Binding IsGalleryView, Mode=TwoWay}"
+                                            GroupName="video_layout_switch" Command="{Binding SwitchLayoutCommand}" CommandParameter="0" Style="{StaticResource rbSwitchLayout}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                                    <Grid Width="150" Height="36" Background="#FFFFFF" Margin="0,16,0,0">
+                                        <Image Width="16" Height="16" Stretch="Uniform" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="16,0,0,0" Source="{Binding Source={x:Static res:Resources.frtc_lecture_lable}, Converter={StaticResource BitmapToImageSource}}"/>
+                                        <TextBlock FontSize="12" Foreground="#666666" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,16,0" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_PRESENTER}"/>
+                                    </Grid>
+                                    <RadioButton Margin="0,20,0,0" Width="150" Height="120" Content="{x:Static res:Resources.frtc_lecture_thumbnail}" Tag="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SETTING_PRESENTER}"
+                                            GroupName="video_layout_switch" Command="{Binding SwitchLayoutCommand}" CommandParameter="1" Style="{StaticResource rbSwitchLayout}" IsChecked="{Binding IsGalleryView, Mode=TwoWay, Converter={StaticResource InverseBool}}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Popup>
+
+
+                <ToggleButton Width="auto"  Height="24" Command="{Binding FullScreenCommand}"
+                              IsChecked="{Binding IsFullScreen, Mode=OneWay}">
+                    <ToggleButton.Style>
+                        <Style TargetType="ToggleButton" BasedOn="{StaticResource FRTC_MeetingTopBarToggleBtnStyle}">
+                            <Setter Property="Tag" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_FULLSCREEN}"/>
+                            <Setter Property="Content" Value="{Binding Source={x:Static res:Resources.frtc_fullscreen}, Converter={StaticResource BitmapToImageSource}}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter Property="Tag" Value="{x:Static res:Resources.FRTC_MEETING_SDKAPP_EXIT_FULLSCREEN}"/>
+                                    <Setter Property="Content" Value="{Binding Source={x:Static res:Resources.frtc_exit_fullscreen}, Converter={StaticResource BitmapToImageSource}}"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ToggleButton.Style>
+                </ToggleButton>
+            </StackPanel>
+        </Grid>
+
+        <Border.Style>
+            <Style TargetType="Border" >
+                <Setter Property="Background" Value="#ff001421"/>
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding IsShowNetSignal}" Value="False">
+                        <Setter Property="Background" Value="#00000000"/>
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding IsShowNetSignal }" Value="True">
+                        <Setter Property="Background" Value="#ff001421"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+
+    </Border>
+
+</Window>   

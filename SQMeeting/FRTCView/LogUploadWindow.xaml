@@ -1,0 +1,167 @@
+﻿<Window x:Class="SQMeeting.FRTCView.LogUploadWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQMeeting.FRTCView"
+        xmlns:view="clr-namespace:SQMeeting.View"
+        xmlns:res="clr-namespace:SQMeeting.Properties"
+        mc:Ignorable="d" ShowInTaskbar="False"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Setting}" x:Name="uploadWindow"
+        Title="{x:Static res:Resources.FRTC_SDKAPP_SETTING_UPLOAD_LOG}" Height="332" Width="380" Style="{StaticResource FRTC_WindowStyle}">
+    <Grid>
+        <StackPanel Margin="30,35,30,0">
+            <Image Width="64" Height="67" Source="{Binding Source={x:Static res:Resources.frtc_uploading_log}, Converter={StaticResource BitmapToImageSource}}"/>
+            <StackPanel Orientation="Horizontal" Margin="0,28,0,0" HorizontalAlignment="Center">
+                <TextBlock FontSize="14" Foreground="#333333">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="{x:Static res:Resources.FRTC_SDKAPP_SETTING_UPLOADING_LOG}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-1">
+                                    <Setter Property="Text" Value="{x:Static res:Resources.FRTC_SDKAPP_SETTING_UPLOA_LOG_FAILED}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-2">
+                                    <Setter Property="Text" Value="{x:Static res:Resources.FRTC_SDKAPP_SETTING_UPLOA_LOG_FAILED}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="100">
+                                    <Setter Property="Text" Value="{x:Static res:Resources.FRTC_SDKAPP_SETTING_UPLOA_LOG_DONE}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBlock FontSize="14" Foreground="#333333">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Text" Value="{Binding LogUploadSpeed}"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-1">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-2">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="100">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,24,0,0">
+                <ProgressBar Width="262" Height="8" BorderThickness="0" Background="#E6E8EF" Foreground="#00D773"
+                             Value="{Binding LogUploadProgress}"/>
+                <TextBlock Margin="5,0,0,0" FontSize="14" Foreground="#333333" Width="auto" Text="{Binding LogUploadProgress}">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-1">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-2">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="100">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <TextBlock Margin="0,0,0,0" FontSize="14" Foreground="#333333" Text="%">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-1">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-2">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="100">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+                <Image Width="20" Height="20" Margin="5,0,0,0">
+                    <Image.Style>
+                        <Style TargetType="Image">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="Source" Value="{Binding Source={x:Static res:Resources.frtc_log_upload_success}, Converter={StaticResource BitmapToImageSource}}"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-1">
+                                    <Setter Property="Source" Value="{Binding Source={x:Static res:Resources.frtc_log_upload_failed}, Converter={StaticResource BitmapToImageSource}}"/>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-2">
+                                    <Setter Property="Source" Value="{Binding Source={x:Static res:Resources.frtc_log_upload_failed}, Converter={StaticResource BitmapToImageSource}}"/>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="100">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Image.Style>
+                </Image>
+            </StackPanel>
+            <Grid>
+                <Button Margin="0,32,0,0" Width="111" Height="32" HorizontalAlignment="Center" IsEnabled="{Binding IsCancelingUpload, Converter={StaticResource InverseBool}}"
+                    Background="#FFFFFF" FontSize="14" Command="{Binding CancelUploadLogCommand}" CommandParameter="{Binding ElementName=uploadWindow}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource FRTC_TextBtnStyle}">
+                            <Setter Property="Foreground" Value="#333333"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Setter Property="Content" Value="{x:Static res:Resources.FRTC_SDKAPP_SETTING_UPLOA_LOG_CANCEL}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="#026FFE"/>
+                                </Trigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="100">
+                                    <Setter Property="Content" Value="{x:Static res:Resources.FRTC_SDKAPP_RETURN}"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-1">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-2">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                <Button Margin="0,32,0,0" Width="111" Height="32" HorizontalAlignment="Center" BorderBrush="#026FFE"
+                        FontSize="14" Command="{Binding StartUploadLogCommand}" CommandParameter="{Binding LogUploadDescription}">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource FRTC_TextBtnStyle}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Setter Property="Foreground" Value="#026FFE"/>
+                            <Setter Property="Background" Value="#FFFFFF"/>
+                            <Setter Property="Content" Value="{x:Static res:Resources.FRTC_SDKAPP_SETTING_UPLOA_LOG_REDO}"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                    <Setter Property="Background" Value="#026FFE"/>
+                                </Trigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-1">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding LogUploadProgress}" Value="-2">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+        </StackPanel>
+        <view:Spinner Width="36" Height="36" Visibility="{Binding IsCancelingUpload, Converter={StaticResource BoolToCollapsed}}"/>
+    </Grid>
+</Window>

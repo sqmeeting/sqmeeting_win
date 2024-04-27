@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release_FRTC|Win32">
+      <Configuration>Release_FRTC</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{08E84730-5C37-4B76-9B17-8288F1FCEBAD}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>frtc_call</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <ProjectName>frtc_sdk</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_FRTC|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release_FRTC|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release_FRTC|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\$(Configuration)\</OutDir>
+    <IncludePath>.\lib\inc;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release_FRTC|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;WIN32_LEAN_AND_MEAN;NDEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;WEBRTC_WIN;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>false</SDLCheck>
+      <AdditionalIncludeDirectories>..\rtc_common;..\3rdparty\directshow\baseclasses;..\3rdparty\directshow\common;..\3rdparty\webrtc\desktop_capture\inc;..\3rdparty\webrtc\desktop_capture\inc\thirdparty\abseil-cpp;..\3rdparty\jsoncpp\include;..\rtc_common\rtc_sdk\include;.\AudioDevice</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <ModuleDefinitionFile>
+      </ModuleDefinitionFile>
+      <AdditionalLibraryDirectories>..\3rdparty\webrtc\desktop_capture\lib;..\3rdparty\directshow\baseclasses\Release;..\3rdparty\jsoncpp\lib\Release;..\$(ConfigurationName);.\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Wbemuuid.lib;winmm.lib;strmbase.lib;d3d9.lib;Vfw32.lib;gdiplus.lib;rtc_sdk.lib;kernel32.lib;user32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;legacy_stdio_definitions.lib;Msimg32.lib;d3d11.lib;Setupapi.lib;dxgi.lib;dwmapi.lib;desktop_capture.lib;Dsound.lib;jsoncpp.lib;setupapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+      <Version>
+      </Version>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy ".\lib\*.dll" "$(OutDir)" /R /Y /S /i</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="AudioDevice\audio_capture.h" />
+    <ClInclude Include="AudioDevice\audio_device_monitor.h" />
+    <ClInclude Include="AudioDevice\audio_render.h" />
+    <ClInclude Include="auto_lock.h" />
+    <ClInclude Include="CameraDevice\DShowCapture.h" />
+    <ClInclude Include="CameraDevice\FRTCRenderFilter.h" />
+    <ClInclude Include="CameraDevice\video_device_manager.h" />
+    <ClInclude Include="event_processor.h" />
+    <ClInclude Include="frtccall_manager.h" />
+    <ClInclude Include="frtc_sdk_version.h" />
+    <ClInclude Include="frtc_typedef.h" />
+    <ClInclude Include="auto_release_object.h" />
+    <ClInclude Include="FRTCBaseWnd.h" />
+    <ClInclude Include="frtc_content_capturer.h" />
+    <ClInclude Include="VideoWnd.h" />
+    <ClInclude Include="D3D9RenderComponent.h" />
+    <ClInclude Include="DXGI_DesktopDuplicator.h" />
+    <ClInclude Include="ReconnectHelper.h" />
+    <ClInclude Include="frtc_sdk_util.h" />
+    <ClInclude Include="FrtcMeetingWindow.h" />
+    <ClInclude Include="frtc_sdk_api.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="rtc_event_observer.h" />
+    <ClInclude Include="FRTCStreamIconWindow.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="FrtcVideoWndMgr.h" />
+    <ClInclude Include="webrtc_desktop_capture.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AudioDevice\audio_capture.cpp" />
+    <ClCompile Include="AudioDevice\audio_device_monitor.cpp" />
+    <ClCompile Include="AudioDevice\audio_render.cpp" />
+    <ClCompile Include="CameraDevice\DShowCapture.cpp" />
+    <ClCompile Include="CameraDevice\FRTCRenderFilter.cpp" />
+    <ClCompile Include="CameraDevice\video_device_manager.cpp" />
+    <ClCompile Include="event_processor.cpp" />
+    <ClCompile Include="frtccall_manager.cpp" />
+    <ClCompile Include="FRTCBaseWnd.cpp" />
+    <ClCompile Include="frtc_content_capturer.cpp" />
+    <ClCompile Include="VideoWnd.cpp" />
+    <ClCompile Include="D3D9RenderComponent.cpp" />
+    <ClCompile Include="DXGI_DesktopDuplicator.cpp" />
+    <ClCompile Include="dllmain.cpp">
+      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release_FRTC|Win32'">false</CompileAsManaged>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_FRTC|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="FrtcMeetingWindow.cpp" />
+    <ClCompile Include="frtc_sdk_api.cpp" />
+    <ClCompile Include="ReconnectHelper.cpp" />
+    <ClCompile Include="rtc_event_observer.cpp" />
+    <ClCompile Include="frtc_sdk_util.cpp" />
+    <ClCompile Include="FRTCStreamIconWindow.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release_FRTC|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="FrtcVideoWndMgr.cpp" />
+    <ClCompile Include="webrtc_desktop_capture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="audio_muted.png" />
+    <Image Include="audio_normal.png" />
+    <Image Include="farend_novideo_1280_720.png" />
+    <Image Include="local_camera_mute_1280_720.png" />
+    <Image Include="video_pinned.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="frtc_sdk.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="local_camera_mute_1280_720.yuv" />
+    <None Include="resources\icon\yuv2.bin" />
+    <None Include="share_app_pause_1920_1080.yuv" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\3rdparty\directshow\baseclasses\BaseClasses.vcxproj">
+      <Project>{e8a3f6fa-ae1c-4c8e-a0b6-9c8480324eaa}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

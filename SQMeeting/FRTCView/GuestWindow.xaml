@@ -1,0 +1,38 @@
+﻿<Window x:Class="SQMeeting.FRTCView.GuestWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQMeeting.FRTCView"
+        xmlns:res="clr-namespace:SQMeeting.Properties"
+        xmlns:converter="clr-namespace:SQMeeting.Converters"
+        mc:Ignorable="d"
+        Title="{Binding Title}" ResizeMode="CanMinimize" Width="650" Height="490"
+        WindowStartupLocation="CenterScreen" WindowStyle="None"
+        DataContext="{Binding Main, Source={StaticResource Locator}}"
+        Style="{StaticResource FRTC_WindowStyle}">
+    <Window.Resources>
+        <converter:BitmapToImageSourceConverter x:Key="BitmapToImageSource"/>
+        <local:GuestHomeView x:Key="HomeView"/>
+        <local:UserSignInView x:Key="SignInView"/>
+    </Window.Resources>
+    <Grid>
+        <Image VerticalAlignment="Bottom" Grid.Row="1" Height="188" Width="640" Stretch="Uniform"
+            Source="/SQMeeting;component/Resources/FRTC/frtc_bg.png"/>
+        <ContentControl Name="contentArea" Background="Transparent">
+            <ContentControl.Style>
+                <Style TargetType="ContentControl">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CurrentView}" Value="FRTCGuestHomeView">
+                            <Setter Property="Content" Value="{StaticResource HomeView}"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding CurrentView}" Value="FRTCSignInView">
+                            <Setter Property="Content" Value="{StaticResource SignInView}"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+        <Rectangle Fill="#000000" Opacity="0.2" Visibility="{Binding ShowMask, Converter={StaticResource BoolToCollapsed}}"/>
+    </Grid>
+</Window>

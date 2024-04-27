@@ -1,0 +1,161 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <StartupObject>SDKDemo.App</StartupObject>
+    <Platforms>AnyCPU;x86</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="bin\**" />
+    <EmbeddedResource Remove="bin\**" />
+    <None Remove="bin\**" />
+    <Page Remove="bin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Images\FRTC\frtc_checked.png" />
+    <None Remove="Resources\Images\FRTC\frtc_checked_blue.png" />
+    <None Remove="Resources\Images\FRTC\frtc_checked_white.png" />
+    <None Remove="Resources\Images\FRTC\frtc_delete.png" />
+    <None Remove="Resources\Images\FRTC\frtc_delete_input.png" />
+    <None Remove="Resources\Images\FRTC\frtc_drop_call.png" />
+    <None Remove="Resources\Images\FRTC\frtc_galary_view.png" />
+    <None Remove="Resources\Images\FRTC\frtc_icon_error.png" />
+    <None Remove="Resources\Images\FRTC\frtc_input_password.png" />
+    <None Remove="Resources\Images\FRTC\frtc_lecture_view.png" />
+    <None Remove="Resources\Images\FRTC\frtc_toolbar_localvideo_muted.png" />
+    <None Remove="Resources\Images\FRTC\frtc_toolbar_local_video.png" />
+    <None Remove="Resources\Images\FRTC\frtc_toolbar_mic_muted.png" />
+    <None Remove="Resources\Images\FRTC\frtc_toolbar_mute_mic.png" />
+    <None Remove="Resources\Images\FRTC\frtc_toolbar_share_content.png" />
+    <None Remove="Resources\Images\FRTC\frtc_toolbar_switch_camera.png" />
+    <None Remove="Resources\Images\FRTC\frtc_toolbar_switch_mic.png" />
+    <None Remove="Resources\Images\FRTC\frtc_toolbar_switch_speaker.png" />
+    <None Remove="Resources\Images\FRTC\frtc_up.png" />
+    <None Remove="Resources\Images\frtc_delete_input.png" />
+    <None Remove="Resources\Images\frtc_icon_error.png" />
+    <None Remove="Resources\Images\frtc_input_password.png" />
+    <None Remove="Resources\Images\icon_pwd_hide.png" />
+    <None Remove="Resources\Images\icon_pwd_show.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator">
+      <HintPath>Depends\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight">
+      <HintPath>Depends\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras">
+      <HintPath>Depends\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform">
+      <HintPath>Depends\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Depends\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>Depends\NLog.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Images\FRTC\frtc_checked.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_checked_blue.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_checked_white.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_delete.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_delete_input.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_drop_call.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_galary_view.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_icon_error.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_input_password.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_lecture_view.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_toolbar_localvideo_muted.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_toolbar_local_video.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_toolbar_mic_muted.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_toolbar_mute_mic.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_toolbar_share_content.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_toolbar_switch_camera.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_toolbar_switch_mic.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_toolbar_switch_speaker.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\FRTC\frtc_up.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\frtc_delete_input.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\frtc_icon_error.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\frtc_input_password.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\icon_pwd_hide.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\icon_pwd_show.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy Depends\rtc_sdk.dll $(OutDir)&#xD;&#xA;copy Depends\frtc_sdk.dll $(OutDir)" />
+  </Target>
+
+</Project>

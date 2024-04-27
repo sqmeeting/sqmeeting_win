@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="SQMeeting.FRTCView.UserSignInView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SQMeeting.FRTCView"
+             xmlns:res="clr-namespace:SQMeeting.Properties"
+             xmlns:converter="clr-namespace:SQMeeting.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="640"
+             DataContext="{Binding FRTCUser, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <converter:BitmapToImageSourceConverter x:Key="BitmapToImageSource"/>
+        <converter:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,56,0,0">
+                <Image HorizontalAlignment="Center" Width="40" Height="40" Stretch="Uniform" Source="{Binding Source={x:Static res:Resources.frtc_home_logo_small}, Converter={StaticResource BitmapToImageSource}}"/>
+                <TextBlock Margin="8,0,0,0" VerticalAlignment="Center" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_USER_SIGNIN}" Foreground="{StaticResource FRTC_DarkerFontColor}" FontSize="18" FontWeight="Black"/>
+            </StackPanel>
+            <TextBox Width="280" Height="40" Margin="0,38,0,0" Style="{StaticResource FRTC_DefaultTextBoxStyle}" Tag="{x:Static res:Resources.FRTC_MEETING_SDKAPP_REQUIRE_ACC_NAME}" Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                     MaxLength="48" local:InputBoxIcon.ShowIcon="True" local:InputBoxIcon.InputIcon="{Binding Source={x:Static res:Resources.frtc_account}, Converter={StaticResource BitmapToImageSource}}"
+                     Visibility="{Binding Processing, Converter={StaticResource BoolToVisibility}, ConverterParameter=Reverse}"/>
+            <PasswordBox x:Name="pwdBox" Width="280" Height="40" Margin="0,16,0,0" Style="{StaticResource FRTC_DefaultPwdBoxStyle}"
+                         local:InputBoxIcon.ShowIcon="True" Tag="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SIGNIN_REQUIRE_PASSWORD}" MaxLength="32"
+                         Visibility="{Binding Processing, Converter={StaticResource BoolToVisibility}, ConverterParameter=Reverse}"/>
+            <Button Style="{StaticResource FRTC_PrimaryBtnStyle}" Width="280" Height="40" Margin="0,16,0,0" Content="{Binding Source={x:Static res:Resources.FRTC_MEETING_SDKAPP_SIGNIN}}"
+                    Command="{Binding FRTCSignInCommand}" CommandParameter="{Binding ElementName=pwdBox}" IsDefault="True"
+                    Visibility="{Binding Processing, Converter={StaticResource BoolToVisibility}, ConverterParameter=Reverse}"/>
+            <CheckBox Height="20" Margin="0,16,0,0" VerticalContentAlignment="Center" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_REMEMBER_PWD}" Style="{StaticResource FRTC_DefaultCheckBoxStyle}" IsChecked="{Binding AutoSignIn}"
+                      Visibility="{Binding Processing, Converter={StaticResource BoolToVisibility}, ConverterParameter=Reverse}"/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button Name="btnSetting" Width="32" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="24,0,0,0" DataContext="{Binding Main, Source={StaticResource Locator}}" Command="{Binding SettingViewCommand}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Width="{TemplateBinding Width}" Height="{TemplateBinding Height}" Background="Transparent">
+                            <Image x:Name="settingButton" Source="{Binding Source={x:Static res:Resources.frtc_setting}, Converter={StaticResource BitmapToImageSource}}"
+                                        Width="24" Height="24" Stretch="Uniform"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Popup Name="pop_tip" StaysOpen="False"
+                   PlacementTarget="{Binding ElementName=btnSetting}" Placement="Bottom" HorizontalOffset="-10" VerticalOffset="-4"
+                   IsOpen="{Binding NoServerAddress}">
+                <StackPanel Orientation="Vertical" Background="#FFFFFF">
+                    <Image HorizontalAlignment="Left" VerticalAlignment="Top" Margin="27,0,0,0"
+                            Stretch="None" Source="{Binding Source={x:Static res:Resources.curled_pointer}, Converter={StaticResource BitmapToImageSource}}"/>
+                    <Border Background="{StaticResource FRTC_LightBackgroundColor}" CornerRadius="15" BorderThickness="1" Padding="10,5,10,5">
+                        <Border.BorderBrush>
+                            <VisualBrush>
+                                <VisualBrush.Visual>
+                                    <Rectangle StrokeDashArray="1 1"
+                                        Stroke="{StaticResource FRTC_PopupBorderColor}"
+                                        Opacity="0.4"
+                                        StrokeThickness="2"
+                                        RadiusX="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=CornerRadius.TopRight}"
+                                        RadiusY="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=CornerRadius.BottomLeft}"
+                                        Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
+                                        Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}"/>
+                                </VisualBrush.Visual>
+                            </VisualBrush>
+                        </Border.BorderBrush>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SET_SERVER_NOTICE}" FontSize="12" Foreground="{StaticResource FRTC_DarkerFontColor}"/>
+                            <TextBlock Margin="2,0,0,0">
+                                <Hyperlink Foreground="{StaticResource FRTC_PrimaryBtnBackColor}" Command="{Binding SettingViewCommand}">
+                                    <TextBlock Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_GOTO_SETTINGS}" FontSize="12" />
+                                </Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Popup>
+        </StackPanel>
+        <Button VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="24,0,0,26" DataContext="{Binding Main, Source={StaticResource Locator}}" Command="{Binding BackwardCommand}">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <StackPanel Orientation="Horizontal" Background="Transparent">
+                        <Image Height="20" Width="20" Stretch="Uniform" Source="{Binding Source={x:Static res:Resources.frtc_back}, Converter={StaticResource BitmapToImageSource}}"/>
+                        <TextBlock Margin="4,0,0,0" VerticalAlignment="Center" Style="{StaticResource FRTC_DefaultFontText}" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_GOBACK}"/>
+                    </StackPanel>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <local:TipBoardControl HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Foreground="#026FFE" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SIGNIN_PROCESSING}"
+                   Visibility="{Binding Processing, Converter={StaticResource BoolToVisibility}}"/>
+    </Grid>
+</UserControl>

@@ -1,0 +1,110 @@
+﻿<Window x:Class="SQMeeting.FRTCView.StatusWidgetWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQMeeting.FRTCView"
+        xmlns:res="clr-namespace:SQMeeting.Properties"
+        xmlns:converter="clr-namespace:SQMeeting.Converters"
+        mc:Ignorable="d" WindowStyle="None" AllowsTransparency="True" ShowInTaskbar="False" Focusable="False" ShowActivated="True"
+        Title="StatusWidgetWindow" d:DesignWidth="106" d:DesignHeight="28" Name="statusWidget"
+        DataContext="{Binding Source={StaticResource Locator}, Path=FRTCMeetingVideo}" Tag="" Background="Transparent">
+    <Window.Resources>
+        <converter:BitmapToImageSourceConverter x:Key="BitmapToImageSource"/>
+    </Window.Resources>
+    <Border CornerRadius="4" Background="#CC000000">
+        <Grid>
+            <Image HorizontalAlignment="Left" VerticalAlignment="Center" Margin="8,0,0,0" Height="12" Width="12" Stretch="Uniform">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=statusWidget, Path=Tag}" Value="Streaming">
+                                <Setter Property="Source" Value="{Binding Source={x:Static res:Resources.frtc_icon_streaming}, Converter={StaticResource BitmapToImageSource}}"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding ElementName=statusWidget, Path=Tag}" Value="Recording">
+                                <Setter Property="Source" Value="{Binding Source={x:Static res:Resources.frtc_icon_recording}, Converter={StaticResource BitmapToImageSource}}"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FFFFFF" FontSize="12" MaxWidth="65">
+                <TextBlock.Style>
+                    <Style TargetType="TextBlock">
+                        <Setter Property="Text" Value=""/>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=statusWidget, Path=Tag}" Value="Recording"/>
+                                    <Condition Binding="{Binding ElementName=btnStop, Path=Visibility}" Value="Visible"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Text" Value="{x:Static res:Resources.FRTC_MEETING_RECORDING}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=statusWidget, Path=Tag}" Value="Recording"/>
+                                    <Condition Binding="{Binding ElementName=btnStop, Path=Visibility}" Value="Collapsed"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Text" Value="{x:Static res:Resources.FRTC_MEETING_RECORDING}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=statusWidget, Path=Tag}" Value="Streaming"/>
+                                    <Condition Binding="{Binding ElementName=btnStop, Path=Visibility}" Value="Visible"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Text" Value="{x:Static res:Resources.FRTC_MEETING_STREAMING}"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding ElementName=statusWidget, Path=Tag}" Value="Streaming"/>
+                                    <Condition Binding="{Binding ElementName=btnStop, Path=Visibility}" Value="Collapsed"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Text" Value="{x:Static res:Resources.FRTC_MEETING_STREAMING}"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <Button x:Name="btnStop" Height="12" Width="12" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,8,0"
+                    Command="{Binding StopStreamingOrRecording}" CommandParameter="{Binding ElementName=statusWidget, Path=Tag}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Opacity" Value="0.7"/>
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Border x:Name="bd" CornerRadius="2" Background="#C3C2C3">
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="bd" Property="Background" Value="#FFFFFF"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsMeetingOwner}" Value="True"/>
+                                    <Condition Binding="{Binding Tag}" Value="Recording"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsGuestMeeting}" Value="False"/>
+                                    <Condition Binding="{Binding IsOperatorRole}" Value="True"/>
+                                </MultiDataTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+    </Border>
+</Window>

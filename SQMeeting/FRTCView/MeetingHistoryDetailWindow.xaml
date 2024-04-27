@@ -1,0 +1,72 @@
+﻿<Window x:Class="SQMeeting.FRTCView.MeetingHistoryDetailWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQMeeting.FRTCView"
+        xmlns:converter="clr-namespace:SQMeeting.Converters"
+        xmlns:res="clr-namespace:SQMeeting.Properties"
+        mc:Ignorable="d"
+        Title="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_DETAIL}" Height="670" Width="390" WindowStartupLocation="CenterScreen" ShowInTaskbar="False"
+        WindowStyle="None" ResizeMode="CanMinimize" Style="{StaticResource FRTC_WindowStyle}"
+        DataContext="{Binding Setting, Source={StaticResource Locator}}">
+    <Window.Resources>
+        <converter:EmptyStringToNONEConverter x:Key="EmptyStringToNONE"/>
+    </Window.Resources>
+    <Grid>
+        <Grid Margin="24,24,24,0" DataContext="{Binding FRTCUser.CurrentSelectedHistoryRecord, Source={StaticResource Locator}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock FontSize="18" Foreground="#222222" FontWeight="SemiBold" HorizontalAlignment="Center"
+                   Text="{Binding MeetingName}" Margin="0,0,0,12" MaxWidth="300" TextTrimming="CharacterEllipsis" ToolTip="{Binding MeetingName}"/>
+            <Rectangle VerticalAlignment="Bottom" Height="1" Fill="#EEEEF0"/>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Left" FontSize="14" Foreground="#666666"
+                       Margin="0,12,0,12" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_HISTORY_BEGIN_TIME}"/>
+            <TextBlock Grid.Row="1" HorizontalAlignment="Right" FontSize="14" Foreground="#222222"
+                       Margin="0,12,0,12" Text="{Binding BeginTime}"/>
+            <Rectangle Grid.Row="1" VerticalAlignment="Bottom" Height="1" Fill="#EEEEF0"/>
+            <TextBlock Grid.Row="2" HorizontalAlignment="Left" FontSize="14" Foreground="#666666"
+                       Margin="0,12,0,12" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_HISTORY_DURATION}"/>
+            <TextBlock Grid.Row="2" HorizontalAlignment="Right" FontSize="14" Foreground="#222222"
+                       Margin="0,12,0,12" Text="{Binding MeetingDuration}"/>
+            <Rectangle Grid.Row="2" VerticalAlignment="Bottom" Height="1" Fill="#EEEEF0"/>
+            <TextBlock Grid.Row="3" HorizontalAlignment="Left" FontSize="14" Foreground="#666666"
+                       Margin="0,12,0,12" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_HISTORY_MEETING_ID}"/>
+            <TextBlock Grid.Row="3" HorizontalAlignment="Right" FontSize="14" Foreground="#222222"
+                       Margin="0,12,0,12" Text="{Binding MeetingNumber}"/>
+            <Rectangle Grid.Row="3" VerticalAlignment="Bottom" Height="1" Fill="#EEEEF0"/>
+            <TextBlock Grid.Row="4" HorizontalAlignment="Left" FontSize="14" Foreground="#666666"
+                       Margin="0,12,0,12" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_HISTORY_MEETING_PWD}"/>
+            <TextBlock Grid.Row="4" HorizontalAlignment="Right" FontSize="14" Foreground="#222222"
+                       Margin="0,12,0,12" Text="{Binding MeetingPWD, Converter={StaticResource EmptyStringToNONE}}"/>
+            <Rectangle Grid.Row="4" VerticalAlignment="Bottom" Height="1" Fill="#EEEEF0"/>
+            <TextBlock Grid.Row="5" HorizontalAlignment="Left" FontSize="14" Foreground="#666666"
+                       Margin="0,12,0,12" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_HISTORY_MEETING_OWNER}"/>
+            <TextBlock Grid.Row="5" HorizontalAlignment="Right" FontSize="14" Foreground="#222222"
+                       Margin="0,12,0,12" Text="{Binding MeetingOwnerName}"/>
+            <Rectangle Grid.Row="5" VerticalAlignment="Bottom" Height="1" Fill="#EEEEF0"/>
+            <TextBlock Grid.Row="6" HorizontalAlignment="Left" FontSize="14" Foreground="#666666" Opacity="0.2"
+                       Margin="0,12,0,12" Text="参会成员" Visibility="Collapsed"/>
+            <TextBlock Grid.Row="6" HorizontalAlignment="Right" FontSize="14" Foreground="#026FFE" Opacity="0.2"
+                       Margin="0,12,0,12" Text="导出" Visibility="Collapsed"/>
+            <Button Grid.Row="7" Width="319" Height="36" Margin="0,12,0,12" Style="{StaticResource FRTC_SecondaryBtnStyle}"
+                    Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_JOINMEETING}" Foreground="#026FFE" DataContext="{Binding FRTCUser, Source={StaticResource Locator}}"
+                    Command="{Binding JoinFromHistoryDetailCommand}"/>
+            <Button Grid.Row="8" Width="319" Height="36" Style="{StaticResource FRTC_DeleteBtnStyle}" Foreground="#E32726" FontSize="14"
+                    Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_REMOVE}" DataContext="{Binding FRTCUser, Source={StaticResource Locator}}"
+                    Command="{Binding RemoveFromHistoryDetailCommand}"/>
+        </Grid>
+    </Grid>
+</Window>

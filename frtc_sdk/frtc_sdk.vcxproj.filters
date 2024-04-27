@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="event_processor.cpp" />
+    <ClCompile Include="frtccall_manager.cpp" />
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="frtc_sdk_api.cpp" />
+    <ClCompile Include="ReconnectHelper.cpp" />
+    <ClCompile Include="rtc_event_observer.cpp" />
+    <ClCompile Include="frtc_sdk_util.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="AudioDevice\audio_render.cpp">
+      <Filter>AudioDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioDevice\audio_device_monitor.cpp">
+      <Filter>AudioDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="D3D9RenderComponent.cpp">
+      <Filter>MeetingView</Filter>
+    </ClCompile>
+    <ClCompile Include="FRTCBaseWnd.cpp">
+      <Filter>MeetingView</Filter>
+    </ClCompile>
+    <ClCompile Include="FrtcMeetingWindow.cpp">
+      <Filter>MeetingView</Filter>
+    </ClCompile>
+    <ClCompile Include="FrtcVideoWndMgr.cpp">
+      <Filter>MeetingView</Filter>
+    </ClCompile>
+    <ClCompile Include="FRTCStreamIconWindow.cpp">
+      <Filter>MeetingView</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoWnd.cpp">
+      <Filter>MeetingView</Filter>
+    </ClCompile>
+    <ClCompile Include="DXGI_DesktopDuplicator.cpp">
+      <Filter>ContentCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="frtc_content_capturer.cpp">
+      <Filter>ContentCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="webrtc_desktop_capture.cpp">
+      <Filter>ContentCapture</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraDevice\DShowCapture.cpp">
+      <Filter>CameraDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraDevice\video_device_manager.cpp">
+      <Filter>CameraDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraDevice\FRTCRenderFilter.cpp">
+      <Filter>CameraDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioDevice\audio_capture.cpp">
+      <Filter>AudioDevice</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="auto_lock.h" />
+    <ClInclude Include="event_processor.h" />
+    <ClInclude Include="frtccall_manager.h" />
+    <ClInclude Include="frtc_typedef.h" />
+    <ClInclude Include="auto_release_object.h" />
+    <ClInclude Include="ReconnectHelper.h" />
+    <ClInclude Include="frtc_sdk_util.h" />
+    <ClInclude Include="frtc_sdk_api.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="rtc_event_observer.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="AudioDevice\audio_render.h">
+      <Filter>AudioDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioDevice\audio_device_monitor.h">
+      <Filter>AudioDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="D3D9RenderComponent.h">
+      <Filter>MeetingView</Filter>
+    </ClInclude>
+    <ClInclude Include="FRTCBaseWnd.h">
+      <Filter>MeetingView</Filter>
+    </ClInclude>
+    <ClInclude Include="FrtcMeetingWindow.h">
+      <Filter>MeetingView</Filter>
+    </ClInclude>
+    <ClInclude Include="FrtcVideoWndMgr.h">
+      <Filter>MeetingView</Filter>
+    </ClInclude>
+    <ClInclude Include="FRTCStreamIconWindow.h">
+      <Filter>MeetingView</Filter>
+    </ClInclude>
+    <ClInclude Include="VideoWnd.h">
+      <Filter>MeetingView</Filter>
+    </ClInclude>
+    <ClInclude Include="DXGI_DesktopDuplicator.h">
+      <Filter>ContentCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="frtc_content_capturer.h">
+      <Filter>ContentCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="webrtc_desktop_capture.h">
+      <Filter>ContentCapture</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraDevice\DShowCapture.h">
+      <Filter>CameraDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraDevice\video_device_manager.h">
+      <Filter>CameraDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraDevice\FRTCRenderFilter.h">
+      <Filter>CameraDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioDevice\audio_capture.h">
+      <Filter>AudioDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="frtc_sdk_version.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="frtc_sdk.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="audio_muted.png">
+      <Filter>EmbededResources</Filter>
+    </Image>
+    <Image Include="audio_normal.png">
+      <Filter>EmbededResources</Filter>
+    </Image>
+    <Image Include="local_camera_mute_1280_720.png">
+      <Filter>EmbededResources</Filter>
+    </Image>
+    <Image Include="video_pinned.png">
+      <Filter>EmbededResources</Filter>
+    </Image>
+    <Image Include="farend_novideo_1280_720.png">
+      <Filter>EmbededResources</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="share_app_pause_1920_1080.yuv">
+      <Filter>EmbededResources</Filter>
+    </None>
+    <None Include="resources\icon\yuv2.bin">
+      <Filter>EmbededResources</Filter>
+    </None>
+    <None Include="local_camera_mute_1280_720.yuv">
+      <Filter>EmbededResources</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="AudioDevice">
+      <UniqueIdentifier>{337163ae-946c-4aef-ab93-e038044d2018}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MeetingView">
+      <UniqueIdentifier>{5a3c316b-66cf-44c6-9c9e-ceb197264869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EmbededResources">
+      <UniqueIdentifier>{639068af-2141-4be8-adf5-f2d70f8f148a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="CameraDevice">
+      <UniqueIdentifier>{43e7ddc7-aca5-4b22-9d54-2ef8d8223a6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ContentCapture">
+      <UniqueIdentifier>{87328538-9307-4dca-b684-1c6ec3cd9df7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

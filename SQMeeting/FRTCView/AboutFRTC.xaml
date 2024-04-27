@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="SQMeeting.FRTCView.AboutFRTC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SQMeeting.FRTCView"
+             xmlns:res="clr-namespace:SQMeeting.Properties"
+             xmlns:converter="clr-namespace:SQMeeting.Converters"
+             xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:command="http://www.galasoft.ch/mvvmlight"
+             mc:Ignorable="d" 
+             d:DesignHeight="437" d:DesignWidth="455" Background="#FFFFFF"
+             DataContext="{Binding Setting, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <converter:BitmapToImageSourceConverter x:Key="BitmapToImageConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <Image Width="88" Height="90" Margin="0,57,0,0" Source="{Binding Source={x:Static res:Resources.frtc_home_log}, Converter={StaticResource BitmapToImageConverter}}"/>
+            <TextBlock FontSize="18" Foreground="#222222" FontWeight="Medium" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_PRODUCT_NAME}" HorizontalAlignment="Center"/>
+            <TextBlock FontSize="14" Foreground="#222222" Background="Transparent" Text="{Binding Version}" HorizontalAlignment="Center" Margin="0,4,0,0"/>
+            <!--<TextBlock FontSize="14" Foreground="#222222" Background="Transparent" Text="{Binding CopyRight}" HorizontalAlignment="Center" Margin="0,5,0,0"/>-->
+            <Border Width="145" Height="40" CornerRadius="2" Margin="0,5,0,0" Background="#000000" Opacity="0.7" Visibility="Hidden">
+                <TextBlock FontSize="14" Foreground="#FFFFFF" Opacity="1" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_LATEST_APP}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+        </StackPanel>
+        <Border Height="28" Background="#E6F0FF" VerticalAlignment="Top" Visibility="Hidden">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Image Width="16" Height="16" VerticalAlignment="Center" Source="{Binding Source={x:Static res:Resources.frtc_tip}, Converter={StaticResource BitmapToImageConverter}}"/>
+                <TextBlock Background="Transparent" Foreground="#026FFE" FontSize="12" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_NEW_VERSION_FOUND}" VerticalAlignment="Center" Margin="4,0,0,0"/>
+            </StackPanel>
+        </Border>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+            <TextBlock FontSize="14" HorizontalAlignment="Center" Margin="0,0,0,8">
+                <Hyperlink Name="officialSite" NavigateUri="https://shenqi.isgo.com/" TextDecorations="None" Click="Hyperlink_Click">
+                    <TextBlock Text="https://shenqi.isgo.com/" HorizontalAlignment="Center"/>
+                </Hyperlink>
+            </TextBlock>
+            <TextBlock FontSize="14" HorizontalAlignment="Center" Margin="0,0,0,8">
+                <Hyperlink Name="githubSite" NavigateUri="https://github.com/sqmeeting" TextDecorations="None" Click="Hyperlink_Click">
+                    <TextBlock Text="https://github.com/sqmeeting" HorizontalAlignment="Center"/>
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</UserControl>

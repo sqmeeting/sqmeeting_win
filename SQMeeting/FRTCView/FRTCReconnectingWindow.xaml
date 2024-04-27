@@ -1,0 +1,43 @@
+﻿<Window x:Class="SQMeeting.FRTCView.FRTCReconnectingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SQMeeting.FRTCView"
+        xmlns:view="clr-namespace:SQMeeting.View"
+        xmlns:res="clr-namespace:SQMeeting.Properties"
+        mc:Ignorable="d" WindowStyle="None" ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        Name="reconnectingWindow" AllowsTransparency="True" Background="#99000000"
+        DataContext="{Binding Source={StaticResource Locator}, Path=FRTCMeetingVideo}"
+        Title="" d:DesignWidth="1280" d:DesignHeight="720">
+    <Grid>
+        <StackPanel x:Name="spinner" Orientation="Vertical" Background="Transparent" VerticalAlignment="Center">
+            <view:Spinner Background="Transparent" Width="36" Height="36" HorizontalAlignment="Center" />
+            <TextBlock Style="{StaticResource FRTC_DefaultFontText}" Margin="0,5,0,0" Foreground="White" FontSize="18" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_RECONNECTING}"
+                       HorizontalAlignment="Center" />
+        </StackPanel>
+        <Border x:Name="dlg" CornerRadius="2" Margin="5" BorderThickness="1" BorderBrush="{StaticResource FRTC_DefaultBorderColor}" 
+                Background="#FFFFFF" Width="320" Height="180" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid>
+                <Rectangle Effect="{StaticResource FRTC_WindowShadowEffect}" Fill="#FFFFFF" RadiusX="2" RadiusY="2"/>
+                <Viewbox Stretch="Uniform" StretchDirection="DownOnly">
+                    <StackPanel>
+                        <TextBlock Style="{StaticResource FRTC_DefaultFontText}" FontSize="15" HorizontalAlignment="Center"
+                                   Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_RECONNECT_FAILED_START}"/>
+                        <TextBlock Style="{StaticResource FRTC_DefaultFontText}" FontSize="15" HorizontalAlignment="Center"
+                                   Margin="0,5,0,0" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_MEETING_RECONNECT_FAILED_END}"/>
+                        <Grid Width="280">
+                            <Button Style="{StaticResource FRTC_SecondaryBtnStyle}" Width="130" Height="32" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_LEAVE_MEETING}"
+                                    HorizontalAlignment="Left" Margin="5,24,0,0" Foreground="#666666" BorderBrush="#CCCCCC"
+                                    Command="{Binding DropCallCommand}" CommandParameter="{Binding ElementName=reconnectingWindow}"/>
+                            <Button Style="{StaticResource FRTC_PrimaryBtnStyle}" Width="130" Height="32" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_REJOIN_MEETING}"
+                                    HorizontalAlignment="Right" Margin="0,24,5,0"
+                                    Command="{Binding ReconnectCallCommand}"/>
+                        </Grid>
+                    </StackPanel>
+                </Viewbox>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
