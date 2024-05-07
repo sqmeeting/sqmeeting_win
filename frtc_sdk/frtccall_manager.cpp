@@ -662,8 +662,7 @@ void FrtcManager::OnMuteLock(bool muted, bool allowSelfUnmute)
 
 	if (muted)
 	{
-		_is_local_audio_muted = true;
-		_rtcInstance->MuteLocalAudio(true);
+		toggle_local_audio_mute(muted);
 	}
 
 	if (g_frtc_meeting_wnd != NULL)
@@ -673,8 +672,6 @@ void FrtcManager::OnMuteLock(bool muted, bool allowSelfUnmute)
 		jsonMsg["allowSelfUnmute"] = allowSelfUnmute;
 		OnMeetingControlMsg("on_audio_mute_changed", jsonMsg);
 	}
-
-	report_mute_status();
 
 	if (muted && _is_sending_content && _want_send_content_audio && _send_content_audio)
 	{
