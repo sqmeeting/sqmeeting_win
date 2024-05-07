@@ -1834,6 +1834,8 @@ namespace SQMeeting.ViewModel
                 NewUnmuteApplications = false;
                 NewUnmuteApplicationsNotify = string.Empty;
                 _unmuteApplicationTime = DateTime.MinValue;
+                DisplayName = string.Empty;
+                _tmpDisplayName = string.Empty;
 
                 if (UpdateTitleTimer != null)
                 {
