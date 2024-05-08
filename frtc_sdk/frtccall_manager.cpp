@@ -313,7 +313,6 @@ bool FrtcManager::is_local_video_muted()
 
 bool FrtcManager::is_local_audio_muted()
 {
-	_is_local_audio_muted = _rtcInstance->GetLocalAudioMute();
 	return _is_local_audio_muted;
 }
 
@@ -336,6 +335,7 @@ void FrtcManager::set_layout_grid_mode(bool gridMode)
 
 void FrtcManager::set_mute_state(bool mute)
 {
+	InfoLog("set audio mute state %d", mute);
 	_is_local_audio_muted = mute;
 }
 
@@ -347,6 +347,7 @@ void FrtcManager::toggle_camera_mirroring(bool mirror)
 
 void FrtcManager::toggle_local_audio_mute(bool mute)
 {
+	InfoLog("toggle loca audio mute %d", mute);
 	_is_local_audio_muted = mute;
 	_rtcInstance->MuteLocalAudio(mute);
 
@@ -662,6 +663,7 @@ void FrtcManager::OnMuteLock(bool muted, bool allowSelfUnmute)
 
 	if (muted)
 	{
+		InfoLog("muted from server,do mute");
 		toggle_local_audio_mute(muted);
 	}
 
@@ -2465,6 +2467,9 @@ void FrtcManager::mouse_event_callback(UINT message)
 
 void FrtcManager::report_mute_status()
 {
+	InfoLog("report mute status to server, local audio muted = %d, _is_audio_muted_by_server = %d, _is_local_video_muted = %d, _allow_unmute_audio_by_self = %d",
+		_is_local_audio_muted, _is_audio_muted_by_server, _is_local_video_muted, _allow_unmute_audio_by_self);
+
 	_rtcInstance->ReportMuteStatus(_is_local_audio_muted || _is_audio_muted_by_server, _is_local_video_muted, _allow_unmute_audio_by_self);
 }
 
