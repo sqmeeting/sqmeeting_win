@@ -38,8 +38,8 @@ Global
 		{78FB1ABB-460C-4E79-8315-8DE63A02A95F}.Release_FRTC|Any CPU.Build.0 = Release|Win32
 		{78FB1ABB-460C-4E79-8315-8DE63A02A95F}.Release_FRTC|x64.ActiveCfg = Release_MBCS|x64
 		{78FB1ABB-460C-4E79-8315-8DE63A02A95F}.Release_FRTC|x64.Build.0 = Release_MBCS|x64
-		{78FB1ABB-460C-4E79-8315-8DE63A02A95F}.Release_FRTC|x86.ActiveCfg = Release_MBCS|Win32
-		{78FB1ABB-460C-4E79-8315-8DE63A02A95F}.Release_FRTC|x86.Build.0 = Release_MBCS|Win32
+		{78FB1ABB-460C-4E79-8315-8DE63A02A95F}.Release_FRTC|x86.ActiveCfg = Release|Win32
+		{78FB1ABB-460C-4E79-8315-8DE63A02A95F}.Release_FRTC|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
