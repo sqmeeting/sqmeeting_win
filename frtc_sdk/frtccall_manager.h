@@ -319,6 +319,7 @@ private:
     void update_video_windows();
     void update_icon_window_status();
     void on_participant_mute_state_changed(std::map<std::string, RTC::ParticipantStatus> &muteStatusList, bool isFullList);
+	void update_self_display_name(const std::string& new_name);
     void update_self_video_status();
     void on_update_video_windows();
     void clear_params();

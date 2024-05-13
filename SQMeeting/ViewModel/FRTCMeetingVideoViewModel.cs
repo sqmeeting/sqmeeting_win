@@ -1834,8 +1834,13 @@ namespace SQMeeting.ViewModel
                 NewUnmuteApplications = false;
                 NewUnmuteApplicationsNotify = string.Empty;
                 _unmuteApplicationTime = DateTime.MinValue;
-                DisplayName = string.Empty;
-                _tmpDisplayName = string.Empty;
+
+                if (msg.reason == FrtcCallReason.CALL_MEETING_END_ABNORMAL)
+                {
+                    DisplayName = string.Empty;
+                    _tmpDisplayName = string.Empty;
+                }
+
 
                 if (UpdateTitleTimer != null)
                 {
@@ -3668,7 +3673,7 @@ namespace SQMeeting.ViewModel
                 }
                 else
                 {
-                    if(_renameUserUUID == _selfUUID && !string.IsNullOrEmpty(_tmpDisplayName))
+                    if (_renameUserUUID == _selfUUID && !string.IsNullOrEmpty(_tmpDisplayName))
                     {
                         selfItem.Name = _tmpDisplayName;
                     }

@@ -271,7 +271,7 @@ void FrtcManager::reconnect_current_meeting(const FrtcCallParam& param)
 	_is_processing_sc_msg = true;
 	_video_wnd_mgr->set_handle_layout_change(_is_processing_sc_msg);
 	_is_audio_only = param.isAudioOnly;
-	if(g_frtc_meeting_wnd)
+	if (g_frtc_meeting_wnd)
 		g_frtc_meeting_wnd->set_audio_only_mode(param.isAudioOnly);
 
 	std::string meeting_pwd = param._meeting_pwd ? param._meeting_pwd : "";
@@ -405,9 +405,9 @@ void FrtcManager::toggle_noise_block(bool enable)
 
 void FrtcManager::toggle_content_auido(bool enable, bool isSameDevice)
 {
-    DebugLog("enable content audio=%s, same device to speaker=%s",
-              enable ? "true" : "false",
-              isSameDevice ? "true" : "false");
+	DebugLog("enable content audio=%s, same device to speaker=%s",
+		enable ? "true" : "false",
+		isSameDevice ? "true" : "false");
 
 	_rtcInstance->SetContentAudio(enable, isSameDevice);
 
@@ -423,8 +423,8 @@ void FrtcManager::OnDetectAudioMute()
 
 void FrtcManager::OnCallNotification(FRTC_SDK_CALL_NOTIFICATION& callNotify)
 {
-	if ((_hMain && _call_state != FRTC_CALL_STATE::CALL_DISCONNECTED) || 
-        callNotify._msg_name == "CallDisconnected")
+	if ((_hMain && _call_state != FRTC_CALL_STATE::CALL_DISCONNECTED) ||
+		callNotify._msg_name == "CallDisconnected")
 	{
 		AutoLock autoLock(_msg_queue_lock);
 
@@ -433,8 +433,8 @@ void FrtcManager::OnCallNotification(FRTC_SDK_CALL_NOTIFICATION& callNotify)
 			FRTC_SDK_CALL_NOTIFICATION notify = _sc_msg_queue_temp.front();
 			_sc_msg_queue.push(notify);
 
-			DebugLog("pop sc msg from temp queue and push them to queue, msg=%s", 
-                      notify._msg_name.c_str());
+			DebugLog("pop sc msg from temp queue and push them to queue, msg=%s",
+				notify._msg_name.c_str());
 
 			_sc_msg_queue_temp.pop();
 		}
@@ -577,12 +577,12 @@ void FrtcManager::OnMeetingSessionStatus(
 
 void FrtcManager::OnMeetingStatusChange(RTC::MeetingStatus state, int reason, const std::string& callId)
 {
-	DebugLog("meeting status changed, status=%d, reason=%d, callId=%s", 
-              static_cast<int>(state), reason, callId.c_str());
+	DebugLog("meeting status changed, status=%d, reason=%d, callId=%s",
+		static_cast<int>(state), reason, callId.c_str());
 
 	ReconnectState lastState = reconnectHelper_->GetReconnectState();
-	ReconnectState reconnState = reconnectHelper_->HandleCallStateChange(state, 
-                             static_cast<RTC::MeetingStatusChangeReason>(reason));
+	ReconnectState reconnState = reconnectHelper_->HandleCallStateChange(state,
+		static_cast<RTC::MeetingStatusChangeReason>(reason));
 
 	DebugLog("lastReconnectState=%d, reconnectState=%d", lastState, reconnState);
 
@@ -602,9 +602,9 @@ void FrtcManager::OnMeetingStatusChange(RTC::MeetingStatus state, int reason, co
 			OnCallNotification(pNotify);
 		}
 	}
-	else if (lastState == reconnState && 
-             reconnState == ReconnectState::RECONNECT_FAILED && 
-             reason == RTC::MeetingStatusChangeReason::kAborted)
+	else if (lastState == reconnState &&
+		reconnState == ReconnectState::RECONNECT_FAILED &&
+		reason == RTC::MeetingStatusChangeReason::kAborted)
 	{
 		return;
 	}
@@ -614,8 +614,8 @@ void FrtcManager::OnMeetingStatusChange(RTC::MeetingStatus state, int reason, co
 
 		if (state == RTC::MeetingStatus::kConnected)
 		{
-			if (_call_state == FRTC_CALL_STATE::CALL_CONNECTED || 
-                _call_state == FRTC_CALL_STATE::CALL_DISCONNECTING)
+			if (_call_state == FRTC_CALL_STATE::CALL_CONNECTED ||
+				_call_state == FRTC_CALL_STATE::CALL_DISCONNECTING)
 			{
 				WarnLog("connected msg received while already connected or disconnecting");
 				return;
@@ -641,22 +641,22 @@ void FrtcManager::OnMeetingStatusChange(RTC::MeetingStatus state, int reason, co
 
 		if (_ui_call_state_change_callback)
 		{
-            DebugLog("call status changed, status=%d, meeting id=%s, meeting name=%s", 
-                      _call_state, _meeting_id.c_str(), _meeting_name.c_str());
+			DebugLog("call status changed, status=%d, meeting id=%s, meeting name=%s",
+				_call_state, _meeting_id.c_str(), _meeting_name.c_str());
 
-            _ui_call_state_change_callback(
-                static_cast<int>(_call_state),
-                map_rtcsdk_state_reason_to_frtc_call_reason(static_cast<RTC::MeetingStatusChangeReason>(reason)),
-                _meeting_id.c_str(),
-                _meeting_name.c_str());
+			_ui_call_state_change_callback(
+				static_cast<int>(_call_state),
+				map_rtcsdk_state_reason_to_frtc_call_reason(static_cast<RTC::MeetingStatusChangeReason>(reason)),
+				_meeting_id.c_str(),
+				_meeting_name.c_str());
 		}
 	}
 }
 
 void FrtcManager::OnMuteLock(bool muted, bool allowSelfUnmute)
 {
-	InfoLog("got mute msg from server, mute=%d, allow self unmute=%d", 
-             muted, allowSelfUnmute);
+	InfoLog("got mute msg from server, mute=%d, allow self unmute=%d",
+		muted, allowSelfUnmute);
 
 	_is_audio_muted_by_server = muted;
 	_allow_unmute_audio_by_self = allowSelfUnmute;
@@ -909,16 +909,16 @@ void FrtcManager::handle_svc_layout_changed(const RTC::LayoutDescription& layout
 
 	InfoLog("layout changed, cell size=%zu", layout.layout_cells.size());
 
-	_video_wnd_mgr->set_first_request_stream_uuid(layout.layout_cells.empty() ? 
-                                        "" : layout.layout_cells.front().uuid);
+	_video_wnd_mgr->set_first_request_stream_uuid(layout.layout_cells.empty() ?
+		"" : layout.layout_cells.front().uuid);
 
 	std::string newContentStreamId = "";
 	for (const auto& cell : layout.layout_cells)
 	{
 		DebugLog("get display name, uuid=%s, msid=%s, name=%s",
-			      cell.uuid.c_str(), 
-                  cell.msid.c_str(), 
-                  cell.display_name.c_str());
+			cell.uuid.c_str(),
+			cell.msid.c_str(),
+			cell.display_name.c_str());
 
 		_video_wnd_mgr->set_user_name(cell.msid, cell.display_name);
 		_video_wnd_mgr->set_msid(cell.uuid, cell.msid);
@@ -984,9 +984,9 @@ void FrtcManager::handle_svc_layout_changed(const RTC::LayoutDescription& layout
 	{
 		for (const auto& layoutToBeRemoved : toRemove)
 		{
-            DebugLog("layout changed, remove stream, msid=%s, uuid=%s",
-                      layoutToBeRemoved.msid.c_str(),
-                      layoutToBeRemoved.uuid.c_str());
+			DebugLog("layout changed, remove stream, msid=%s, uuid=%s",
+				layoutToBeRemoved.msid.c_str(),
+				layoutToBeRemoved.uuid.c_str());
 
 			_video_wnd_mgr->remove_video_stream(layoutToBeRemoved.msid, true);
 
@@ -1000,9 +1000,9 @@ void FrtcManager::handle_svc_layout_changed(const RTC::LayoutDescription& layout
 
 	for (const auto& layoutToBeAdded : toAdd)
 	{
-        DebugLog("layout changed, add stream, msid=%s, uuid=%s",
-                  layoutToBeAdded.msid.c_str(),
-                  layoutToBeAdded.uuid.c_str());
+		DebugLog("layout changed, add stream, msid=%s, uuid=%s",
+			layoutToBeAdded.msid.c_str(),
+			layoutToBeAdded.uuid.c_str());
 
 		if (layoutToBeAdded.msid.compare(0, kContentMSIDPrefixStr.length(), kContentMSIDPrefixStr) == 0)
 		{
@@ -1018,10 +1018,10 @@ void FrtcManager::handle_svc_layout_changed(const RTC::LayoutDescription& layout
 	{
 		for (const auto& layoutToBeRemoved : toRemove)
 		{
-            DebugLog("layout changed, remove stream, msid=%s, uuid=%s, width=%d",
-                      layoutToBeRemoved.msid.c_str(),
-                      layoutToBeRemoved.uuid.c_str(),
-                      layoutToBeRemoved.width);
+			DebugLog("layout changed, remove stream, msid=%s, uuid=%s, width=%d",
+				layoutToBeRemoved.msid.c_str(),
+				layoutToBeRemoved.uuid.c_str(),
+				layoutToBeRemoved.width);
 
 			if (layoutToBeRemoved.width < 0)
 			{
@@ -1109,10 +1109,10 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 
 			for (const auto& item : muteStatusList)
 			{
-                InfoLog("participant mute state changed, uuid=%s, name=%s, "
-                        "audioMute=%d, videoMute=%d",
-                         item.first.c_str(), item.second.display_name.c_str(),
-                         item.second.audio_mute, item.second.video_mute);
+				InfoLog("participant mute state changed, uuid=%s, name=%s, "
+					"audioMute=%d, videoMute=%d",
+					item.first.c_str(), item.second.display_name.c_str(),
+					item.second.audio_mute, item.second.video_mute);
 
 				Json::Value jsonRoster;
 				jsonRoster["UUID"] = item.first;
@@ -1125,7 +1125,7 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 				if (uuid == _uuid)
 				{
 					std::string newName = item.second.display_name;
-					_is_guest_call ? _guest_user_display_name = newName : _signed_user_display_name = newName;
+					update_self_display_name(newName);
 					_full_rosters_list[0] = jsonRoster;
 				}
 				else
@@ -1135,8 +1135,8 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 
 				Json::FastWriter writer;
 				const std::string json_file = writer.write(_full_rosters_list);
-				DebugLog("participant mute state changed, full list=%s", 
-                          json_file.c_str());
+				DebugLog("participant mute state changed, full list=%s",
+					json_file.c_str());
 
 				_video_wnd_mgr->toggle_audio_state_icon_window_show(uuid,
 					jsonRoster["muteAudio"].asString() == "true");
@@ -1159,13 +1159,24 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 					jsonRoster["muteAudio"] = it->second.audio_mute ? "true" : "false";
 					jsonRoster["muteVideo"] = it->second.video_mute ? "true" : "false";
 
-					_full_rosters_list[i] = jsonRoster;
+					std::string uuid = jsonRoster["UUID"].asString();
+					if (uuid == _uuid)
+					{
+						std::string newName = it->second.display_name;
+						update_self_display_name(newName);
+						_full_rosters_list[0] = jsonRoster;
+					}
+					else
+					{
+						_full_rosters_list.append(jsonRoster);
+					}
+
 					muteStatusList.erase(it);
 
 					Json::FastWriter writer;
 					const std::string json_file = writer.write(_full_rosters_list);
-					DebugLog("on_participant_mute_state_changed, not full list, current full_rosters_list is %s", 
-                              json_file.c_str());
+					DebugLog("on_participant_mute_state_changed, not full list, current full_rosters_list is %s",
+						json_file.c_str());
 
 					_video_wnd_mgr->toggle_audio_state_icon_window_show(
 						jsonRoster["UUID"].asString(),
@@ -1183,7 +1194,17 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 				jsonRoster["muteAudio"] = item.second.audio_mute ? "true" : "false";
 				jsonRoster["muteVideo"] = item.second.video_mute ? "true" : "false";
 
-				_full_rosters_list.append(jsonRoster);
+				std::string uuid = jsonRoster["UUID"].asString();
+				if (uuid == _uuid)
+				{
+					std::string newName = item.second.display_name;
+					update_self_display_name(newName);
+					_full_rosters_list[0] = jsonRoster;
+				}
+				else
+				{
+					_full_rosters_list.append(jsonRoster);
+				}
 
 				Json::FastWriter writer;
 				const std::string json_file = writer.write(_full_rosters_list);
@@ -1203,6 +1224,12 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 	FRTC_SDK_CALL_NOTIFICATION callNotify;
 	callNotify._msg_name = "ParticipantChanged";
 	OnCallNotification(callNotify);
+}
+
+void FrtcManager::update_self_display_name(const std::string& new_name)
+{
+	_is_guest_call ? _guest_user_display_name = new_name : _signed_user_display_name = new_name;
+	reconnectHelper_->SetLastCallLatestDisplayName(new_name.c_str());
 }
 
 void FrtcManager::update_self_video_status()
@@ -1398,8 +1425,8 @@ int FrtcManager::get_signal_status(const std::string& statistics)
 		return SIGNAL_INTENSITY_LOW;
 	}
 	else if (vpsLoss >= VIDEO_LOSS_THRESHOLD_1 || vprLoss >= VIDEO_LOSS_THRESHOLD_1 ||
-			 apsLoss >= AUDIO_LOSS_THRESHOLD_1 || aprLoss >= AUDIO_LOSS_THRESHOLD_1 ||
-			 vcrLoss >= VIDEO_LOSS_THRESHOLD_1)
+		apsLoss >= AUDIO_LOSS_THRESHOLD_1 || aprLoss >= AUDIO_LOSS_THRESHOLD_1 ||
+		vcrLoss >= VIDEO_LOSS_THRESHOLD_1)
 	{
 		return SIGNAL_INTENSITY_MEDIAN;
 	}
@@ -1464,8 +1491,8 @@ void FrtcManager::start_send_content_audio(bool notifRTC)
 
 	if (notifRTC)
 	{
-		DebugLog("enable content audio=%d, send notification to RTC", 
-                  _send_content_audio);
+		DebugLog("enable content audio=%d, send notification to RTC",
+			_send_content_audio);
 		toggle_content_auido(_send_content_audio, isSameDevice);
 	}
 
@@ -1534,16 +1561,16 @@ void FrtcManager::set_main_cell_size()
 	update_video_windows();
 }
 
-void FrtcManager::on_main_window_size_changed(LONG left, 
-                                              LONG top, 
-                                              LONG right, 
-                                              LONG bottom)
+void FrtcManager::on_main_window_size_changed(LONG left,
+	LONG top,
+	LONG right,
+	LONG bottom)
 {
 	if (!_hMain)
 		return;
 
-    DebugLog("set main window size, l=%ld, t=%ld, r=%ld, b=%ld",
-              left, top, right, bottom);
+	DebugLog("set main window size, l=%ld, t=%ld, r=%ld, b=%ld",
+		left, top, right, bottom);
 
 	_video_wnd_mgr->on_main_window_size_changed(left, top, right, bottom);
 	update_video_windows();
@@ -1697,7 +1724,7 @@ void FrtcManager::update_camera_devices()
 		_video_capture.set_camera_device(NULL);
 		notify_camera_device_reset();
 		return;
-	
+
 	}
 
 	DebugLog("camera device count=%d", deviceList.size());
@@ -1808,9 +1835,9 @@ void FrtcManager::reset_mic_device(const GUID& guid, bool forceReset)
 	_people_audio_capture->GetDeviceId(&current);
 	std::string guidstr;
 	FRTCSDK::FRTCSdkUtil::guid_to_string(current, guidstr);
-	
-    DebugLog("reset mic device, force=%d, current mic device=%s", 
-              forceReset, guidstr.c_str());
+
+	DebugLog("reset mic device, force=%d, current mic device=%s",
+		forceReset, guidstr.c_str());
 
 	if (forceReset || current != guid)
 	{
@@ -2808,26 +2835,26 @@ AUDIO_DEVICE_TYPE FrtcManager::get_audio_device_type_by_friendly_name(const std:
 
 	while (ret = SetupDiEnumDeviceInfo(deviceInfo, index, &deviceInfoData))
 	{
-		ret = SetupDiGetDeviceRegistryProperty(deviceInfo, 
-                                               &deviceInfoData, 
-                                               SPDRP_CLASS, 
-                                               0, 
-                                               (PBYTE)stProperty, 
-                                               sizeof(stProperty), 
-                                               0);
+		ret = SetupDiGetDeviceRegistryProperty(deviceInfo,
+			&deviceInfoData,
+			SPDRP_CLASS,
+			0,
+			(PBYTE)stProperty,
+			sizeof(stProperty),
+			0);
 		if (!(ret && (_tcscmp(stProperty, _T("MEDIA")) == 0)))
 		{
 			index++;
 			continue;
 		}
 
-		ret = SetupDiGetDeviceRegistryProperty(deviceInfo, 
-                                               &deviceInfoData, 
-                                               SPDRP_SERVICE, 
-                                               0, 
-                                               (PBYTE)stProperty, 
-                                               sizeof(stProperty), 
-                                               0);
+		ret = SetupDiGetDeviceRegistryProperty(deviceInfo,
+			&deviceInfoData,
+			SPDRP_SERVICE,
+			0,
+			(PBYTE)stProperty,
+			sizeof(stProperty),
+			0);
 		if (!ret)
 		{
 			index++;
@@ -2848,13 +2875,13 @@ AUDIO_DEVICE_TYPE FrtcManager::get_audio_device_type_by_friendly_name(const std:
 			continue;
 		}
 
-		ret = SetupDiGetDeviceRegistryProperty(deviceInfo, 
-                                               &deviceInfoData, 
-                                               SPDRP_FRIENDLYNAME, 
-                                               0, 
-                                               (PBYTE)stProperty, 
-                                               sizeof(stProperty), 
-                                               0);
+		ret = SetupDiGetDeviceRegistryProperty(deviceInfo,
+			&deviceInfoData,
+			SPDRP_FRIENDLYNAME,
+			0,
+			(PBYTE)stProperty,
+			sizeof(stProperty),
+			0);
 		if (ret)
 		{
 			std::wstring strName = stProperty;
@@ -2871,8 +2898,8 @@ AUDIO_DEVICE_TYPE FrtcManager::get_audio_device_type_by_friendly_name(const std:
 
 	SetupDiDestroyDeviceInfoList(deviceInfo);
 
-	WarnLog("audio device not found, device name=%s", 
-             FRTCSDK::FRTCSdkUtil::wstring_to_string(deviceName).c_str());
+	WarnLog("audio device not found, device name=%s",
+		FRTCSDK::FRTCSdkUtil::wstring_to_string(deviceName).c_str());
 
 	return AUDIO_DEVICE_UNKWON;
 }
@@ -2944,21 +2971,21 @@ void FrtcManager::start_camera()
 	{
 		ErrorLog("Failed to get preferred video input");
 		enable_camera(false);
-		_rtcInstance->SetCameraCapability("0p0");		
+		_rtcInstance->SetCameraCapability("0p0");
 		return;
 	}
 
 	_video_capture.set_capture_cap_by_cpu_level();
-	if (_video_capture.set_camera_device(pDev) == S_FALSE || 
-        _video_capture.start_preview() == S_FALSE)
+	if (_video_capture.set_camera_device(pDev) == S_FALSE ||
+		_video_capture.start_preview() == S_FALSE)
 	{
-        ErrorLog("start camera preview failed");
+		ErrorLog("start camera preview failed");
 
 		_rtcInstance->SetCameraCapability("0p0");
 		enable_camera(false);
 		show_camera_failed_reminder();
 		update_self_video_status();
-		
+
 		return;
 	}
 
@@ -3085,13 +3112,13 @@ DWORD WINAPI FrtcManager::create_720p_name_card(LPVOID lpParame)
 	info._font_size_type = Tmpinfo->_font_size_type;
 	info.frtc_mgr_ptr = Tmpinfo->frtc_mgr_ptr;
 
-    InfoLog("create 720p name card=%s", info._name.c_str());
+	InfoLog("create 720p name card=%s", info._name.c_str());
 
-    BYTE* nameCard = FRTCSDK::FRTCSdkUtil::create_name_card(info._name,
-                                                            info._width,
-                                                            info._height,
-                                                            info._namecard_type,
-                                                            info._font_size_type);
+	BYTE* nameCard = FRTCSDK::FRTCSdkUtil::create_name_card(info._name,
+		info._width,
+		info._height,
+		info._namecard_type,
+		info._font_size_type);
 
 	std::string str;
 	switch (info._font_size_type)
@@ -3128,12 +3155,12 @@ DWORD WINAPI FrtcManager::create_720p_watermark(LPVOID lpParame)
 	return 0;
 }
 
-BYTE* FrtcManager::get_name_card_yuv_data(std::string name, 
-                                          int w, 
-                                          int h, 
-                                          FRTCSDK::SDK_NAME_CARD_TYPE namecardType, 
-                                          FRTCSDK::SDK_NAME_CARD_FONT_SIZE_TYPE fontSizeType, 
-                                          int& newWidth)
+BYTE* FrtcManager::get_name_card_yuv_data(std::string name,
+	int w,
+	int h,
+	FRTCSDK::SDK_NAME_CARD_TYPE namecardType,
+	FRTCSDK::SDK_NAME_CARD_FONT_SIZE_TYPE fontSizeType,
+	int& newWidth)
 {
 	AutoLock autolock(_name_card_map_lock);
 
@@ -3158,8 +3185,8 @@ BYTE* FrtcManager::get_name_card_yuv_data(std::string name,
 		return iter->second;
 	}
 
-	if (w == 1280 && h == 720 && namecardType == FRTCSDK::NAME_CARD_MEDIUM && 
-        fontSizeType == FRTCSDK::FONT_SIZE_SMALL)
+	if (w == 1280 && h == 720 && namecardType == FRTCSDK::NAME_CARD_MEDIUM &&
+		fontSizeType == FRTCSDK::FONT_SIZE_SMALL)
 	{
 		std::string keyNameTmp = name + std::to_string(320) + std::to_string(180) + "_FontTmp";
 		auto iter = _name_card_map.find(keyNameTmp);
@@ -3169,11 +3196,11 @@ BYTE* FrtcManager::get_name_card_yuv_data(std::string name,
 			return iter->second;
 		}
 
-		BYTE* nameCard1 = FRTCSDK::FRTCSdkUtil::create_name_card(name, 
-                                                                 320, 
-                                                                 180, 
-                                                                 namecardType, 
-                                                                 FRTCSDK::FONT_SIZE_MEDIUM);
+		BYTE* nameCard1 = FRTCSDK::FRTCSdkUtil::create_name_card(name,
+			320,
+			180,
+			namecardType,
+			FRTCSDK::FONT_SIZE_MEDIUM);
 		_name_card_map.insert({ keyNameTmp, nameCard1 });
 
 		AutoLock _lock(_namecard_lock);
@@ -3190,11 +3217,11 @@ BYTE* FrtcManager::get_name_card_yuv_data(std::string name,
 		return nameCard1;
 	}
 
-	BYTE* nameCard = FRTCSDK::FRTCSdkUtil::create_name_card(name, 
-                                                            w, 
-                                                            h, 
-                                                            namecardType, 
-                                                            fontSizeType);
+	BYTE* nameCard = FRTCSDK::FRTCSdkUtil::create_name_card(name,
+		w,
+		h,
+		namecardType,
+		fontSizeType);
 	_name_card_map.insert({ keyName, nameCard });
 
 	return nameCard;
@@ -3307,9 +3334,9 @@ unsigned int FrtcManager::camera_capture_callback(IMediaSample* pSample, void* c
 
 	if (pCap->_frame_count < 6 || pCap->_frame_count % 200 == 0)
 	{
-		DebugLog("camera capture name=%s, frame count=%d", 
-                  pCap->_capture_state._capture_name.name, 
-                  pCap->_frame_count);
+		DebugLog("camera capture name=%s, frame count=%d",
+			pCap->_capture_state._capture_name.name,
+			pCap->_frame_count);
 	}
 
 	AM_MEDIA_TYPE* pSampleMt = NULL;
@@ -3322,8 +3349,8 @@ unsigned int FrtcManager::camera_capture_callback(IMediaSample* pSample, void* c
 	{
 		if (pSampleMt->majortype != MEDIATYPE_Video)
 		{
-			ErrorLog("%s: pSampleMt->majortype != MEDIATYPE_Video", 
-                      pCap->_capture_state._capture_name.name);
+			ErrorLog("%s: pSampleMt->majortype != MEDIATYPE_Video",
+				pCap->_capture_state._capture_name.name);
 			return 1;
 		}
 		VIDEOINFO* pvi = (VIDEOINFO*)pSampleMt->pbFormat;
@@ -3338,14 +3365,14 @@ unsigned int FrtcManager::camera_capture_callback(IMediaSample* pSample, void* c
 		if (pCap->_frame_count == 1)
 		{
 			DebugLog("get first frame from camera, width=%ld, height=%ld, "
-                     "length=%ld, format=%08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x", 
-                      pvi->bmiHeader.biWidth, pvi->bmiHeader.biHeight, 
-                      pSample->GetActualDataLength(), pSampleMt->subtype.Data1, 
-                      pSampleMt->subtype.Data2, pSampleMt->subtype.Data3, 
-                      pSampleMt->subtype.Data4[0], pSampleMt->subtype.Data4[1], 
-                      pSampleMt->subtype.Data4[2], pSampleMt->subtype.Data4[3], 
-                      pSampleMt->subtype.Data4[4], pSampleMt->subtype.Data4[5], 
-                      pSampleMt->subtype.Data4[6], pSampleMt->subtype.Data4[7]);
+				"length=%ld, format=%08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x",
+				pvi->bmiHeader.biWidth, pvi->bmiHeader.biHeight,
+				pSample->GetActualDataLength(), pSampleMt->subtype.Data1,
+				pSampleMt->subtype.Data2, pSampleMt->subtype.Data3,
+				pSampleMt->subtype.Data4[0], pSampleMt->subtype.Data4[1],
+				pSampleMt->subtype.Data4[2], pSampleMt->subtype.Data4[3],
+				pSampleMt->subtype.Data4[4], pSampleMt->subtype.Data4[5],
+				pSampleMt->subtype.Data4[6], pSampleMt->subtype.Data4[7]);
 		}
 
 		unsigned char* buffer = NULL;
@@ -3381,9 +3408,9 @@ unsigned int FrtcManager::camera_capture_callback(IMediaSample* pSample, void* c
 		{
 			if (pCap->_frame_count == 1)
 			{
-                DebugLog("get YUY2 data length=%ld, width=%ld, height=%ld",
-                          nSize, pvi->bmiHeader.biWidth,
-                          pvi->bmiHeader.biHeight);
+				DebugLog("get YUY2 data length=%ld, width=%ld, height=%ld",
+					nSize, pvi->bmiHeader.biWidth,
+					pvi->bmiHeader.biHeight);
 			}
 			colorFormat = RTC::kYUY2;
 		}
@@ -3404,18 +3431,18 @@ unsigned int FrtcManager::camera_capture_callback(IMediaSample* pSample, void* c
 	}
 	else
 	{
-		InfoLog("%s: media subtype does not exist", 
-                 pCap->_capture_state._capture_name.name);
+		InfoLog("%s: media subtype does not exist",
+			pCap->_capture_state._capture_name.name);
 		if (pSampleMt)
 		{
-			InfoLog("%s: the media subtype is %08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x", 
-                     pCap->_capture_state._capture_name.name, 
-				     pSampleMt->subtype.Data1, pSampleMt->subtype.Data2, 
-                     pSampleMt->subtype.Data3, pSampleMt->subtype.Data4[0], 
-                     pSampleMt->subtype.Data4[1], pSampleMt->subtype.Data4[2], 
-                     pSampleMt->subtype.Data4[3], pSampleMt->subtype.Data4[4], 
-                     pSampleMt->subtype.Data4[5], pSampleMt->subtype.Data4[6], 
-                     pSampleMt->subtype.Data4[7]);
+			InfoLog("%s: the media subtype is %08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x",
+				pCap->_capture_state._capture_name.name,
+				pSampleMt->subtype.Data1, pSampleMt->subtype.Data2,
+				pSampleMt->subtype.Data3, pSampleMt->subtype.Data4[0],
+				pSampleMt->subtype.Data4[1], pSampleMt->subtype.Data4[2],
+				pSampleMt->subtype.Data4[3], pSampleMt->subtype.Data4[4],
+				pSampleMt->subtype.Data4[5], pSampleMt->subtype.Data4[6],
+				pSampleMt->subtype.Data4[7]);
 		}
 		return 1;
 	}
@@ -3439,9 +3466,9 @@ void FrtcManager::change_camera_resolution(int h, bool isRequest)
 	VIDEO_CAPS_STRUCT newCap;
 	bool needRestartCamera = false;
 
-    DebugLog("change camera resolution, height=%d, request=%d, camera resolution "
-             "list size=%d",
-              h, isRequest, _camera_resolution_list.size());
+	DebugLog("change camera resolution, height=%d, request=%d, camera resolution "
+		"list size=%d",
+		h, isRequest, _camera_resolution_list.size());
 
 	if (isRequest)
 	{
@@ -3492,8 +3519,8 @@ void FrtcManager::change_camera_resolution(int h, bool isRequest)
 				_video_capture.set_video_capabilities(newCap);
 				needRestartCamera = true;
 				_camera_resolution_height = newCap.height;
-				DebugLog("resolution change required (request). new resolution=%dp", 
-                          newCap.height);
+				DebugLog("resolution change required (request). new resolution=%dp",
+					newCap.height);
 			}
 		}
 	}
@@ -3537,8 +3564,8 @@ void FrtcManager::change_camera_resolution(int h, bool isRequest)
 				newCap.height = 360;
 				break;
 			default:
-				DebugLog("unknown resolution %dp, reset to max supported %dp", 
-                          newCap.height, _max_camera_height);
+				DebugLog("unknown resolution %dp, reset to max supported %dp",
+					newCap.height, _max_camera_height);
 
 				newCap.height = _max_camera_height;
 				newCap.width = _max_camera_height * 16 / 9;
@@ -3559,9 +3586,9 @@ void FrtcManager::change_camera_resolution(int h, bool isRequest)
 
 			_video_capture.set_video_capabilities(newCap);
 			needRestartCamera = true;
-			
-            DebugLog("resolution change required (release). new resolution=%dp", 
-                      newCap.height);
+
+			DebugLog("resolution change required (release). new resolution=%dp",
+				newCap.height);
 		}
 	}
 
@@ -3678,9 +3705,9 @@ void FrtcManager::send_content_video_frame(void* buffer, unsigned int length, un
 
 // log upload
 uint64_t FrtcManager::start_upload_logs(const std::string& metaData,
-	                                    const std::string& fileName,
-	                                    int fileCount,
-	                                    const std::string& coreDumpName)
+	const std::string& fileName,
+	int fileCount,
+	const std::string& coreDumpName)
 {
 	std::string utf8Str = FRTCSDK::FRTCSdkUtil::get_utf8_string(metaData);
 	return _rtcInstance->StartUploadLogs(utf8Str, fileName, fileCount, coreDumpName);
