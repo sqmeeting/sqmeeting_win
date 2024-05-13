@@ -7,6 +7,7 @@ FRTCVideoWndMgr::FRTCVideoWndMgr()
 	: _hMain(NULL),
 	_active_speaker_uuid(""),
 	_cell_customization_uuid(""),
+	_current_lecture_uuid(""),
 	_current_video_view(NULL)
 {
 	_small_cell_width = SMALL_CELL_WIDTH;
@@ -946,7 +947,7 @@ void FRTCVideoWndMgr::switch_to_1n5_layout()
 					else
 					{
 						if (_msid_map.size() > 2 && _cell_customization_uuid != _active_speaker_uuid &&
-							_active_speaker_uuid != "") {
+							_active_speaker_uuid != "" && _current_lecture_uuid != (*tmpSpk)->get_uuid()) {
 							(*tmpSpk)->set_border(true);
 						}
 						else
@@ -961,7 +962,7 @@ void FRTCVideoWndMgr::switch_to_1n5_layout()
 				{
 					if (_msid_map.size() > 2 && (*tmpSpk)->get_uuid().compare(0,
 						kContentMSIDPrefixStr.length(),
-						kContentMSIDPrefixStr) != 0) {
+						kContentMSIDPrefixStr) != 0 && _current_lecture_uuid != (*tmpSpk)->get_uuid()) {
 						(*tmpSpk)->set_border(true);
 					}
 					else
@@ -1541,7 +1542,7 @@ void FRTCVideoWndMgr::switch_to_grid_layout()
 			index++;
 		}
 
-		if (_msid_map.size() > 2 && speakerIndex != -1)
+		if (_msid_map.size() > 2 && speakerIndex != -1 && _current_lecture_uuid != (*tmpSpk)->get_uuid())
 		{
 			(*tmpSpk)->set_border(true);
 		}
@@ -2107,6 +2108,12 @@ void FRTCVideoWndMgr::set_cell_customizations(const std::string& uuid)
 	DebugLog("set_cell_customizations uuid = %s, msid = %s",
 		_cell_customization_uuid.c_str(), msid.c_str());
 
+	update_layout();
+}
+
+void FRTCVideoWndMgr::set_current_lecture(const std::string& uuid)
+{
+	_current_lecture_uuid = uuid;
 	update_layout();
 }
 

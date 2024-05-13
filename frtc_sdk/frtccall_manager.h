@@ -124,7 +124,7 @@ public:
     void OnParticipantList(std::set<std::string> uuidList);
     void OnDetectAudioMute();
     void OnMuteLock(bool muted, bool allowSelfUnmute);
-    void OnLayoutSetting(int max_cell_count);
+    void OnLayoutSetting(int max_cell_count, const std::vector<std::string>& lectures);
     void OnMeetingSessionStatus(
         const std::string &watermark_msg,
         const std::string &recording_status,

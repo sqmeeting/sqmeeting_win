@@ -39,6 +39,7 @@ public:
 	void set_current_view(VideoWnd * pView);
 	void set_active_speaker(const std::string &uuid, bool forceSet);
 	void set_cell_customizations(const std::string& uuid);
+	void set_current_lecture(const std::string& uuid);
 	void set_first_request_stream_uuid(const std::string &uuid);
 	void set_user_name(const std::string& msid, const std::string& username);
 
@@ -84,6 +85,7 @@ protected:
 	VideoWnd									*_current_video_view;
 	std::string									_active_speaker_uuid;
 	std::string									_cell_customization_uuid;
+	std::string									_current_lecture_uuid;
 	std::string									_first_request_stream_uuid;
 	int											_small_cell_width;
 	int											_small_cell_height;

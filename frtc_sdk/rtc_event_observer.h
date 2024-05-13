@@ -64,7 +64,7 @@ public:
     virtual void OnContentFailForLowBandwidth() = 0;
     virtual void OnContentTokenResponse(bool rejected) = 0;
 
-    virtual void OnLayoutSetting(int max_cell_count) = 0;
+    virtual void OnLayoutSetting(int max_cell_count, const std::vector<std::string>& lectures) = 0;
 
     virtual void OnPasscodeRequest() = 0;
     virtual void OnPasscodeReject(RTC::MeetingStatusChangeReason reason) = 0;
