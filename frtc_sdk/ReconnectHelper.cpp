@@ -51,6 +51,20 @@ void ReconnectHelper::SetLastCallPwdForGuest(const char* pwd)
 	}
 }
 
+void ReconnectHelper::SetLastCallLatestDisplayName(const char* new_name)
+{
+	if (new_name && last_call_param_)
+	{
+		if (last_call_param_->_display_name)
+			delete[] last_call_param_->_display_name;
+		size_t endingLen = 1;
+		size_t len = strlen(new_name);
+		last_call_param_->_display_name = new char[len + endingLen];
+		memset(last_call_param_->_display_name, 0, len + endingLen);
+		strcpy_s(last_call_param_->_display_name, len + endingLen, new_name);
+	}
+}
+
 void ReconnectHelper::ResetReconnectStatue()
 {
 	reconnect_state_ = ReconnectState::RECONNECT_IDLE;

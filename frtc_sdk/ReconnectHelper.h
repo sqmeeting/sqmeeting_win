@@ -23,6 +23,7 @@ public:
 	ReconnectState HandleCallStateChange(RTC::MeetingStatus state, RTC::MeetingStatusChangeReason reason);
 	void SetLastCallParam(const FrtcCallParam& param);
 	void SetLastCallPwdForGuest(const char* pwd);
+	void SetLastCallLatestDisplayName(const char* new_name);
 	void ResetReconnectStatue();
 	ReconnectState GetReconnectState();
 	const FrtcCallParam* GetLastCallParam();
