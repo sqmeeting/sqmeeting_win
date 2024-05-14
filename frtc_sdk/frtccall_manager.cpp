@@ -479,9 +479,10 @@ void FrtcManager::OnContentFailForLowBandwidth()
 	set_reminder_type(kUplinkBitRateLimit);
 }
 
-void FrtcManager::OnLayoutSetting(int max_cell_count)
+void FrtcManager::OnLayoutSetting(int max_cell_count, const std::vector<std::string>& lectures)
 {
 	_video_wnd_mgr->set_layout_cell_max_count(max_cell_count);
+	_video_wnd_mgr->set_current_lecture(lectures.empty() ? "" : lectures.front());
 }
 
 void FrtcManager::OnMeetingControlMsg(const std::string& msgType, const Json::Value& jsonContext)
@@ -1125,7 +1126,8 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 				if (uuid == _uuid)
 				{
 					std::string newName = item.second.display_name;
-					update_self_display_name(newName);
+					std::string ansiStr = FRTCSDK::FRTCSdkUtil::get_ansi_string(newName);
+					update_self_display_name(ansiStr);
 					_full_rosters_list[0] = jsonRoster;
 				}
 				else
@@ -1163,12 +1165,12 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 					if (uuid == _uuid)
 					{
 						std::string newName = it->second.display_name;
-						update_self_display_name(newName);
-						_full_rosters_list[0] = jsonRoster;
+						std::string ansiStr = FRTCSDK::FRTCSdkUtil::get_ansi_string(newName);
+						update_self_display_name(ansiStr);
 					}
 					else
 					{
-						_full_rosters_list.append(jsonRoster);
+						_full_rosters_list[i] = jsonRoster;
 					}
 
 					muteStatusList.erase(it);
@@ -1198,8 +1200,8 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 				if (uuid == _uuid)
 				{
 					std::string newName = item.second.display_name;
-					update_self_display_name(newName);
-					_full_rosters_list[0] = jsonRoster;
+					std::string ansiStr = FRTCSDK::FRTCSdkUtil::get_ansi_string(newName);
+					update_self_display_name(ansiStr);
 				}
 				else
 				{
@@ -1228,6 +1230,7 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 
 void FrtcManager::update_self_display_name(const std::string& new_name)
 {
+	//std::string utf8name = FRTCSDK::FRTCSdkUtil::get_utf8_string(new_name);
 	_is_guest_call ? _guest_user_display_name = new_name : _signed_user_display_name = new_name;
 	reconnectHelper_->SetLastCallLatestDisplayName(new_name.c_str());
 }

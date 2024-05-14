@@ -209,7 +209,7 @@ void RTCEventObserver::OnLayoutSetting(int max_cell_count, const std::vector<std
 {
 	DebugLog("OnLayoutSetting msg received, max_cell_count is %d, lectures count is %d", max_cell_count, lectures.size());
 
-	_eventProcessor->post(&RTCEventObserverCallback::OnLayoutSetting, _callback, max_cell_count);
+	_eventProcessor->post(&RTCEventObserverCallback::OnLayoutSetting, _callback, max_cell_count, lectures);
 
 	Json::Value jsonMsg;
 	Json::Value jsonLectureList(Json::arrayValue);
