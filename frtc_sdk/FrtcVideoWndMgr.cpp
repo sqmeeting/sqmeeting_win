@@ -161,11 +161,11 @@ void FRTCVideoWndMgr::set_watermark(bool enable, std::string msg)
 
 int FRTCVideoWndMgr::get_cells_count(const std::string& newStreamUUID)
 {
-	int showignCellsCount = _layout_cell_max_count + 1;
+	int showingCellsCount = _layout_cell_max_count + 1;
 	std::string prefixContent = "VCR";
 	if (newStreamUUID.compare(0, prefixContent.length(), prefixContent) == 0)
 	{
-		showignCellsCount++;
+		showingCellsCount++;
 	}
 	else
 	{
@@ -178,13 +178,13 @@ int FRTCVideoWndMgr::get_cells_count(const std::string& newStreamUUID)
                                     kContentMSIDPrefixStr.length(), 
                                     kContentMSIDPrefixStr) == 0)
 			{
-				showignCellsCount++;
+				showingCellsCount++;
 				break;
 			}
 		}
 	}
 
-	return showignCellsCount;
+	return showingCellsCount;
 }
 
 
