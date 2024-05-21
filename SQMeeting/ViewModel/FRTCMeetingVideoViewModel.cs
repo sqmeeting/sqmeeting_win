@@ -552,6 +552,8 @@ namespace SQMeeting.ViewModel
 
         bool _shareContentEnable = true;
 
+        bool _contentPeopleWndCollapsed = false;
+
         public View.MeetingVideoWindow _meetingVideoWnd = null;
         public View.StatisticsWindow statisticsWnd = null;
         public View.RosterListWindow rosterListWindow = null;
@@ -1495,6 +1497,7 @@ namespace SQMeeting.ViewModel
         {
             try
             {
+                _contentPeopleWndCollapsed = show;
                 if (show)
                 {
                     recordingStatusWidget?.Hide();
@@ -1825,6 +1828,7 @@ namespace SQMeeting.ViewModel
 
                 _shareContentEnable = true;
                 IsSendingContent = false;
+                _contentPeopleWndCollapsed = false;
                 _sharingToolBar = null;
                 _SharingFrame = null;
                 IsReceivingContent = false;
@@ -3069,34 +3073,41 @@ namespace SQMeeting.ViewModel
                                     LogHelper.Debug("Enter lock m_rosterListLockObj");
                                     lock (m_rosterListLockObj)
                                     {
-                                        if (RosterList != null)
+                                        try
                                         {
-                                            string uuid = token["uuid"].ToString();
-                                            PinnedUUID = uuid;
-                                            RosterList.ForEach((p) =>
+                                            if (RosterList != null)
                                             {
-                                                if (p.IsPinned && p.UUID != uuid)
+                                                string uuid = token["uuid"].ToString();
+                                                PinnedUUID = uuid;
+                                                RosterList.ForEach((p) =>
                                                 {
-                                                    p.IsPinned = false;
-                                                    if (p.UUID == _selfUUID)
+                                                    if (p.IsPinned && p.UUID != uuid)
                                                     {
-                                                        ShowTips(FrtcReminderType.VIDEO_UNPINNED);
+                                                        p.IsPinned = false;
+                                                        if (p.UUID == _selfUUID)
+                                                        {
+                                                            ShowTips(FrtcReminderType.VIDEO_UNPINNED);
+                                                        }
                                                     }
-                                                }
-                                                else if (p.UUID == uuid && !p.IsPinned)
+                                                    else if (p.UUID == uuid && !p.IsPinned)
+                                                    {
+                                                        p.IsPinned = true;
+                                                        if (p.UUID == _selfUUID)
+                                                        {
+                                                            ShowTips(FrtcReminderType.VIDEO_PINNED);
+                                                        }
+                                                    }
+                                                });
+                                                if (RosterList.Count > 1)
                                                 {
-                                                    p.IsPinned = true;
-                                                    if (p.UUID == _selfUUID)
-                                                    {
-                                                        ShowTips(FrtcReminderType.VIDEO_PINNED);
-                                                    }
+                                                    this.RosterList?.Sort(1, (RosterList.Count - 1), new LecturerComparer());
+                                                    RosterList = new List<RosterItem>(RosterList);
                                                 }
-                                            });
-                                            if (RosterList.Count > 1)
-                                            {
-                                                this.RosterList?.Sort(1, (RosterList.Count - 1), new LecturerComparer());
-                                                RosterList = new List<RosterItem>(RosterList);
                                             }
+                                        }
+                                        catch(Exception ex)
+                                        {
+                                            LogHelper.Exception(ex);
                                         }
                                     }
                                 });
@@ -3400,11 +3411,14 @@ namespace SQMeeting.ViewModel
                                     _meetingVideoWnd.WindowState = WindowState.Normal;
                                 }
                                 _meetingVideoWnd?.adjustRecordingStatusWidget();
-                                recordingStatusWidget.Show();
-                                recordingStatusWidget.Activate();
-                                _meetingVideoWnd?.adjustRecordingStatusWidget();
-                                if (streamingStatusWidget != null)
-                                    _meetingVideoWnd?.adjustStreamingStatusWidget();
+                                if (IsSendingContent && !_contentPeopleWndCollapsed)
+                                {
+                                    recordingStatusWidget.Show();
+                                    recordingStatusWidget.Activate();
+                                    _meetingVideoWnd?.adjustRecordingStatusWidget();
+                                    if (streamingStatusWidget != null)
+                                        _meetingVideoWnd?.adjustStreamingStatusWidget();
+                                }
 
                                 ShowTips((IsGuestMeeting || (!IsOperatorRole && !IsMeetingOwner)) ?
                                     FrtcReminderType.MEETING_RECORDING_START : FrtcReminderType.MEETING_RECORDING_START_OPERATOR);
@@ -3453,9 +3467,12 @@ namespace SQMeeting.ViewModel
                                 {
                                     _meetingVideoWnd.WindowState = WindowState.Normal;
                                 }
-                                streamingStatusWidget.Show();
-                                streamingStatusWidget.Activate();
-                                _meetingVideoWnd?.adjustStreamingStatusWidget();
+                                if (IsSendingContent && !_contentPeopleWndCollapsed)
+                                {
+                                    streamingStatusWidget.Show();
+                                    streamingStatusWidget.Activate();
+                                    _meetingVideoWnd?.adjustStreamingStatusWidget();
+                                }
 
                                 ShowTips((IsGuestMeeting || (!IsOperatorRole && !IsMeetingOwner)) ?
                                     FrtcReminderType.MEETING_STREAMING_START : FrtcReminderType.MEETING_STREAMING_START_OPERATOR);
