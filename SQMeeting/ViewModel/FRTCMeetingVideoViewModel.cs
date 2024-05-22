@@ -3411,7 +3411,7 @@ namespace SQMeeting.ViewModel
                                     _meetingVideoWnd.WindowState = WindowState.Normal;
                                 }
                                 _meetingVideoWnd?.adjustRecordingStatusWidget();
-                                if (IsSendingContent && !_contentPeopleWndCollapsed)
+                                if (!(IsSendingContent && !_contentPeopleWndCollapsed))
                                 {
                                     recordingStatusWidget.Show();
                                     recordingStatusWidget.Activate();
@@ -3467,7 +3467,7 @@ namespace SQMeeting.ViewModel
                                 {
                                     _meetingVideoWnd.WindowState = WindowState.Normal;
                                 }
-                                if (IsSendingContent && !_contentPeopleWndCollapsed)
+                                if (!(IsSendingContent && !_contentPeopleWndCollapsed))
                                 {
                                     streamingStatusWidget.Show();
                                     streamingStatusWidget.Activate();

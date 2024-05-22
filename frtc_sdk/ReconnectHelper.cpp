@@ -79,7 +79,8 @@ ReconnectState ReconnectHelper::HandleCallStateChange(RTC::MeetingStatus state, 
 	if (reconnect_state_ == ReconnectState::RECONNECT_IDLE)
 	{
 		if (state == RTC::MeetingStatus::kDisconnected
-			&& reason == RTC::MeetingStatusChangeReason::kMeetingEndAbnormal)
+			&& reason == RTC::MeetingStatusChangeReason::kMeetingEndAbnormal
+			&& reconnect_start_time_ == 0)
 		{
 			reconnect_state_ = ReconnectState::RECONNECT_TRYING;
 			reconnect_start_time_ = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
