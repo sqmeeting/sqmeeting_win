@@ -74,7 +74,7 @@ webrtc_desktop_capture::~webrtc_desktop_capture()
 
 void webrtc_desktop_capture::Init(webrtc_capture_type type)
 {
-	
+
 	if (capturer_ == nullptr)
 	{
 		if (type == webrtc_capture_type::window_capture)
@@ -240,6 +240,9 @@ void webrtc_desktop_capture::capture_frame()
 
 void webrtc_desktop_capture::Stop()
 {
+	if (stop_capture_)
+		return;
+
 	stop_capture_ = true;
 	stop_wnd_close_timer();
 	std::this_thread::sleep_for(std::chrono::milliseconds(500));
