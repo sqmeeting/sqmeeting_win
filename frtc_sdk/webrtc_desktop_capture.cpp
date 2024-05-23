@@ -249,7 +249,8 @@ void webrtc_desktop_capture::Stop()
 	if (capture_timer_thread_ && capture_timer_thread_->native_handle())
 		TerminateThread(capture_timer_thread_->native_handle(), 0);
 	capture_started_ = false;
-	frame_.reset();
+	if(frame_)
+		frame_.reset();
 }
 
 void webrtc_desktop_capture::start_wnd_close_timer()
