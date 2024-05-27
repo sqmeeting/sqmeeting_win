@@ -35,6 +35,7 @@ void ReconnectHelper::SetLastCallParam(const FrtcCallParam& param)
 		delete last_call_param_;
 	last_call_param_ = new FrtcCallParam();
 	DeepCopyFrtcCallParam(last_call_param_, param);
+	//last_call_param_ = param.clone();
 }
 
 void ReconnectHelper::SetLastCallPwdForGuest(const char* pwd)
@@ -76,6 +77,7 @@ void ReconnectHelper::ResetReconnectStatue()
 
 ReconnectState ReconnectHelper::HandleCallStateChange(RTC::MeetingStatus state, RTC::MeetingStatusChangeReason reason)
 {
+	AutoLock lock(reconnect_cs_);
 	if (reconnect_state_ == ReconnectState::RECONNECT_IDLE)
 	{
 		if (state == RTC::MeetingStatus::kDisconnected
