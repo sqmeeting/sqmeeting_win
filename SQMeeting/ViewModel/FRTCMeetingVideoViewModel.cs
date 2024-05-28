@@ -3665,7 +3665,7 @@ namespace SQMeeting.ViewModel
                     it.IsSelf = true;
                     it.MuteAudio = self.MicMuted ? "true" : "false";
                     it.MuteVideo = self.CameraMuted ? "true" : "false";
-                    if (it.Name == _tmpDisplayName && it.Name != DisplayName)//name had been changed
+                    if ((_tmpDisplayName == string.Empty || it.Name == _tmpDisplayName) && it.Name != DisplayName)//name had been changed
                     {
                         DisplayName = it.Name;
                         ShowTips(FrtcReminderType.DISPLAY_NAME_RENAMED);

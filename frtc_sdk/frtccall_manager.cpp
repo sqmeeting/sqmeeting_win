@@ -1130,10 +1130,8 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 					update_self_display_name(ansiStr);
 					_full_rosters_list[0] = jsonRoster;
 				}
-				else
-				{
-					_full_rosters_list.append(jsonRoster);
-				}
+
+				_full_rosters_list.append(jsonRoster);
 
 				Json::FastWriter writer;
 				const std::string json_file = writer.write(_full_rosters_list);
@@ -1168,11 +1166,9 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 						std::string ansiStr = FRTCSDK::FRTCSdkUtil::get_ansi_string(newName);
 						update_self_display_name(ansiStr);
 					}
-					else
-					{
-						_full_rosters_list[i] = jsonRoster;
-					}
 
+					_full_rosters_list[i] = jsonRoster;
+					
 					muteStatusList.erase(it);
 
 					Json::FastWriter writer;
@@ -1203,10 +1199,8 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 					std::string ansiStr = FRTCSDK::FRTCSdkUtil::get_ansi_string(newName);
 					update_self_display_name(ansiStr);
 				}
-				else
-				{
-					_full_rosters_list.append(jsonRoster);
-				}
+
+				_full_rosters_list.append(jsonRoster);		
 
 				Json::FastWriter writer;
 				const std::string json_file = writer.write(_full_rosters_list);

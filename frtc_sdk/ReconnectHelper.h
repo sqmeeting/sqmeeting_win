@@ -3,6 +3,7 @@
 #include "stdafx.h"
 #include "rtc_definitions.h"
 #include "frtc_sdk_api.h"
+#include "auto_lock.h"
 
 #define CALL_RECONNECT_MAX_RETRY_CNT 3
 
@@ -35,6 +36,7 @@ private:
 	static void DoReconnect(ReconnectHelper* reconnectHelper);
 
 private:
+	CritSec reconnect_cs_;
 	ReconnectState reconnect_state_;
 	FrtcCallParam* last_call_param_;
 	int retry_cnt_;
