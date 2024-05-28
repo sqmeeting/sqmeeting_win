@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Threading;
+using System.Windows.Documents;
 
 namespace SQMeeting.FRTCView
 {
@@ -163,7 +164,7 @@ namespace SQMeeting.FRTCView
                     data.RecurringMeetingGroup[0].recurrenceEndTime.Value
                     : long.Parse(data.EndTime);
 
-                period += "," + GetUTCDateTimeFromUTCTimestamp(begin_time).ToLocalTime().ToString("HH:mm") + " - " + GetUTCDateTimeFromUTCTimestamp(end_time).ToLocalTime().ToString("HH:mm") + ", ";
+                period += ",";// + GetUTCDateTimeFromUTCTimestamp(begin_time).ToLocalTime().ToString("HH:mm") + " - " + GetUTCDateTimeFromUTCTimestamp(end_time).ToLocalTime().ToString("HH:mm") + ", ";
                 if (data.RecurringType == MeetingRecurring.Daily)
                 {
                     period += Resources.FRTC_SDKAPP_SCHEDULE_RECURRING_EVERY + " " + data.RecurringFrequency.ToString() + " " + Resources.FRTC_SDKAPP_SCHEDULE_RECURRING_DAY;
@@ -172,14 +173,18 @@ namespace SQMeeting.FRTCView
                 {
                     period += Resources.FRTC_SDKAPP_SCHEDULE_RECURRING_EVERY + " " + data.RecurringFrequency.ToString() + " " + Resources.FRTC_SDKAPP_SCHEDULE_RECURRING_WEEK;
                     string days = string.Empty;
-                    data.RecurringDaysOfWeek.ToList().ForEach((d) => days += DayOfWeekIntegerToFriendlyName(d) + Resources.FRTC_SDKAPP_STR_SEPERATE);
+                    var daysList = data.RecurringDaysOfWeek.ToList();
+                    daysList.Sort();
+                    daysList.ForEach((d) => days += DayOfWeekIntegerToFriendlyName(d) + Resources.FRTC_SDKAPP_STR_SEPERATE);
                     period += " (" + days.TrimEnd(Resources.FRTC_SDKAPP_STR_SEPERATE[0]) + ")";
                 }
                 else if (data.RecurringType == MeetingRecurring.Monthly)
                 {
                     period += Resources.FRTC_SDKAPP_SCHEDULE_RECURRING_EVERY + " " + data.RecurringFrequency.ToString() + " " + Resources.FRTC_SDKAPP_MEASURE_WORD + Resources.FRTC_SDKAPP_SCHEDULE_RECURRING_MONTH;
                     string days = string.Empty;
-                    data.RecurringDaysOfMonth.ToList().ForEach((d) => days += d.ToString() + Resources.FRTC_SDKAPP_STR_SEPERATE);
+                    var daysList = data.RecurringDaysOfMonth.ToList();
+                    daysList.Sort();
+                    daysList.ForEach((d) => days += d.ToString() + Resources.FRTC_SDKAPP_STR_SEPERATE);
                     period += " (" + days.TrimEnd(Resources.FRTC_SDKAPP_STR_SEPERATE[0]) + Resources.FRTC_SDKAPP_SCHEDULE_DAY_IN_MONTH + ")";
                 }
                 bd.Append(period);
