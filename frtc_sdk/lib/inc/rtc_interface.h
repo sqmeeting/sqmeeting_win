@@ -103,6 +103,8 @@ namespace RTC
         virtual void CancelUploadLogs(uint64_t traction_id) = 0;
 
 #if defined(IOS)
+        virtual void MuteRemoteVideo(bool mute) = 0;
+        
         virtual void SetPeopleOnlyFlag(bool is_people_only) = 0;
 
         virtual void ReceiveVideoFrame(const std::string & msid,
