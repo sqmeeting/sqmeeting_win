@@ -210,12 +210,13 @@
                             <!--<CheckBox Content="仅音频" Margin="0,8,0,0" IsChecked="{Binding IsVoiceOnly}" Style="{StaticResource FRTC_DefaultCheckBoxStyle}"/>-->
                             <Rectangle Margin="0,12,0,0" Fill="{StaticResource FRTC_DefaultBorderColor}" Height="1"/>
                             <Grid Margin="0,12,0,0">
-                                <CheckBox x:Name="cbUsePersonalRoom" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_USE_PERSONAL_MEETING_ID}" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource FRTC_DefaultCheckBoxStyle}"
-                                          DataContext="{Binding Source={StaticResource Locator}, Path=SignIn}"
+                                <CheckBox x:Name="cbUsePersonalRoom" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_USE_PERSONAL_MEETING_ID}" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource FRTC_DefaultCheckBoxStyle}"          
+                                          DataContext="{Binding FRTCUser, Source={StaticResource Locator}}"
                                           IsChecked="{Binding UsePersonalMeetingRoom}" IsEnabled="{Binding RoomList.Count, Converter={StaticResource IntToBool}}"/>
                             </Grid>
                             <ComboBox Height="32" Style="{StaticResource FRTC_DefaultComboBoxStyle}" Margin="0,8,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" VerticalContentAlignment="Center"
-                                      DataContext="{Binding Source={StaticResource Locator}, Path=SignIn}" ItemsSource="{Binding RoomList}" DisplayMemberPath="RoomNumber" SelectedItem="{Binding SelectedRoom, Mode=TwoWay}"
+                                      DataContext="{Binding FRTCUser, Source={StaticResource Locator}}"
+                                      ItemsSource="{Binding RoomList, NotifyOnSourceUpdated=True}" DisplayMemberPath="RoomNumber" SelectedItem="{Binding SelectedRoom, Mode=TwoWay}"
                                       Visibility="{Binding ElementName=cbUsePersonalRoom, Path=IsChecked, Converter={StaticResource BoolToCollapsed}}"/>
                         </StackPanel>
                     </Border>

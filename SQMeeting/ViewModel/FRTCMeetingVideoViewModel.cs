@@ -872,12 +872,14 @@ namespace SQMeeting.ViewModel
                 {
                     if (SelectedParticipantCopy != null)
                     {
-                        _tmpDisplayName = renameWnd.tbName.Text.Trim();
+                        string newName = renameWnd.tbName.Text.Trim();
+                        if (p.UUID == FRTCUIUtils.GetFRTCDeviceUUID())
+                            _tmpDisplayName = newName;
                         _renameUserUUID = p.UUID;
                         m_callManager.RenameUser(
                             this.MeetingID,
                             p.UUID,
-                            _tmpDisplayName,
+                            newName,
                             IsGuestMeeting ? string.Empty : CommonServiceLocator.ServiceLocator.Current.GetInstance<FRTCUserManager>().UserData?.user_token);
                     }
                 }
@@ -1838,6 +1840,7 @@ namespace SQMeeting.ViewModel
                 NewUnmuteApplications = false;
                 NewUnmuteApplicationsNotify = string.Empty;
                 _unmuteApplicationTime = DateTime.MinValue;
+                LastReconnectState = 0;
 
                 if (msg.reason == FrtcCallReason.CALL_MEETING_END_ABNORMAL)
                 {
@@ -3180,7 +3183,7 @@ namespace SQMeeting.ViewModel
             if (endTime > 0)
                 strEndTime = UIHelper.GetUTCDateTimeFromUTCTimestamp(endTime).ToLocalTime().ToString("yyyy-MM-dd HH:mm");
             this.MeetingInviteString = UIHelper.GetMeetingInvitationText(isGuestCall ? string.Empty : meeting_displayname, meeting_name, strStartTime, meeting_id, vm.FRTCMeetingPWD, false, strEndTime, meeting_url);
-            if (!isGuestCall && signInMgr.IsUserSignIn && signInMgr.UserData != null)
+            if (!isGuestCall && signInMgr.IsUserSignIn && signInMgr.UserData != null && LastReconnectState != 1)
                 AddHistoryRecord(meeting_name, meeting_id, meeting_displayname, vm.FRTCMeetingPWD, MeetingOwnerName);
 
             if (IsAudioOnly)
@@ -3411,7 +3414,7 @@ namespace SQMeeting.ViewModel
                                     _meetingVideoWnd.WindowState = WindowState.Normal;
                                 }
                                 _meetingVideoWnd?.adjustRecordingStatusWidget();
-                                if (!(IsSendingContent && !_contentPeopleWndCollapsed))
+                                if (!(IsSendingContent && _contentPeopleWndCollapsed))
                                 {
                                     recordingStatusWidget.Show();
                                     recordingStatusWidget.Activate();
@@ -3467,7 +3470,7 @@ namespace SQMeeting.ViewModel
                                 {
                                     _meetingVideoWnd.WindowState = WindowState.Normal;
                                 }
-                                if (!(IsSendingContent && !_contentPeopleWndCollapsed))
+                                if (!(IsSendingContent && _contentPeopleWndCollapsed))
                                 {
                                     streamingStatusWidget.Show();
                                     streamingStatusWidget.Activate();
@@ -3518,17 +3521,25 @@ namespace SQMeeting.ViewModel
                         case 0: // 	RECONNECT_IDLE,
                             break;
                         case 1: //  RECONNECT_SUCCESS,
+                            LogHelper.Debug("RECONNECT_SUCCESS");
                             if (FRTCView.FRTCPopupViewManager.CurrentPopup != null
                                 && FRTCView.FRTCPopupViewManager.CurrentPopup is FRTCView.FRTCReconnectingWindow)
                             {
+                                LogHelper.Debug("close FRTCReconnectingWindow");
                                 FRTCView.FRTCPopupViewManager.CurrentPopup.Close();
+                            }
+                            else
+                            {
+                                LogHelper.Debug("CurrentPopup is {0}", FRTCView.FRTCPopupViewManager.CurrentPopup == null ? "null" : FRTCView.FRTCPopupViewManager.CurrentPopup.GetType().FullName);
                             }
                             break;
                         case 2:  // RECONNECT_TRYING,
+                            LogHelper.Debug("RECONNECT_TRYING");
                             if (FRTCView.FRTCPopupViewManager.CurrentPopup != null)
                             {
                                 if (FRTCView.FRTCPopupViewManager.CurrentPopup is FRTCView.FRTCReconnectingWindow)
                                 {
+                                    LogHelper.Debug("existing FRTCReconnectingWindow");
                                     break;
                                 }
                                 else
@@ -3548,6 +3559,7 @@ namespace SQMeeting.ViewModel
                             object[] p = new object[1];
                             p[0] = _meetingVideoWnd;
                             FRTCView.FRTCPopupViewManager.ShowPopupView(FRTCView.FRTCPopupViews.FRTCReconnecting, p);
+                            LogHelper.Debug("show FRTCReconnectingWindow");
                             break;
                         case 3:  // RECONNECT_FAILED                        
                             if (FRTCView.FRTCPopupViewManager.CurrentPopup != null &&
