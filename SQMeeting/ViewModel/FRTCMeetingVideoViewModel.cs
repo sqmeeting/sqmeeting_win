@@ -2955,6 +2955,10 @@ namespace SQMeeting.ViewModel
                                 try
                                 {
                                     self.HandleMeetingInfo(token);
+                                    if(FRTCPopupViewManager.CurrentPopup != null && FRTCPopupViewManager.CurrentPopup is FRTCReconnectingWindow)
+                                    {
+                                        FRTCPopupViewManager.CurrentPopup.Close();
+                                    }
                                 }
                                 catch (Exception ex)
                                 {
@@ -3558,8 +3562,8 @@ namespace SQMeeting.ViewModel
                             }
                             object[] p = new object[1];
                             p[0] = _meetingVideoWnd;
-                            FRTCView.FRTCPopupViewManager.ShowPopupView(FRTCView.FRTCPopupViews.FRTCReconnecting, p);
                             LogHelper.Debug("show FRTCReconnectingWindow");
+                            FRTCView.FRTCPopupViewManager.ShowPopupView(FRTCView.FRTCPopupViews.FRTCReconnecting, p);
                             break;
                         case 3:  // RECONNECT_FAILED                        
                             if (FRTCView.FRTCPopupViewManager.CurrentPopup != null &&
