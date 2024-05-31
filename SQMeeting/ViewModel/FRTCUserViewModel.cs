@@ -602,16 +602,16 @@ namespace SQMeeting.ViewModel
                 }
                 else
                 {
-                    string meetingNameTail = "的会议";
+                    string meetingNameTail = "的即时会议";
                     if (Properties.Resources.Culture.Name.ToLower() == "en-us")
                     {
-                        meetingNameTail = "'s Meeting";
+                        meetingNameTail = "'s Instant Meeting";
                     }
                     else if (Properties.Resources.Culture.Name.ToLower() == "zh-cht")
                     {
-                        meetingNameTail = "的會議";
+                        meetingNameTail = "的即時會議";
                     }
-                    m_scheduleMgr.SetupMeeting(this.UserName + meetingNameTail);
+                    m_scheduleMgr.SetupMeeting(this.RealName + meetingNameTail);
                 }
             });
 
