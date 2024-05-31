@@ -290,6 +290,7 @@ void webrtc_desktop_capture::capture_timer_proc(webrtc_desktop_capture* pCapture
 		std::this_thread::sleep_for(std::chrono::milliseconds(1000 / pCapture->interval_));
 	}
 	pCapture->frame_.reset();
+	pCapture->capture_timer_thread_.release();
 }
 
 BOOL CALLBACK webrtc_desktop_capture::GetWindowListHandler(HWND hwnd, LPARAM param) {
