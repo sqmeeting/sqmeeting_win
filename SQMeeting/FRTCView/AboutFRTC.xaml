@@ -33,7 +33,7 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
             <TextBlock FontSize="14" HorizontalAlignment="Center" Margin="0,0,0,8">
                 <Hyperlink Name="officialSite" NavigateUri="https://shenqi.isgo.com/" TextDecorations="None" Click="Hyperlink_Click">
-                    <TextBlock Text="https://shenqi.isgo.com/" HorizontalAlignment="Center"/>
+                    <TextBlock Text="https://shenqi.internetware.cn" HorizontalAlignment="Center"/>
                 </Hyperlink>
             </TextBlock>
             <TextBlock FontSize="14" HorizontalAlignment="Center" Margin="0,0,0,8">
