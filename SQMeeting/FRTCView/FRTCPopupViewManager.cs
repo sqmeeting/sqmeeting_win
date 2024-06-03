@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
+using SQMeeting.LogTool;
 
 namespace SQMeeting.FRTCView
 {
@@ -146,6 +147,7 @@ namespace SQMeeting.FRTCView
                 case FRTCPopupViews.FRTCContentSource:
                     break;
                 case FRTCPopupViews.FRTCReconnecting:
+                    LogHelper.Debug("POPUPMANAGER FRTCReconnectingWindow");
                     FRTCView.FRTCReconnectingWindow reconnecting = new FRTCView.FRTCReconnectingWindow();
                     reconnecting.Owner = parameters[0] as Window;
                     double w = SystemParameters.ThickVerticalBorderWidth + SystemParameters.ResizeFrameVerticalBorderWidth;
@@ -158,6 +160,7 @@ namespace SQMeeting.FRTCView
                     CurrentPopup.Loaded += new RoutedEventHandler((s, e) => { CurrentPopup.Top -= (SystemParameters.FixedFrameHorizontalBorderHeight); });
                     reconnecting.ShowSpinner();
                     result = reconnecting.ShowDialog();
+                    LogHelper.Debug("POPUPMANAGER FRTCReconnectingWindow closed");
                     break;
                 case FRTCPopupViews.FRTCSendMeetingMsg:
                     FRTCView.FRTCSendMeetingMsgWindow sendMeetingMsgWindow = new FRTCSendMeetingMsgWindow();

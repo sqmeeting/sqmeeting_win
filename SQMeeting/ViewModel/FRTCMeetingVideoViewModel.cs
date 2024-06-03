@@ -2955,7 +2955,7 @@ namespace SQMeeting.ViewModel
                                 try
                                 {
                                     self.HandleMeetingInfo(token);
-                                    if(FRTCPopupViewManager.CurrentPopup != null && FRTCPopupViewManager.CurrentPopup is FRTCReconnectingWindow)
+                                    if (FRTCPopupViewManager.CurrentPopup != null && FRTCPopupViewManager.CurrentPopup is FRTCReconnectingWindow)
                                     {
                                         FRTCPopupViewManager.CurrentPopup.Close();
                                     }
@@ -3112,7 +3112,7 @@ namespace SQMeeting.ViewModel
                                                 }
                                             }
                                         }
-                                        catch(Exception ex)
+                                        catch (Exception ex)
                                         {
                                             LogHelper.Exception(ex);
                                         }
@@ -3515,6 +3515,7 @@ namespace SQMeeting.ViewModel
 
         private void HandleCallReconnect(int state)
         {
+            LogHelper.Debug("HandleCallReconnect");
             if (m_meetingWndThread != null)
             {
                 Dispatcher.FromThread(m_meetingWndThread).BeginInvoke(new Action(() =>
@@ -3523,6 +3524,7 @@ namespace SQMeeting.ViewModel
                     switch (state)
                     {
                         case 0: // 	RECONNECT_IDLE,
+                            LogHelper.Debug("RECONNECT_IDLE");
                             break;
                         case 1: //  RECONNECT_SUCCESS,
                             LogHelper.Debug("RECONNECT_SUCCESS");
@@ -3531,6 +3533,7 @@ namespace SQMeeting.ViewModel
                             {
                                 LogHelper.Debug("close FRTCReconnectingWindow");
                                 FRTCView.FRTCPopupViewManager.CurrentPopup.Close();
+                                return;
                             }
                             else
                             {
@@ -3544,26 +3547,31 @@ namespace SQMeeting.ViewModel
                                 if (FRTCView.FRTCPopupViewManager.CurrentPopup is FRTCView.FRTCReconnectingWindow)
                                 {
                                     LogHelper.Debug("existing FRTCReconnectingWindow");
-                                    break;
+                                    return;
                                 }
                                 else
                                 {
+                                    LogHelper.Debug("close a popup");
                                     FRTCView.FRTCPopupViewManager.CurrentPopup.Close();
                                 }
                             }
+                            LogHelper.Debug("close other window");
                             rosterListWindow?.Close();
                             statisticsWnd?.Close();
                             inviteInfoWindow?.Close();
                             frtcContentSourceWindow?.Close();
                             if (_isSendingContent)
                             {
+                                LogHelper.Debug("stop content");
                                 StopShareContent();
                                 OnContentSendingState(false);
                             }
+
                             object[] p = new object[1];
                             p[0] = _meetingVideoWnd;
                             LogHelper.Debug("show FRTCReconnectingWindow");
                             FRTCView.FRTCPopupViewManager.ShowPopupView(FRTCView.FRTCPopupViews.FRTCReconnecting, p);
+
                             break;
                         case 3:  // RECONNECT_FAILED                        
                             if (FRTCView.FRTCPopupViewManager.CurrentPopup != null &&
