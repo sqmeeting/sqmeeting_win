@@ -160,7 +160,7 @@ void ReconnectHelper::DoReconnect(ReconnectHelper* reconnectHelper)
 		std::this_thread::sleep_for(std::chrono::milliseconds(reconnectHelper->retry_cnt_ * 10000));
 	}
 
-	if (reconnectHelper->GetReconnectState() == ReconnectState::RECONNECT_TRYING && !reconnectHelper->reconnect_canceled_)
+	if (reconnectHelper->GetReconnectState() == ReconnectState::RECONNECT_TRYING && !reconnectHelper->reconnect_canceled_ && !reconnectHelper->retry_processing_)
 	{
 		g_frtc_mgr->reconnect_current_meeting(*reconnectHelper->last_call_param_);
 	}

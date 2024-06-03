@@ -40,6 +40,57 @@ typedef struct FrtcCallParam
 	BOOL   muteAudio;
 	BOOL   muteVideo;
 	FrtcLayout layout;
+
+	/*
+public:
+	FrtcCallParam* clone() const
+	{
+		FrtcCallParam* target = new FrtcCallParam();
+		size_t endingLen = 1;
+		size_t len = strlen(this->_server_address);
+		target->_server_address = new char[len + endingLen];
+		memset(target->_server_address, 0, len + endingLen);
+		strcpy_s(target->_server_address, len + endingLen, this->_server_address);
+
+		len = strlen(this->callNumber);
+		target->callNumber = new char[len + endingLen];
+		memset(target->callNumber, 0, len + endingLen);
+		strcpy_s(target->callNumber, len + endingLen, this->callNumber);
+
+		len = strlen(this->_display_name);
+		target->_display_name = new char[len + endingLen];
+		memset(target->_display_name, 0, len + endingLen);
+		strcpy_s(target->_display_name, len + endingLen, this->_display_name);
+
+		if (this->_user_token)
+		{
+			len = strlen(this->_user_token);
+			target->_user_token = new char[len + endingLen];
+			memset(target->_user_token, 0, len + endingLen);
+			strcpy_s(target->_user_token, len + endingLen, this->_user_token);
+		}
+
+		if (this->_meeting_pwd)
+		{
+			len = strlen(this->_meeting_pwd);
+			target->_meeting_pwd = new char[len + endingLen];
+			memset(target->_meeting_pwd, 0, len + endingLen);
+			strcpy_s(target->_meeting_pwd, len + endingLen, this->_meeting_pwd);
+		}
+
+		len = strlen(this->_call_rate);
+		target->_call_rate = new char[len + endingLen];
+		memset(target->_call_rate, 0, len + endingLen);
+		strcpy_s(target->_call_rate, len + endingLen, this->_call_rate);
+
+		target->isAudioOnly = this->isAudioOnly;
+		target->muteAudio = this->muteAudio;
+		target->muteVideo = this->muteVideo;
+		target->layout = this->layout;
+
+		return target;
+	}
+	*/
 };
 
 typedef enum _FRTC_CALL_STATE
