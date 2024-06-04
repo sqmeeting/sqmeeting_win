@@ -97,6 +97,7 @@ ReconnectState ReconnectHelper::HandleCallStateChange(RTC::MeetingStatus state, 
 		}
 		else
 		{
+			retry_processing_ = false;
 			if (reason == RTC::MeetingStatusChangeReason::kMeetingEndAbnormal)
 			{
 				uint64_t t = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
@@ -135,7 +136,6 @@ void ReconnectHelper::TryReconnect()
 {
 	if (last_call_param_ && retry_cnt_ < CALL_RECONNECT_MAX_RETRY_CNT)
 	{
-		retry_processing_ = true;
 		std::thread timer_thread(DoReconnect, this); // Register your `YourFunction`.
 		timer_thread.detach(); // this will be non-blocking thread.
 		retry_cnt_++;
@@ -162,6 +162,7 @@ void ReconnectHelper::DoReconnect(ReconnectHelper* reconnectHelper)
 
 	if (reconnectHelper->GetReconnectState() == ReconnectState::RECONNECT_TRYING && !reconnectHelper->reconnect_canceled_ && !reconnectHelper->retry_processing_)
 	{
+		reconnectHelper->retry_processing_ = true;
 		g_frtc_mgr->reconnect_current_meeting(*reconnectHelper->last_call_param_);
 	}
 	else

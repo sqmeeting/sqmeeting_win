@@ -1483,12 +1483,17 @@ namespace SQMeeting.ViewModel
             }
         }
 
+        private void LeaveContentSendingWindow()
+        {
+            ShowContentPeopleCommand.Execute(null);
+            ResolutionTools.SetContentSharing(false);
+        }
+
         public void StopShareContent()
         {
             if (m_meetingWndThread == null)
                 return;
-            ShowContentPeopleCommand.Execute(null);
-            ResolutionTools.SetContentSharing(false);
+            LeaveContentSendingWindow();
             Dispatcher.FromThread(m_meetingWndThread).Invoke(() =>
             {
                 FRTCSDK.frtc_content_stop();
@@ -2957,7 +2962,10 @@ namespace SQMeeting.ViewModel
                                     self.HandleMeetingInfo(token);
                                     if (FRTCPopupViewManager.CurrentPopup != null && FRTCPopupViewManager.CurrentPopup is FRTCReconnectingWindow)
                                     {
-                                        FRTCPopupViewManager.CurrentPopup.Close();
+                                        Dispatcher.FromThread(m_meetingWndThread).BeginInvoke(new Action(() =>
+                                        {
+                                            FRTCPopupViewManager.CurrentPopup.Close();
+                                        }));
                                     }
                                 }
                                 catch (Exception ex)
@@ -3542,10 +3550,6 @@ namespace SQMeeting.ViewModel
                             break;
                         case 2:  // RECONNECT_TRYING,
                             LogHelper.Debug("RECONNECT_TRYING");
-                            if(LastReconnectState == 2)
-                            {
-                                return;
-                            }
                             if (FRTCView.FRTCPopupViewManager.CurrentPopup != null)
                             {
                                 if (FRTCView.FRTCPopupViewManager.CurrentPopup is FRTCView.FRTCReconnectingWindow)
@@ -3567,14 +3571,17 @@ namespace SQMeeting.ViewModel
                             if (_isSendingContent)
                             {
                                 LogHelper.Debug("stop content");
-                                StopShareContent();
+                                LeaveContentSendingWindow();
                                 OnContentSendingState(false);
                             }
 
                             object[] p = new object[1];
                             p[0] = _meetingVideoWnd;
                             LogHelper.Debug("show FRTCReconnectingWindow");
-                            FRTCView.FRTCPopupViewManager.ShowPopupView(FRTCView.FRTCPopupViews.FRTCReconnecting, p);
+                            if (state == 2)
+                            {
+                                FRTCView.FRTCPopupViewManager.ShowPopupView(FRTCView.FRTCPopupViews.FRTCReconnecting, p);
+                            }
 
                             break;
                         case 3:  // RECONNECT_FAILED                        

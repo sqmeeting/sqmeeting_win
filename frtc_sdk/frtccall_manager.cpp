@@ -823,8 +823,6 @@ DWORD FrtcManager::OnWriteDataContent(LPVOID buff, DWORD len, DWORD sampleRate)
 DWORD WINAPI FrtcManager::make_call_thread_proc(LPVOID param)
 {
 	FrtcManager* app = (FrtcManager*)param;
-	if (app->_call_state == FRTC_CALL_STATE::CALL_CONNECTED)
-		return 0;
 	if (!app->_signed_call_param._user_token.empty())
 	{
 		app->_is_guest_call = false;
