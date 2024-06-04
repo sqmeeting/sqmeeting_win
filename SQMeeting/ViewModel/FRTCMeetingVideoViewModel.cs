@@ -3542,6 +3542,10 @@ namespace SQMeeting.ViewModel
                             break;
                         case 2:  // RECONNECT_TRYING,
                             LogHelper.Debug("RECONNECT_TRYING");
+                            if(LastReconnectState == 2)
+                            {
+                                return;
+                            }
                             if (FRTCView.FRTCPopupViewManager.CurrentPopup != null)
                             {
                                 if (FRTCView.FRTCPopupViewManager.CurrentPopup is FRTCView.FRTCReconnectingWindow)

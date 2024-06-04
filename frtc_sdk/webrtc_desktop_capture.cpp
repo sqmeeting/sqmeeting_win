@@ -425,8 +425,10 @@ void NTAPI webrtc_desktop_capture::wnd_close_timer_proc(PTP_CALLBACK_INSTANCE In
 		webrtc_desktop_capture* pThis = (webrtc_desktop_capture*)Context;
 		if (pThis && !pThis->stop_capture_ && (!pThis->capture_wnd_hwnd_ || !IsWindow(pThis->capture_wnd_hwnd_)))
 		{
-			if (pThis->callback_)
+			if (pThis->wnd_close_monitor_timer_ && Timer == pThis->wnd_close_monitor_timer_ && pThis->callback_)
+			{
 				pThis->callback_->OnCaptureError();
+			}
 			pThis->Stop();
 		}
 	}
