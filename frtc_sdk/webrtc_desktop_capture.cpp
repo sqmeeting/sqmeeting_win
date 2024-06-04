@@ -240,16 +240,19 @@ void webrtc_desktop_capture::capture_frame()
 
 void webrtc_desktop_capture::Stop()
 {
+	DebugLog("webrtc_desktop_capture::Stop");
 	if (stop_capture_)
+	{
+		DebugLog("webrtc_desktop_capture::Stop, already stopped");
 		return;
-
+	}
 	stop_capture_ = true;
 	stop_wnd_close_timer();
 	std::this_thread::sleep_for(std::chrono::milliseconds(500));
 	if (capture_timer_thread_ && capture_timer_thread_->native_handle())
 		TerminateThread(capture_timer_thread_->native_handle(), 0);
 	capture_started_ = false;
-	if(frame_)
+	if (frame_)
 		frame_.reset();
 }
 
@@ -258,14 +261,8 @@ void webrtc_desktop_capture::start_wnd_close_timer()
 	wnd_close_monitor_timer_ = CreateThreadpoolTimer(webrtc_desktop_capture::wnd_close_timer_proc, this, NULL);
 	if (wnd_close_monitor_timer_)
 	{
-		ULARGE_INTEGER due;
-		due.QuadPart = (1000 * 10000LL) * -1;
-
-		FILETIME ft;
-		ft.dwHighDateTime = due.HighPart;
-		ft.dwLowDateTime = due.LowPart;
-
-		SetThreadpoolTimer(wnd_close_monitor_timer_, &ft, 1000/*msPeriod*/, 0 /*msWindowLength*/);
+		SetThreadpoolTimer(wnd_close_monitor_timer_, NULL, 1000/*msPeriod*/, 0 /*msWindowLength*/);
+		DebugLog("start_wnd_close_timer, wnd_close_monitor_timer_ is %d", wnd_close_monitor_timer_);
 	}
 }
 
@@ -273,6 +270,7 @@ void webrtc_desktop_capture::stop_wnd_close_timer()
 {
 	if (wnd_close_monitor_timer_)
 	{
+		DebugLog("stop_wnd_close_timer, wnd_close_monitor_timer_ is %d", wnd_close_monitor_timer_);
 		SetThreadpoolTimer(wnd_close_monitor_timer_, 0, 0, 0);
 		WaitForThreadpoolTimerCallbacks(wnd_close_monitor_timer_, TRUE);
 		CloseThreadpoolTimer(wnd_close_monitor_timer_);
@@ -425,10 +423,13 @@ void NTAPI webrtc_desktop_capture::wnd_close_timer_proc(PTP_CALLBACK_INSTANCE In
 		webrtc_desktop_capture* pThis = (webrtc_desktop_capture*)Context;
 		if (pThis && !pThis->stop_capture_ && (!pThis->capture_wnd_hwnd_ || !IsWindow(pThis->capture_wnd_hwnd_)))
 		{
+			DebugLog("wnd_close_timer_proc, selected window closed, stop capture");
 			if (pThis->wnd_close_monitor_timer_ && Timer == pThis->wnd_close_monitor_timer_ && pThis->callback_)
 			{
+				DebugLog("wnd_close_timer_proc, OnCaptureError");
 				pThis->callback_->OnCaptureError();
 			}
+			DebugLog("wnd_close_timer_proc, Stop");
 			pThis->Stop();
 		}
 	}
