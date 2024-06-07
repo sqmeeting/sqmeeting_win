@@ -441,17 +441,19 @@ namespace SQMeeting.ViewModel
 
                     m_scheduleMgr.GetScheduledMeetingDetail(data.ReserveId);
 
-
-                    if (FRTCPopupViewManager.CurrentPopup != null && FRTCPopupViewManager.CurrentPopup is FRTCView.ScheduledMeetingDetailWindow)
+                    Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
                     {
-                        FRTCPopupViewManager.CurrentPopup.Show();
-                        FRTCPopupViewManager.CurrentPopup.Activate();
-                    }
-                    else
-                    {
-                        FRTCPopupViewManager.ShowPopupView(FRTCView.FRTCPopupViews.FRTCScheduledMeetingDetail, null);
-                        FRTCPopupViewManager.CurrentPopup.Closed += (s, e) => CurrentSelectdScheduledMeeting = null;
-                    }
+                        if (FRTCPopupViewManager.CurrentPopup != null && FRTCPopupViewManager.CurrentPopup is FRTCView.ScheduledMeetingDetailWindow)
+                        {
+                            FRTCPopupViewManager.CurrentPopup.Show();
+                            FRTCPopupViewManager.CurrentPopup.Activate();
+                        }
+                        else
+                        {
+                            FRTCPopupViewManager.ShowPopupView(FRTCView.FRTCPopupViews.FRTCScheduledMeetingDetail, null);
+                            FRTCPopupViewManager.CurrentPopup.Closed += (s, e) => CurrentSelectdScheduledMeeting = null;
+                        }
+                    }));
                 }
             });
 
@@ -969,12 +971,21 @@ namespace SQMeeting.ViewModel
         {
             App.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
-                if (FRTCPopupViewManager.CurrentPopup != null
-                && !(FRTCPopupViewManager.CurrentPopup is SettingWindow)
-                && !(FRTCPopupViewManager.CurrentPopup is FRTCMeetingPasswordWindow))
+                if (FRTCPopupViewManager.CurrentPopup != null)
                 {
-                    FRTCPopupViewManager.CurrentPopup?.Close();
+                    if(FRTCPopupViewManager.CurrentPopup is FRTCView.ScheduleMeetingWindow
+                    || FRTCPopupViewManager.CurrentPopup is FRTCView.EditRecurringMeetingGroupWindow
+                    || FRTCPopupViewManager.CurrentPopup is FRTCView.EditRecurringMeetingSingleWindow)
+                    {
+                        return;
+                    }
+                    if (!(FRTCPopupViewManager.CurrentPopup is SettingWindow)
+                        && !(FRTCPopupViewManager.CurrentPopup is FRTCMeetingPasswordWindow))
+                    {
+                        FRTCPopupViewManager.CurrentPopup?.Close();
+                    }
                 }
+
                 totalMeetingListPageCnt = msg.MeetingListObj.total_page_num;
                 lock (m_scheduleMeetingListLockObj)
                 {
@@ -2554,7 +2565,7 @@ namespace SQMeeting.ViewModel
                 {
                     var recurrenceRule = new RecurrencePattern((FrequencyType)((int)data.RecurringType + 3), interval: data.RecurringFrequency)
                     {
-                        Until = UIHelper.GetUTCDateTimeFromUTCTimestamp(data.RecurringEndDate).ToLocalTime().AddHours(23).AddMinutes(59).AddSeconds(59),
+                        Until = UIHelper.GetUTCDateTimeFromUTCTimestamp(data.RecurringEndDate).ToLocalTime().Date.AddHours(23).AddMinutes(59).AddSeconds(59),
                     };
                     if (data.RecurringType == MeetingRecurring.Weekly)
                     {
