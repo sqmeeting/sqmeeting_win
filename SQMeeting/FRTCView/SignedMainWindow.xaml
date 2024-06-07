@@ -413,7 +413,7 @@
                                     </Button>-->
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Height="24" Margin="12,0,0,0">
-                                    <TextBlock VerticalAlignment="Center" FontSize="14" TextTrimming="CharacterEllipsis" Width="auto" Padding="2" MaxWidth="150" TextAlignment="Left"
+                                    <TextBlock VerticalAlignment="Center" FontSize="14" TextTrimming="CharacterEllipsis" Width="auto" Padding="2" MaxWidth="200" TextAlignment="Left"
                                                Foreground="{StaticResource FRTC_BrighterFontColor}" Text="{Binding MeetingName}"
                                                ToolTip="{Binding MeetingName}"/>
                                     <TextBlock Margin="4,0,0,0" VerticalAlignment="Center" Foreground="#FF7218" FontSize="12" Text="{x:Static res:Resources.FRTC_MEETING_SDKAPP_ABOUT_TO_START}"

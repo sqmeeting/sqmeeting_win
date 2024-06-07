@@ -716,12 +716,15 @@ namespace SQMeeting.ViewModel
                     LogTool.LogHelper.Debug("Selected history is {0}", p.IsEmpty() ? "empty" : "not empty");
                     if (!p.IsEmpty())
                     {
-                        FRTCView.FRTCPopupViewManager.ShowPopupView(FRTCView.FRTCPopupViews.FRTCMeetingHistoryDetail, null);
+                        Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
+                        {
+                            FRTCView.FRTCPopupViewManager.ShowPopupView(FRTCView.FRTCPopupViews.FRTCMeetingHistoryDetail, null);
+                            LogTool.LogHelper.Debug("Set selected history to null manually");
+                            CurrentSelectedHistoryRecord = null;
+                            LogTool.LogHelper.DebugMethodExit();
+                        }));
                     }
                 }
-                LogTool.LogHelper.Debug("Set selected history to null manually");
-                CurrentSelectedHistoryRecord = null;
-                LogTool.LogHelper.DebugMethodExit();
             });
 
             _joinFromHistoryDetailCommand = new RelayCommand(() =>
