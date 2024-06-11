@@ -607,7 +607,12 @@
                     <ComboBox Style="{StaticResource FRTC_DefaultComboBoxStyle}" HorizontalAlignment="Right" Width="226" Height="36" VerticalContentAlignment="Center"
                               ItemsSource="{Binding CallRateOptions}" SelectedIndex="3" SelectedValue="{Binding SelectedCallRate, Mode=TwoWay}"/>
                 </Grid>
-
+                <Grid Margin="0,24,0,0" Visibility="{Binding UsePersonalMeetingRoomSchedule, Converter={StaticResource BoolToCollapsed}, ConverterParameter=Reverse}">
+                    <Label Content="{x:Static res:Resources.FRTC_SDKAPP_SCHEDULE_MEETING_JOIN_IN_ADVANCE_TIME}" Height="28" Padding="0"/>
+                    <ComboBox Style="{StaticResource FRTC_DefaultComboBoxStyle}" HorizontalAlignment="Right" Width="226" Height="36" VerticalContentAlignment="Center"
+                              ItemsSource="{Binding JoinInAdvanceTimeOptions}" SelectedIndex="0" DisplayMemberPath="Name"
+                              SelectedValue="{Binding JoinMeetingInAdvanceTime, Mode=TwoWay}"/>
+                </Grid>
                 <CheckBox Style="{StaticResource FRTC_DefaultCheckBoxStyle}" Margin="0,24,0,0" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_ALLOW_GUEST_JOIN}"
                           IsChecked="{Binding EnableGuestCall, Mode=TwoWay}"  Visibility="{Binding UsePersonalMeetingRoomSchedule, Converter={StaticResource BoolToCollapsed}, ConverterParameter=Reverse}"/>
                 <CheckBox Style="{StaticResource FRTC_DefaultCheckBoxStyle}" Margin="0,24,0,0" Content="{x:Static res:Resources.FRTC_MEETING_SDKAPP_SHARING_CONTENT_WATERMARK}"
