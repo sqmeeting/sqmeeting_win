@@ -140,7 +140,7 @@
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter Property="Foreground" Value="{StaticResource FRTC_DarkBorderColor}"/>
                             </Trigger>
-                            <DataTrigger Binding="{Binding CurrentSelectdScheduledMeeting.IsInvited}" Value="False">
+                            <DataTrigger Binding="{Binding CurrentSelectdScheduledMeeting.IsInvited}" Value="True">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
                             <DataTrigger Binding="{Binding IsOperatorRole}" Value="True">
