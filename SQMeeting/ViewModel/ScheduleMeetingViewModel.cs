@@ -1477,6 +1477,8 @@ namespace SQMeeting.ViewModel
             _scheduleMeetingEndDate = MeetingEndDate;
             _scheduleMeetingEndTime = MeetingEndTime;
 
+            RenewScheduleMeetingAvailableEndTime();
+
 
             if (msg.MeetingData.invited_users_details != null)
             {
@@ -1981,6 +1983,7 @@ namespace SQMeeting.ViewModel
                         this.ScheduledMeetingReservationID = data.ReserveId;
                         this.ScheduledMeetingNumber = data.MeetingNumber;
                         MeetingPWDInDetailData = data.Password;
+                        RenewScheduleMeetingAvailableEndTime();
                         FRTCView.FRTCPopupViewManager.ShowPopupView(FRTCView.FRTCPopupViews.FRTCScheduleMeeting, null);
                         ClearMeetingDetailData();
                         this.CurrentSelectdScheduledMeeting = null;
@@ -2177,6 +2180,7 @@ namespace SQMeeting.ViewModel
             if (ScheduleMeetingEndDate.Value.Date <= ScheduleMeetingStartDate.Value.Date)
             {
                 _scheduleMeetingEndDate = ScheduleMeetingStartDate;
+                ScheduleMeetingEndTime = TimeSpan.Zero;
                 if (ScheduleMeetingStartTime.HasValue)
                     _scheduleMeetingEndTime = ScheduleMeetingStartTime.Value.Add(TimeSpan.FromMinutes(30));
                 else
@@ -2214,7 +2218,7 @@ namespace SQMeeting.ViewModel
                 if (ScheduleMeetingEndDate.Value.Date.Subtract(ScheduleMeetingStartDate.Value.Date).Days > 1)
                 {
                     _scheduleMeetingEndDate = ScheduleMeetingStartDate.Value.AddDays(1);
-                    _scheduleMeetingEndTime = TimeSpan.Zero;
+                    ScheduleMeetingEndTime = TimeSpan.Zero;
                 }
 
                 List<string> tmp = new List<string>();
@@ -2246,6 +2250,7 @@ namespace SQMeeting.ViewModel
                 if (_scheduleMeetingAvailableEndTime.Contains(end.ToString("hh\\:mm")))
                 {
                     ScheduleMeetingEndTimeSelectedIndex = -1;
+                    MeetingEndTime = end;
                     ScheduleMeetingEndTimeSelectedIndex = _scheduleMeetingAvailableEndTime.IndexOf(end.ToString("hh\\:mm"));
                 }
                 else
