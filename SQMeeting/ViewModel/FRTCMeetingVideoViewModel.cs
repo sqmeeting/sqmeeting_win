@@ -1757,6 +1757,7 @@ namespace SQMeeting.ViewModel
             if (msg.isPlainTextURLJoin && !string.IsNullOrEmpty(msg.serverAddress))
             {
                 m_callManager.JoinMeetingPlainTextURL(msg.serverAddress, _meeting_id, DisplayName, _callRate, CameraMuted, MicMuted, msg.userToken, msg.passCode);
+                m_callManager.SetAPIBaseUrl(msg.serverAddress);
             }
             else
             {
