@@ -110,7 +110,10 @@ namespace SQMeeting.ViewModel
                 LogHelper.Debug("Drop call out of meeting, sender is {0}", w.Name);
                 //if (Ringing)
                 {
-                    m_callManager.DropCall();
+                    if (m_callManager.CurrentCallState != FrtcCallState.DISCONNECTED)
+                    {
+                        m_callManager.DropCall();
+                    }
                     Ringing = false;
                     _meetingPWDFirstTime = true;
                     PasswordError = false;
