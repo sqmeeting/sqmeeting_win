@@ -131,6 +131,12 @@ namespace RTC
                               unsigned char *dst, 
                               int dst_w, 
                               int dst_h) = 0;
+
+        virtual int convertFromI420(unsigned char *src, 
+                                    unsigned char *dst,
+                                    VideoColorFormat dstFormat,
+                                    int width,
+                                    int height) = 0;
 #endif
 
     protected:
