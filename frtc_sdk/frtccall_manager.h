@@ -246,6 +246,12 @@ public:
     void notify_audio_device_reset(FRTC_MEDIA_DEVICE_TYPE type);
 
     int resize_yuv420(unsigned char *pSrc, int src_w, int src_h, unsigned char *pDst, int dst_w, int dst_h);
+    int convertFromI420_rtc(unsigned char* src,
+        unsigned char* dst,
+        RTC::VideoColorFormat dstFormat,
+        int width,
+        int height,
+        int stride);
     void aes_decode_frtc(const std::string &salt, const std::string &ciphered, std::string &decoded);
 
     // log upload

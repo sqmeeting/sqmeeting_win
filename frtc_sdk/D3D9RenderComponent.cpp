@@ -43,6 +43,14 @@ std::string d3d_fmt_to_string(D3DFORMAT fmt)
 	{
 		return std::string("D3DFMT_I420");
 	}
+	else if (fmt == D3DFMT_YUY2)
+	{
+		return std::string("D3DFMT_YUY2");
+	}
+	else if (fmt == D3DFMT_A8R8G8B8)
+	{
+		return std::string("D3DFMT_A8R8G8B8");
+	}
 	else
 	{
 		std::stringstream fmt_stream;
@@ -112,20 +120,8 @@ HRESULT D3D9RenderComponent::create_render()
 
 	int offscreen_width = 1920;
 	int offscreen_height = 1080;
-	ret = _device_ptr->CreateOffscreenPlainSurface(offscreen_width,
-		offscreen_height,
-		_offscreen_format,
-		D3DPOOL_DEFAULT,
-		&_plain_surface_ptr,
-		NULL);
-	if (SUCCEEDED(ret))
-	{
-		D3D9Info("create plain surface success, window=0x%x, type=%s",
-			_wnd, d3d_fmt_to_string(_offscreen_format).c_str());
-		return ret;
-	}
 
-	_offscreen_format = D3DFMT_YUY2;
+	//default YV12
 	ret = _device_ptr->CreateOffscreenPlainSurface(offscreen_width,
 		offscreen_height,
 		_offscreen_format,
@@ -140,6 +136,34 @@ HRESULT D3D9RenderComponent::create_render()
 	}
 
 	_offscreen_format = D3DFMT_X8R8G8B8;
+	ret = _device_ptr->CreateOffscreenPlainSurface(offscreen_width,
+		offscreen_height,
+		_offscreen_format,
+		D3DPOOL_DEFAULT,
+		&_plain_surface_ptr,
+		NULL);
+	if (SUCCEEDED(ret))
+	{
+		D3D9Info("create plain surface success, window=0x%x, type=%s",
+			_wnd, d3d_fmt_to_string(_offscreen_format).c_str());
+		return ret;
+	}
+
+	_offscreen_format = D3DFMT_A8R8G8B8;
+	ret = _device_ptr->CreateOffscreenPlainSurface(offscreen_width,
+		offscreen_height,
+		_offscreen_format,
+		D3DPOOL_DEFAULT,
+		&_plain_surface_ptr,
+		NULL);
+	if (SUCCEEDED(ret))
+	{
+		D3D9Info("create plain surface success, window=0x%x, type=%s",
+			_wnd, d3d_fmt_to_string(_offscreen_format).c_str());
+		return ret;
+	}
+
+	_offscreen_format = D3DFMT_YUY2;
 	ret = _device_ptr->CreateOffscreenPlainSurface(offscreen_width,
 		offscreen_height,
 		_offscreen_format,
@@ -277,14 +301,23 @@ HRESULT D3D9RenderComponent::draw_frame(D3DFORMAT format,
 		int stride = lr.Pitch;
 		copy_frame_to_d3d_rect_yv12(src, dest, resize_w, resize_h, stride);
 	}
-	else if (format == D3DFMT_YV12 && _offscreen_format == D3DFMT_X8R8G8B8)
+	else if (format == D3DFMT_YV12 && (_offscreen_format == D3DFMT_X8R8G8B8 || _offscreen_format == D3DFMT_A8R8G8B8))
 	{
-		FRTCSDK::FRTCSdkUtil::yuv420_to_argb(new_image,
-			new_image + resize_w * resize_h,
-			new_image + resize_w * resize_h * 5 / 4,
+		g_frtc_mgr->convertFromI420_rtc(new_image,
 			(BYTE*)lr.pBits,
+			RTC::kARGB,
 			resize_w,
-			resize_h);
+			resize_h,
+			lr.Pitch);
+	}
+	else if (format == D3DFMT_YV12 && _offscreen_format == D3DFMT_YUY2)
+	{
+		g_frtc_mgr->convertFromI420_rtc(new_image,
+			(BYTE*)lr.pBits,
+			RTC::kYUY2,
+			resize_w,
+			resize_h,
+			lr.Pitch);
 	}
 
 	if (is_content && new_image)
@@ -320,7 +353,7 @@ HRESULT D3D9RenderComponent::draw_frame(D3DFORMAT format,
 	}
 	else
 	{
-		if(_border_in_last_frame)
+		if (_border_in_last_frame)
 		{
 			ret = _device_ptr->ColorFill(surface, NULL, D3DCOLOR_ARGB(0, 0, 0, 0));
 		}
@@ -338,8 +371,8 @@ HRESULT D3D9RenderComponent::draw_frame(D3DFORMAT format,
 		&src_rect,
 		surface,
 		&dst_rect,
-        D3DTEXF_POINT);
-		// D3DTEXF_LINEAR);
+		D3DTEXF_POINT);
+	// D3DTEXF_LINEAR);
 	if (FAILED(ret))
 	{
 		D3D9Error("StretchRect failed, ret=0x%X", ret);
@@ -422,6 +455,9 @@ HRESULT D3D9RendererEngine::create_d3d9_device(HWND hwnd)
 		D3D9Error("GetAdapterDisplayMode failed, ret=0x%x", ret);
 		return ret;
 	}
+
+	D3D9Debug("GetAdapterDisplayMode, width=%d, height=%d, format=%s",
+		mode.Width, mode.Height, d3d_fmt_to_string(mode.Format).c_str());
 
 	D3DPRESENT_PARAMETERS d3d_param = { 0 };
 	d3d_param.BackBufferFormat = mode.Format;

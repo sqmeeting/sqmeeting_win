@@ -146,6 +146,9 @@
                             <DataTrigger Binding="{Binding IsOperatorRole}" Value="True">
                                 <Setter Property="Visibility" Value="Visible"/>
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentSelectdScheduledMeeting.Authorized}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
                         </Style.Triggers>
                     </Style>
                 </Button.Style>

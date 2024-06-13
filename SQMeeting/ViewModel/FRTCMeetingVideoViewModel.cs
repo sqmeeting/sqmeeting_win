@@ -1742,7 +1742,6 @@ namespace SQMeeting.ViewModel
             _IsShowTips = false;
             _TipsContent = "";
 
-            SettingViewModel setting = SimpleIoc.Default.GetInstance<SettingViewModel>();
             if (_callRate > 0 && _callRate <= 64)
             {
                 _IsMonitorList = false;
@@ -1756,8 +1755,9 @@ namespace SQMeeting.ViewModel
             IsAudioOnly = msg.isVoiceOnlyMeeting;
             if (msg.isPlainTextURLJoin && !string.IsNullOrEmpty(msg.serverAddress))
             {
+                if (SimpleIoc.Default.GetInstance<SettingViewModel>().ServerAddress != msg.serverAddress)
+                    m_callManager.SetAPIBaseUrl(msg.serverAddress);
                 m_callManager.JoinMeetingPlainTextURL(msg.serverAddress, _meeting_id, DisplayName, _callRate, CameraMuted, MicMuted, msg.userToken, msg.passCode);
-                m_callManager.SetAPIBaseUrl(msg.serverAddress);
             }
             else
             {
@@ -3178,8 +3178,6 @@ namespace SQMeeting.ViewModel
                     LogTool.LogHelper.Exception(ex);
                 }
             }
-            else
-                m_callManager.SetAPIBaseUrl(CommonServiceLocator.ServiceLocator.Current.GetInstance<SettingViewModel>().ServerAddress);
 
             string meeting_displayname = token.Value<string>("display_name");
             this.DisplayName = meeting_displayname;
