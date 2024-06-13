@@ -136,7 +136,8 @@ namespace RTC
                                     unsigned char *dst,
                                     VideoColorFormat dstFormat,
                                     int width,
-                                    int height) = 0;
+                                    int height,
+                                    int dst_stride = 0) = 0;
 #endif
 
     protected:
