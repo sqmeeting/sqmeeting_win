@@ -1168,7 +1168,7 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 					}
 
 					_full_rosters_list[i] = jsonRoster;
-					
+
 					muteStatusList.erase(it);
 
 					Json::FastWriter writer;
@@ -1200,7 +1200,7 @@ void FrtcManager::on_participant_mute_state_changed(std::map<std::string, RTC::P
 					update_self_display_name(ansiStr);
 				}
 
-				_full_rosters_list.append(jsonRoster);		
+				_full_rosters_list.append(jsonRoster);
 
 				Json::FastWriter writer;
 				const std::string json_file = writer.write(_full_rosters_list);
@@ -2728,6 +2728,16 @@ void FrtcManager::notify_audio_device_reset(FRTC_MEDIA_DEVICE_TYPE type)
 int FrtcManager::resize_yuv420(unsigned char* pSrc, int src_w, int src_h, unsigned char* pDst, int dst_w, int dst_h)
 {
 	return _rtcInstance->ScaleI420(pSrc, src_w, src_h, pDst, dst_w, dst_h);
+}
+
+int FrtcManager::convertFromI420_rtc(unsigned char* src,
+	unsigned char* dst,
+	RTC::VideoColorFormat dstFormat,
+	int width,
+	int height,
+	int stride)
+{
+	return _rtcInstance->convertFromI420(src, dst, dstFormat, width, height, stride);
 }
 
 const char* FrtcManager::get_meeting_statistics()
