@@ -2965,7 +2965,7 @@ namespace SQMeeting.ViewModel
                                     {
                                         Dispatcher.FromThread(m_meetingWndThread).BeginInvoke(new Action(() =>
                                         {
-                                            FRTCPopupViewManager.CurrentPopup.Close();
+                                            FRTCPopupViewManager.CurrentPopup?.Close();
                                         }));
                                     }
                                 }

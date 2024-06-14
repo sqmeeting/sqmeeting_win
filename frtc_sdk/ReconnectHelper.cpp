@@ -88,6 +88,7 @@ ReconnectState ReconnectHelper::HandleCallStateChange(RTC::MeetingStatus state, 
 			reconnect_state_ = ReconnectState::RECONNECT_TRYING;
 			reconnect_start_time_ = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
 			DebugLog("ReconnectHelper::HandleCallStateChange first reconnect");
+			retry_processing_ = true;
 			TryReconnect();
 		}
 	}
