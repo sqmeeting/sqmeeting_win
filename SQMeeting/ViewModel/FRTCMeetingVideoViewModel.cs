@@ -1848,7 +1848,7 @@ namespace SQMeeting.ViewModel
                 _unmuteApplicationTime = DateTime.MinValue;
                 LastReconnectState = 0;
 
-                if (msg.reason == FrtcCallReason.CALL_MEETING_END_ABNORMAL)
+                if (msg.reason != FrtcCallReason.CALL_MEETING_END_ABNORMAL)
                 {
                     DisplayName = string.Empty;
                     _tmpDisplayName = string.Empty;
