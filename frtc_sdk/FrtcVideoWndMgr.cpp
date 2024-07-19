@@ -1326,29 +1326,32 @@ void FRTCVideoWndMgr::switch_to_1n5_layout()
 	{
 		find_current_view_wnd();
 
-		InfoLog("switch to 1n5 layout, full video size mode, x=%d, y=%d, wv=%d, "
-			"hv=%d, local=%d, msid=%s, uuid=%s",
-			_main_rect.left + x, _main_rect.top + y, wv, hv,
-			_current_video_view->is_local_video() ? 1 : 0,
-			_current_video_view->get_msid().c_str(),
-			_current_video_view->get_uuid().c_str());
-
-		BOOL ret = ::SetWindowPos(*_current_video_view,
-			NULL,
-			_main_rect.left + x,
-			_main_rect.top + y,
-			wv,
-			hv,
-			SWP_NOOWNERZORDER);
-		if (!ret)
+		if (_current_video_view)
 		{
-			WarnLog("switch to 1n5 layout, SetWindowPos failed, err=%u",
-				GetLastError());
-		}
+			InfoLog("switch to 1n5 layout, full video size mode, x=%d, y=%d, wv=%d, "
+				"hv=%d, local=%d, msid=%s, uuid=%s",
+				_main_rect.left + x, _main_rect.top + y, wv, hv,
+				_current_video_view->is_local_video() ? 1 : 0,
+				_current_video_view->get_msid().c_str(),
+				_current_video_view->get_uuid().c_str());
 
-		::ShowWindow(*_current_video_view, SW_SHOW);
-		_current_video_view->set_main_cell(true);
-		_current_video_view->set_icon_wnd_position(wv, hv);
+			BOOL ret = ::SetWindowPos(*_current_video_view,
+				NULL,
+				_main_rect.left + x,
+				_main_rect.top + y,
+				wv,
+				hv,
+				SWP_NOOWNERZORDER);
+			if (!ret)
+			{
+				WarnLog("switch to 1n5 layout, SetWindowPos failed, err=%u",
+					GetLastError());
+			}
+
+			::ShowWindow(*_current_video_view, SW_SHOW);
+			_current_video_view->set_main_cell(true);
+			_current_video_view->set_icon_wnd_position(wv, hv);
+		}
 	}
 }
 
