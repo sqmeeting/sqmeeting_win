@@ -2116,6 +2116,7 @@ void FRTCVideoWndMgr::set_cell_customizations(const std::string& uuid)
 
 void FRTCVideoWndMgr::set_current_lecture(const std::string& uuid)
 {
+	AutoLock autolock(_lock);
 	_current_lecture_uuid = uuid;
 	update_layout();
 }
