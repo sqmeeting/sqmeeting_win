@@ -481,8 +481,15 @@ void FrtcManager::OnContentFailForLowBandwidth()
 
 void FrtcManager::OnLayoutSetting(int max_cell_count, const std::vector<std::string>& lectures)
 {
+	FRTC_SDK_CALL_NOTIFICATION callNotify;
+	callNotify._msg_name = "OnLayoutSetting";
+	callNotify._target_id = lectures.empty() ? "" : lectures.front();
+
 	_video_wnd_mgr->set_layout_cell_max_count(max_cell_count);
-	_video_wnd_mgr->set_current_lecture(lectures.empty() ? "" : lectures.front());
+
+	OnCallNotification(callNotify);
+
+	//_video_wnd_mgr->set_current_lecture(lectures.empty() ? "" : lectures.front());
 }
 
 void FrtcManager::OnMeetingControlMsg(const std::string& msgType, const Json::Value& jsonContext)
@@ -2463,6 +2470,10 @@ BOOL FrtcManager::process_sc_msg_queue_msg()
 			}
 
 			delete param;
+		}
+		else if (notify._msg_name == "OnLayoutSetting")
+		{
+			_video_wnd_mgr->set_current_lecture(notify._target_id);
 		}
 
 		InfoLog("handle message finish, msg=%s", notify._msg_name.c_str());

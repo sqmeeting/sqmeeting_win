@@ -31,6 +31,12 @@ public:
     {
         LeaveCriticalSection(&m_criticalSection);
     }
+
+    _Acquires_lock_(m_criticalSection)
+        BOOL TryLock()
+    {
+        return TryEnterCriticalSection(&m_criticalSection);
+    }
 };
 
 
@@ -56,6 +62,28 @@ public:
 
     _Releases_lock_(m_pCriticalSection)
         ~AutoLock()
+    {
+        m_pCriticalSection->Unlock();
+    }
+};
+
+class AutoTryLock
+{
+private:
+    CritSec* m_pCriticalSection;
+public:
+    _Acquires_lock_(m_pCriticalSection)
+        AutoTryLock(CritSec& crit)
+    {
+        m_pCriticalSection = &crit;
+        while (!m_pCriticalSection->TryLock())
+        {
+            Sleep(5);
+        }
+    }
+
+    _Releases_lock_(m_pCriticalSection)
+        ~AutoTryLock()
     {
         m_pCriticalSection->Unlock();
     }
