@@ -15,7 +15,8 @@ ReconnectHelper::ReconnectHelper()
 	retry_cnt_(0),
 	retry_processing_(false),
 	reconnect_canceled_(false),
-	reconnect_start_time_(0)
+	reconnect_start_time_(0),
+	last_reason_(RTC::MeetingStatusChangeReason::kUnknownReason)
 {
 
 }
@@ -73,6 +74,7 @@ void ReconnectHelper::ResetReconnectStatue()
 	retry_processing_ = false;
 	reconnect_canceled_ = false;
 	reconnect_start_time_ = 0;
+	last_reason_ = RTC::MeetingStatusChangeReason::kUnknownReason;
 }
 
 ReconnectState ReconnectHelper::HandleCallStateChange(RTC::MeetingStatus state, RTC::MeetingStatusChangeReason reason)
@@ -100,23 +102,29 @@ ReconnectState ReconnectHelper::HandleCallStateChange(RTC::MeetingStatus state, 
 		}
 		else
 		{
-			if (retry_processing_ && reason == RTC::MeetingStatusChangeReason::kMeetingEndAbnormal)
+			if (retry_processing_ && last_reason_ == RTC::MeetingStatusChangeReason::kMeetingEndAbnormal 
+				&& 
+				(reason == RTC::MeetingStatusChangeReason::kMeetingEndAbnormal || reason == RTC::MeetingStatusChangeReason::kAborted))
 			{
-				uint64_t t = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
-				if (reconnect_start_time_ > 0 && (t - reconnect_start_time_ < 500))//avoid double 49
-				{
-					DebugLog("ReconnectHelper::HandleCallStateChange double 49, exit");
-					return reconnect_state_;
-				}
-				else
-				{
-					DebugLog("ReconnectHelper::HandleCallStateChange second 49, set retry_processing_ to false");
-					retry_processing_ = false;
-				}
+				//avoid double kMeetingEndAbnormal and kMeetingEndAbnormal with kAborted
+				last_reason_ = reason;
+				return reconnect_state_;
+
+				//uint64_t t = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+				//if (reconnect_start_time_ > 0 && (t - reconnect_start_time_ < 500))//avoid double 49
+				//{
+				//	DebugLog("ReconnectHelper::HandleCallStateChange double kMeetingEndAbnormal, exit");
+				//	return reconnect_state_;
+				//}
+				//else
+				//{
+				//	DebugLog("ReconnectHelper::HandleCallStateChange second kMeetingEndAbnormal, set retry_processing_ to false");
+				//	retry_processing_ = false;
+				//}
 			}
 			else
 			{
-				DebugLog("ReconnectHelper::HandleCallStateChange not 49, set retry_processing_ to false");
+				DebugLog("ReconnectHelper::HandleCallStateChange not kMeetingEndAbnormal, set retry_processing_ to false");
 				retry_processing_ = false;
 			}
 			if (!retry_processing_)//call state disconnect send twice, avoid second reaseon 0
@@ -133,6 +141,7 @@ ReconnectState ReconnectHelper::HandleCallStateChange(RTC::MeetingStatus state, 
 			state == RTC::MeetingStatus::kConnected ? ReconnectState::RECONNECT_SUCCESS : ReconnectState::RECONNECT_FAILED;
 		retry_processing_ = false;
 	}
+	last_reason_ = reason;
 	return reconnect_state_;
 }
 

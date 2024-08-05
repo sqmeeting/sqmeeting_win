@@ -3525,75 +3525,82 @@ namespace SQMeeting.ViewModel
             LogHelper.Debug("HandleCallReconnect");
             if (m_meetingWndThread != null)
             {
-                Dispatcher.FromThread(m_meetingWndThread).BeginInvoke(new Action(() =>
+                try
                 {
-                    LogHelper.Info("Handle reconnect state {0}", state);
-                    switch (state)
+                    Dispatcher.FromThread(m_meetingWndThread).BeginInvoke(new Action(() =>
                     {
-                        case 0: // 	RECONNECT_IDLE,
-                            LogHelper.Debug("RECONNECT_IDLE");
-                            break;
-                        case 1: //  RECONNECT_SUCCESS,
-                            LogHelper.Debug("RECONNECT_SUCCESS");
-                            if (FRTCView.FRTCPopupViewManager.CurrentPopup != null
-                                && FRTCView.FRTCPopupViewManager.CurrentPopup is FRTCView.FRTCReconnectingWindow)
-                            {
-                                LogHelper.Debug("close FRTCReconnectingWindow");
-                                FRTCView.FRTCPopupViewManager.CurrentPopup.Close();
-                                return;
-                            }
-                            else
-                            {
-                                LogHelper.Debug("CurrentPopup is {0}", FRTCView.FRTCPopupViewManager.CurrentPopup == null ? "null" : FRTCView.FRTCPopupViewManager.CurrentPopup.GetType().FullName);
-                            }
-                            break;
-                        case 2:  // RECONNECT_TRYING,
-                            LogHelper.Debug("RECONNECT_TRYING");
-                            if (FRTCView.FRTCPopupViewManager.CurrentPopup != null)
-                            {
-                                if (FRTCView.FRTCPopupViewManager.CurrentPopup is FRTCView.FRTCReconnectingWindow)
+                        LogHelper.Info("Handle reconnect state {0}", state);
+                        switch (state)
+                        {
+                            case 0: // 	RECONNECT_IDLE,
+                                LogHelper.Debug("RECONNECT_IDLE");
+                                break;
+                            case 1: //  RECONNECT_SUCCESS,
+                                LogHelper.Debug("RECONNECT_SUCCESS");
+                                if (FRTCView.FRTCPopupViewManager.CurrentPopup != null
+                                    && FRTCView.FRTCPopupViewManager.CurrentPopup is FRTCView.FRTCReconnectingWindow)
                                 {
-                                    LogHelper.Debug("existing FRTCReconnectingWindow");
+                                    LogHelper.Debug("close FRTCReconnectingWindow");
+                                    FRTCView.FRTCPopupViewManager.CurrentPopup.Close();
                                     return;
                                 }
                                 else
                                 {
-                                    LogHelper.Debug("close a popup");
-                                    FRTCView.FRTCPopupViewManager.CurrentPopup.Close();
+                                    LogHelper.Debug("CurrentPopup is {0}", FRTCView.FRTCPopupViewManager.CurrentPopup == null ? "null" : FRTCView.FRTCPopupViewManager.CurrentPopup.GetType().FullName);
                                 }
-                            }
-                            LogHelper.Debug("close other window");
-                            rosterListWindow?.Close();
-                            statisticsWnd?.Close();
-                            inviteInfoWindow?.Close();
-                            frtcContentSourceWindow?.Close();
-                            if (_isSendingContent)
-                            {
-                                LogHelper.Debug("stop content");
-                                LeaveContentSendingWindow();
-                                OnContentSendingState(false);
-                            }
+                                break;
+                            case 2:  // RECONNECT_TRYING,
+                                LogHelper.Debug("RECONNECT_TRYING");
+                                if (FRTCView.FRTCPopupViewManager.CurrentPopup != null)
+                                {
+                                    if (FRTCView.FRTCPopupViewManager.CurrentPopup is FRTCView.FRTCReconnectingWindow)
+                                    {
+                                        LogHelper.Debug("existing FRTCReconnectingWindow");
+                                        return;
+                                    }
+                                    else
+                                    {
+                                        LogHelper.Debug("close a popup");
+                                        FRTCView.FRTCPopupViewManager.CurrentPopup.Close();
+                                    }
+                                }
+                                LogHelper.Debug("close other window");
+                                rosterListWindow?.Close();
+                                statisticsWnd?.Close();
+                                inviteInfoWindow?.Close();
+                                frtcContentSourceWindow?.Close();
+                                if (_isSendingContent)
+                                {
+                                    LogHelper.Debug("stop content");
+                                    LeaveContentSendingWindow();
+                                    OnContentSendingState(false);
+                                }
 
-                            object[] p = new object[1];
-                            p[0] = _meetingVideoWnd;
-                            LogHelper.Debug("show FRTCReconnectingWindow");
-                            if (state == 2)
-                            {
-                                FRTCView.FRTCPopupViewManager.ShowPopupView(FRTCView.FRTCPopupViews.FRTCReconnecting, p);
-                            }
+                                object[] p = new object[1];
+                                p[0] = _meetingVideoWnd;
+                                LogHelper.Debug("show FRTCReconnectingWindow");
+                                if (state == 2)
+                                {
+                                    FRTCView.FRTCPopupViewManager.ShowPopupView(FRTCView.FRTCPopupViews.FRTCReconnecting, p);
+                                }
 
-                            break;
-                        case 3:  // RECONNECT_FAILED                        
-                            if (FRTCView.FRTCPopupViewManager.CurrentPopup != null &&
-                                FRTCView.FRTCPopupViewManager.CurrentPopup is FRTCView.FRTCReconnectingWindow)
-                            {
-                                (FRTCView.FRTCPopupViewManager.CurrentPopup as FRTCView.FRTCReconnectingWindow).ShowDlg();
-                            }
-                            break;
-                        default:
-                            break;
-                    }
-                }), null);
+                                break;
+                            case 3:  // RECONNECT_FAILED                        
+                                if (FRTCView.FRTCPopupViewManager.CurrentPopup != null &&
+                                    FRTCView.FRTCPopupViewManager.CurrentPopup is FRTCView.FRTCReconnectingWindow)
+                                {
+                                    (FRTCView.FRTCPopupViewManager.CurrentPopup as FRTCView.FRTCReconnectingWindow).ShowDlg();
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+                    }), null);
+                }
+                catch(Exception ex)
+                {
+                    LogHelper.Exception(ex);
+                }
             }
         }
         public void OnEnableContentAudio(bool bEnable)
