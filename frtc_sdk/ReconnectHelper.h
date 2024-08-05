@@ -43,5 +43,6 @@ private:
 	bool retry_processing_;
 	bool reconnect_canceled_;
 	uint64_t reconnect_start_time_;
+	RTC::MeetingStatusChangeReason last_reason_;
 };
 
