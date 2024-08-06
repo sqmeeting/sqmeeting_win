@@ -23,6 +23,7 @@ AudioRender::~AudioRender() {
 
     if (_wave_format_ex) {
         delete[] _wave_format_ex;
+		_wave_format_ex = nullptr;
     }
 
     CoUninitialize();
@@ -54,6 +55,7 @@ void AudioRender::StopRender() {
         else {
             WarnLog("WaitForSingleObject failed. rc=0x%x, error=0x%x",
                      rc, GetLastError());
+            TerminateThread(_render_thread, 0);
             _render_thread = NULL;
         }
     }
