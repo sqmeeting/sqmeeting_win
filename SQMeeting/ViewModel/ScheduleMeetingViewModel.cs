@@ -542,18 +542,18 @@ namespace SQMeeting.ViewModel
             {
                 if (data == null || data.IsEmpty())
                     return;
-                long startTimestamp = 0;
-                if (!long.TryParse(data.BeginTime, out startTimestamp))
-                {
-                    MessengerInstance.Send<FRTCTipsMessage>(new FRTCTipsMessage() { TipMessage = Properties.Resources.FRTC_MEETING_SDKAPP_MEETING_BEGIN_TIME_ERROR });
-                    return;
-                }
-                DateTime start = UIHelper.GetUTCDateTimeFromUTCTimestamp(startTimestamp);
-                if (DateTime.UtcNow < start && start.Subtract(DateTime.UtcNow) > TimeSpan.FromMinutes(30))
-                {
-                    FRTCMessageBox.ShowNotificationMessage(Properties.Resources.FRTC_MEETING_SDKAPP_JOIN_MEETING_FAILED, Properties.Resources.FRTC_MEETING_SDKAPP_MEETING_EARLY);
-                    return;
-                }
+                //long startTimestamp = 0;
+                //if (!long.TryParse(data.BeginTime, out startTimestamp))
+                //{
+                //    MessengerInstance.Send<FRTCTipsMessage>(new FRTCTipsMessage() { TipMessage = Properties.Resources.FRTC_MEETING_SDKAPP_MEETING_BEGIN_TIME_ERROR });
+                //    return;
+                //}
+                //DateTime start = UIHelper.GetUTCDateTimeFromUTCTimestamp(startTimestamp);
+                //if (DateTime.UtcNow < start && start.Subtract(DateTime.UtcNow) > TimeSpan.FromMinutes(30))
+                //{
+                //    FRTCMessageBox.ShowNotificationMessage(Properties.Resources.FRTC_MEETING_SDKAPP_JOIN_MEETING_FAILED, Properties.Resources.FRTC_MEETING_SDKAPP_MEETING_EARLY);
+                //    return;
+                //}
                 ShowMask = true;
                 FRTCPopupViewManager.CurrentPopup?.Close();
                 JoinMeetingFromHistoryOrScheduleList msg = new JoinMeetingFromHistoryOrScheduleList(new MeetingScheduleResult()
