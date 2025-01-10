@@ -1,8 +1,8 @@
-# SQMeeting Windows客户端
-
 # SQMeeting(神旗视讯)官网
 访问[神旗视讯官网](https://shenqi.internetware.cn) 可以免费下载神旗视讯服务平台.  
 3分钟，就可以部署一套完整的企业视频会议系统. 
+
+# SQMeeting Windows客户端
 
 # 系统要求
 
