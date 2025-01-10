@@ -4,6 +4,8 @@
 
 # SQMeeting Windows客户端
 
+![screenshot](./image1.jpg)
+
 # 系统要求
 
 ## 操作系统
