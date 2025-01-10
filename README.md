@@ -1,5 +1,9 @@
 # SQMeeting Windows客户端
 
+# SQMeeting(神旗视讯)官网
+访问[神旗视讯官网](https://shenqi.internetware.cn) 可以免费下载神旗视讯服务平台.  
+3分钟，就可以部署一套完整的企业视频会议系统. 
+
 # 系统要求
 
 ## 操作系统
@@ -33,8 +37,4 @@ SDKDemo基于.net core 6.0框架，使用VS2022打开项目根目录SDKDemo/SDKD
 本项目基于 [Apache License, Version 2.0](./LICENSE) 开源，请在开源协议约束范围内使用源代码。  
 本项目代码仅用于学习和研究使用。 任何使用本代码产生的后果，我们不承担任何法律责任。  
 请联系我们获取商业支持.
-
-# SQMeeting(神旗视讯)官网
-访问[神旗视讯官网](https://shenqi.internetware.cn) 可以免费下载神旗视讯服务平台.  
-3分钟，就可以部署一套完整的企业视频会议系统. 
 
